@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LogSaw Index Plugin
+Bundle-SymbolicName: net.sf.logsaw.index;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.sf.logsaw.index.IndexPlugin
+Require-Bundle: org.eclipse.core.runtime,
+ net.sf.logsaw.core,
+ net.sf.logsaw.bundlized.lucene,
+ slf4j.api,
+ org.apache.commons.io
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: net.sf.logsaw.index
+Bundle-Vendor: LogSaw project

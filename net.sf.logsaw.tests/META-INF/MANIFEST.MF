@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LogSaw Test Plugin
+Bundle-SymbolicName: net.sf.logsaw.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.core.runtime,
+ net.sf.logsaw.core,
+ org.apache.commons.io,
+ net.sf.logsaw.index,
+ net.sf.logsaw.ui,
+ slf4j.api,
+ net.sf.logsaw.dialect.log4j,
+ net.sf.logsaw.dialect.pattern,
+ net.sf.logsaw.dialect.websphere
+Bundle-Vendor: LogSaw project
+Import-Package: org.junit

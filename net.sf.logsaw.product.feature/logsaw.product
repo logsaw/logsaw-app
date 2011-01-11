@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="LogSaw" id="net.sf.logsaw.rcp.product" application="net.sf.logsaw.rcp.application" useFeatures="true" includeLaunchers="true">
+
+   <aboutInfo>
+      <image path="/net.sf.logsaw.rcp/icons/about.png"/>
+      <text>
+         LogSaw - a high-performance log viewer based on Eclipse
+
+Version: {0}
+Build Id: {1}
+
+Credits:
+Susanne Böhm
+Rainer Knörnschild
+Philipp Nanz
+
+(c) Copyright 2010 LogSaw project. All rights reserved.
+Visit http://logsaw.sourceforge.net/
+
+Powered by Eclipse http://www.eclipse.org/
+
+This product includes software developed by the
+Apache Software Foundation http://www.apache.org/
+      </text>
+   </aboutInfo>
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+   </launcherArgs>
+
+   <windowImages i16="/net.sf.logsaw.rcp/icons/alt_window_16.gif" i32="/net.sf.logsaw.rcp/icons/alt_window_32.gif" i48="/net.sf.logsaw.rcp/icons/alt_window_48.gif" i64="/net.sf.logsaw.rcp/icons/alt_window_64.gif" i128="/net.sf.logsaw.rcp/icons/alt_window_128.gif"/>
+
+   <splash
+      location="net.sf.logsaw.rcp" />
+   <launcher name="logsaw">
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="net.sf.logsaw.product.feature"/>
+   </features>
+
+
+</product>

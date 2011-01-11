@@ -1,0 +1,6 @@
+[24.02.10 10:45:12:871 CET] 0000003a DB2CmsService I de.docufy.cms.util.log.DocufyLogger info >param: 14, 'IOLanguageVariantPK:io=system-folder-doc-in-edition-101:version=1:language=--:variant=--'
+[24.02.10 10:45:36:683 CET] 00000032 ServletWrappe A   SRVE0242I: [arkiear] [/cmsweb] [/management/iotype/editTab2.jsp]: Initialization successful.
+[24.02.10 11:32:42:788 CET] 00000038 WebApp        A   SRVE0180I: [The ARKI view client] [/cmsweb] [Servlet.LOG]: TransportServlet: Creating new session for user arkiadmin
+[24.02.10 11:32:42:897 CET] 00000038 GetStoreXMLPi I de.docufy.cms.util.log.DocufyLogger info Found "modified" metadata flag for IOLanguageVariantPK:io=bcee181dfb2b2caec0a80bfa21fd21fd:version=1:language=de:variant=DE
+[24.02.10 11:32:43:131 CET] 00000038 IOServiceImpl I de.docufy.cms.util.log.DocufyLogger info IOService.store took 266 ms, beanSize: 3023
+[24.02.10 11:32:43:163 CET] 00000038 IOClientAPIIm I de.docufy.cms.util.log.DocufyLogger info Status not changed during checkin to draft for object: IOLanguageVariantPK:io=bcee181dfb2b2caec0a80bfa21fd21fd:version=1:language=de:variant=DE. Current status not: StatusValuePK:id=statusvalue-01010101010101010102

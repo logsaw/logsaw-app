@@ -1,0 +1,3 @@
+2010-07-01 10:23:02,025 INFO  [de.docufy.cms.service.transformation.layout.PubInstanceHandler] Element: graphic cmsid: fcda5d8c9489a42e0a00206a001baae7:1:--:--:PNG96
+2010-07-01 10:23:02,041 ERROR [STDERR] [foLib-warning]: Y.ID [ID_bda1c2a87a5283810a00206a01f79aa9-990b01197a5283810a00206a00cb0ddb-en-US] exists already 2 times
+2010-07-01 10:23:02,056 INFO  [de.docufy.cms.service.transformation.layout.PubInstanceHandler] Element: graphic cmsid: dacb3828948772da0a00206a01ac6713:1:--:--:PNG96Small

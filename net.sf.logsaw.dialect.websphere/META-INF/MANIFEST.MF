@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LogSaw WebSphere Dialect Plugin
+Bundle-SymbolicName: net.sf.logsaw.dialect.websphere;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.sf.logsaw.dialect.websphere.WebsphereDialectPlugin
+Require-Bundle: org.eclipse.core.runtime,
+ net.sf.logsaw.core,
+ slf4j.api,
+ org.apache.commons.io
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: LogSaw project
+Export-Package: net.sf.logsaw.dialect.websphere

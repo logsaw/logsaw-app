@@ -1,0 +1,5 @@
+17:04:54,684 DEBUG - Installed System.out adapter (Log4jService.java:installSystemAdapters:411)
+17:04:54,686 DEBUG - Installed System.err adapter (Log4jService.java:installSystemAdapters:420)
+17:04:54,688 DEBUG - Added ThrowableListener: org.jboss.logging.Log4jService$ThrowableListenerLoggingAdapter@331c89c (Log4jService.java:setup:469)
+17:04:54,689 DEBUG - Created jboss.system:type=Log4jService,service=Logging (ServiceMBeanSupport.java:jbossInternalCreate:269)
+17:04:54,690 DEBUG - Creating dependent components for: jboss.system:type=Log4jService,service=Logging dependents are: [] (ServiceController.java:create:342)

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cspecExtension xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns="http://www.eclipse.org/buckminster/CSpec-1.0">
+	<actions>
+		<public name="generate.userdoc" actor="ant">
+			<actorProperties>
+				<property key="buildFile" value="../../documentation/build.xml" />
+				<property key="targets" value="generate.userdoc" />
+			</actorProperties>
+			<properties>
+				<property key="root.dir" value="../../documentation" />
+				<property key="plugin.dir" value="." />
+			</properties>
+		</public>
+	</actions>
+</cspecExtension>

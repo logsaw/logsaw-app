@@ -1,0 +1,34 @@
+<!--
+    Copyright (c) 2010 LogSaw project and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+       LogSaw project committers - initial API and implementation
+ -->
+<log4j:event logger="org.jnp.server.NamingBeanImpl" timestamp="1248183795312" level="WARN" thread="main">
+<log4j:message><![CDATA[Context.PROVIDER_URL in server jndi.properties, url=localhost:1099]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.arjuna.ats.jbossatx.jta.TransactionManagerService" timestamp="1248183795937" level="INFO" thread="main">
+<log4j:message><![CDATA[JBossTS Transaction Service (JTA version) - JBoss Inc.]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.arjuna.ats.jbossatx.jta.TransactionManagerService" timestamp="1248183795937" level="INFO" thread="main">
+<log4j:message><![CDATA[Setting up property manager MBean and JMX layer]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.arjuna.ats.jbossatx.jta.TransactionManagerService" timestamp="1248183796156" level="INFO" thread="main">
+<log4j:message><![CDATA[Starting recovery manager]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.arjuna.ats.jbossatx.jta.TransactionManagerService" timestamp="1248183796234" level="INFO" thread="main">
+<log4j:message><![CDATA[Recovery manager started]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.lhsystems.efom2.domain.cms.objects.ADomainObject" timestamp="1256543942399" level="INFO" thread="http-0.0.0.0-8080-23">
+<log4j:message><![CDATA[Activate synchronize fulltext indexing for Anforderungen zur Erfüllung von PCI DSS]]></log4j:message>
+<log4j:NDC><![CDATA[user=sieber_pat session=45F429CD3AB028382F91B70CE83C8F92]]></log4j:NDC>
+</log4j:event>

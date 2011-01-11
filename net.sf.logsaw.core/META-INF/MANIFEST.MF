@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LogSaw Core Plugin
+Bundle-SymbolicName: net.sf.logsaw.core;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.core.runtime,
+ slf4j.api,
+ org.apache.commons.io
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: net.sf.logsaw.core,
+ net.sf.logsaw.core.config,
+ net.sf.logsaw.core.config.model,
+ net.sf.logsaw.core.config.support,
+ net.sf.logsaw.core.dialect,
+ net.sf.logsaw.core.dialect.support,
+ net.sf.logsaw.core.field,
+ net.sf.logsaw.core.field.model,
+ net.sf.logsaw.core.logresource,
+ net.sf.logsaw.core.logresource.simple,
+ net.sf.logsaw.core.logresource.support,
+ net.sf.logsaw.core.query,
+ net.sf.logsaw.core.query.model,
+ net.sf.logsaw.core.query.support,
+ net.sf.logsaw.core.util
+Bundle-Activator: net.sf.logsaw.core.CorePlugin
+Bundle-Vendor: LogSaw project

@@ -1,0 +1,27 @@
+<!--
+    Copyright (c) 2010 LogSaw project and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+       LogSaw project committers - initial API and implementation
+ -->
+<log4j:event logger="STDOUT" timestamp="1257890926453" level="INFO" thread="OSGi Console">
+<log4j:message><![CDATA[
+osgi> ]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="org.apache.coyote.http11.Http11Protocol" timestamp="1257890927609" level="INFO" thread="main">
+<log4j:message><![CDATA[Starting Coyote HTTP/1.1 on http-0.0.0.0-8080]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="org.apache.coyote.ajp.AjpProtocol" timestamp="1257890927640" level="INFO" thread="main">
+<log4j:message><![CDATA[Starting Coyote AJP/1.3 on ajp-0.0.0.0-8009]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="org.jboss.bootstrap.microcontainer.ServerImpl" timestamp="1257890927640" level="INFO" thread="main">
+<log4j:message><![CDATA[JBoss (Microcontainer) [5.0.1.GA (build: SVNTag=JBoss_5_0_1_GA date=200902231221)] Started in 55s:469ms]]></log4j:message>
+</log4j:event>
+

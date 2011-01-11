@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2010 LogSaw project and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+       LogSaw project committers - initial API and implementation
+ -->
+<book version="5.0" xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:m="http://www.w3.org/1998/Math/MathML"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:db="http://docbook.org/ns/docbook">
+  <info>
+    <title>LogSaw User Documentation</title>
+
+    <author>
+      <personname><firstname>Philipp</firstname><surname>Nanz</surname></personname>
+
+      <affiliation>
+        <orgname>LogSaw project</orgname>
+      </affiliation>
+    </author>
+
+    <pubdate>October 2010</pubdate>
+
+    <copyright>
+      <year>2010</year>
+
+      <holder>LogSaw project. All rights reserved.</holder>
+    </copyright>
+  </info>
+
+  <chapter xml:id="welcome">
+    <title>Welcome</title>
+
+    <para>The idea for this project was born sometime 2009, when I had to
+    parse some really large log files from a customers production server. It
+    turned out that I had to use <productname>Notepad</productname> to skim
+    through the logs -- more specialized free tools in this area just couldn't
+    handle the size.</para>
+
+    <para>Soon after this, <productname>LogSaw</productname> came into live.
+    When designing this application, my focus was to keep it lean and simple,
+    with as little code as needed. This design philosophy is still apparent
+    today when you open <productname>LogSaw</productname>, as it's interface
+    is pretty simplistic. Also, I found this a good opportunity to get
+    <wordasword>seriously</wordasword> started with <productname>Eclipse
+    RCP</productname> development. So, based on my previous experience with
+    <productname>Apache Lucene</productname>, it was a no-brainer to choose
+    <productname>Lucene</productname> for the backend stuff -- and
+    <productname>Eclipse RCP</productname> for the frontend.</para>
+
+    <para>In March 2010, I have turned <productname>LogSaw</productname>
+    open-source in the hopes to form a community around it. I hope you will
+    like this tool and if you have any suggestions or comments, feel free to
+    post them on the <link
+    xlink:href="http://logsaw.sourceforge.net/redirect.php?target=HelpForum">forums</link>.
+    As with any other open-source project, your input is very important for
+    the future development of this application and is greatly
+    appreciated!</para>
+
+    <para>Thank You for using <productname>LogSaw</productname>!</para>
+  </chapter>
+
+  <chapter xml:id="getting_started">
+    <title>Getting started</title>
+
+    <para>The main purpose of this application is viewing log files. So you
+    will probably want to <link linkend="add_log_resource">import a log
+    file</link> to get started. Once you have done so, go ahead and <link
+    linkend="view_log_resource">take a look at it</link>.</para>
+  </chapter>
+
+  <chapter xml:id="support">
+    <title>Support</title>
+
+    <para>If you run into any problems, please read the <link
+    xlink:href="http://logsaw.sourceforge.net/redirect.php?target=FAQs">FAQs</link>
+    first. Now, if that doesn't help you out, feel free to ask for help in our
+    <link
+    xlink:href="http://logsaw.sourceforge.net/redirect.php?target=HelpForum">forums</link>.</para>
+  </chapter>
+
+  <chapter xml:id="concepts">
+    <title>Concepts</title>
+
+    <section xml:id="log_resource">
+      <title>Log Resource</title>
+
+      <para>A log resource represents a source of log events, which can then
+      be fed into the local fulltext index for your viewing pleasure.</para>
+
+      <para>There can be different types of log resources, for example simple
+      file-based versus directory-based or even network-based ones. But as of
+      version <productnumber>1.0</productnumber> of
+      <productname>LogSaw</productname>, only one simple file-based type of
+      log resource is provided out-of-the-box: the <link
+      linkend="simple_log_resource">Simple Log Resource</link>.</para>
+
+      <para>Each log resource is internally associated with a <link
+      linkend="log_dialect">log dialect</link>, which provides the metadata
+      describing the fields contained in each log event. This metadata is also
+      used to display the log events in the UI.</para>
+    </section>
+
+    <section xml:id="log_dialect">
+      <title>Log Dialect</title>
+
+      <para>A log dialect provides means to extract log events from a
+      <code>java.io.InputStream</code> and breaks them down into
+      dialect-specific fields. Moreover, it also provides related metadata,
+      for example the log levels being available.</para>
+    </section>
+  </chapter>
+
+  <chapter xml:id="tasks">
+    <title>Tasks</title>
+
+    <section xml:id="add_log_resource">
+      <title>Adding a Log Resource<indexterm>
+          <primary>Log Resource</primary>
+
+          <secondary>Add</secondary>
+        </indexterm></title>
+
+      <para>Before you can view a log file, you first need to create a log
+      resource for it. To do so, go to <guimenu>File</guimenu> menu and choose
+      <guimenuitem>Add Log Resource</guimenuitem> (<inlinemediaobject>
+          <imageobject>
+            <imagedata fileref="img/add_obj.gif"></imagedata>
+          </imageobject>
+        </inlinemediaobject>).</para>
+
+      <bridgehead>Specifying the log file to import</bridgehead>
+
+      <para>Once in the wizard, browse to the log file you wish to import and
+      hit next. Unless you know what you are doing, leave the other settings
+      on that page untouched and proceed.</para>
+
+      <figure>
+        <title>The Select Log File wizard page</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata contentdepth="100%"
+                         fileref="img/add_log_resource_wiz_pg1.png"
+                         scalefit="1" width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <bridgehead>Selecting a Log Dialect</bridgehead>
+
+      <para>Now select the dialect that matches your log file. Configure the
+      dialect on the following page if applicable, then hit finish.</para>
+
+      <figure>
+        <title>The Select Log Dialect wizard page</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata contentdepth="100%"
+                         fileref="img/add_log_resource_wiz_pg2.png"
+                         scalefit="1" width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </section>
+
+    <section xml:id="manage_log_resources">
+      <title>Managing Log Resources<indexterm>
+          <primary>Log Resource</primary>
+
+          <secondary>Manage</secondary>
+        </indexterm></title>
+
+      <para>Once you have imported a log resource, it will be shown in the
+      <guilabel>Log Resources</guilabel> view (<inlinemediaobject>
+          <imageobject>
+            <imagedata fileref="img/resources_view.gif"></imagedata>
+          </imageobject>
+        </inlinemediaobject>). This view lists all the log resources currently
+      registered with the application and is the starting point for working
+      with them.</para>
+
+      <para>From here you can open a log resource for viewing by
+      <mousebutton>double-clicking</mousebutton> on it. Also, it allows you to
+      synchronize, truncate and delete log resources via the
+      <mousebutton>right-click</mousebutton> popup menu.</para>
+
+      <figure>
+        <title>The Log Resources view</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata contentdepth="100%"
+                         fileref="img/log_resources_view.png" scalefit="1"
+                         width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <tip>
+        <para>You can add new log resources by simply dragging and dropping a
+        supported log file into this view. The <guimenuitem>Add Log
+        Resource</guimenuitem> wizard (<inlinemediaobject>
+            <imageobject>
+              <imagedata fileref="img/add_obj.gif"></imagedata>
+            </imageobject>
+          </inlinemediaobject>) will then open with the given file being
+        preselected.</para>
+      </tip>
+    </section>
+
+    <section xml:id="view_log_resource">
+      <title>Viewing a Log Resource</title>
+
+      <para>Once you have <mousebutton>double-clicked</mousebutton> on a log
+      resource in the the <guilabel>Log Resources</guilabel> view
+      (<inlinemediaobject>
+          <imageobject>
+            <imagedata fileref="img/resources_view.gif"></imagedata>
+          </imageobject>
+        </inlinemediaobject>), a <guilabel>Log Viewer</guilabel>
+      (<inlinemediaobject>
+          <imageobject>
+            <imagedata fileref="img/browser_view.gif"></imagedata>
+          </imageobject>
+        </inlinemediaobject>) will open up for it. This viewer shows the log
+      events supplied by a given log resource. The events are being paginated
+      with a fixed page size of 1000 log events per page to reduce memory
+      consumption. Also, only those events will be displayed that match the
+      filter criteria currently set.</para>
+
+      <para>Within the table, you may use the arrow keys to navigate through
+      the log events. For the log event currently being highlighted, you may
+      inspect the message and stacktrace (if available) by using the
+      <guilabel>Message</guilabel> (<inlinemediaobject>
+          <imageobject>
+            <imagedata fileref="img/message_view.gif"></imagedata>
+          </imageobject>
+        </inlinemediaobject>) and <guilabel>Stacktrace</guilabel>
+      (<inlinemediaobject>
+          <imageobject>
+            <imagedata fileref="img/stacktrace_view.gif"></imagedata>
+          </imageobject>
+        </inlinemediaobject>) views respectively.</para>
+
+      <figure>
+        <title>The Log Viewer</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata contentdepth="100%" fileref="img/log_viewer.png"
+                         scalefit="1" width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+
+        <caption>
+          <orderedlist>
+            <listitem>
+              <para>Table containing the log events of the page currently
+              selected</para>
+            </listitem>
+
+            <listitem>
+              <para>Information regarding the page offset and total amount of
+              log events available</para>
+            </listitem>
+
+            <listitem>
+              <para>Pagination controls: <guibutton>Previous Page</guibutton>,
+              <guibutton>Next Page</guibutton>, <guibutton>Goto
+              Page</guibutton></para>
+            </listitem>
+
+            <listitem>
+              <para>Access to filter settings currently in use</para>
+            </listitem>
+
+            <listitem>
+              <para>Detail views for inspecting Message and Stacktrace fields
+              of log event currently being highlighted</para>
+            </listitem>
+          </orderedlist>
+        </caption>
+      </figure>
+
+      <tip>
+        <para>When working with a log viewer, you can open a second instance
+        at any time using menu <guimenu>Window</guimenu> and then choosing
+        <guimenuitem>New Window</guimenuitem>. Having two or more instances
+        for the same log resource will allow you to work with multiple active
+        filters at the same time.</para>
+      </tip>
+
+      <bridgehead>Specifying which columns to show<indexterm>
+          <primary>Log Viewer</primary>
+
+          <secondary>Specifying which columns to show</secondary>
+        </indexterm></bridgehead>
+
+      <para>For each log resource, you can choose which columns to show in the
+      log viewer by accessing the <mousebutton>right-click</mousebutton> popup
+      menu of the respective log resource in the <guilabel>Log
+      Resources</guilabel> view (<inlinemediaobject>
+          <imageobject>
+            <imagedata fileref="img/resources_view.gif"></imagedata>
+          </imageobject>
+        </inlinemediaobject>) and then choosing
+      <guimenuitem>Properties</guimenuitem>. Navigate to the
+      <guilabel>Columns</guilabel> page and use the checkboxes to add or
+      remove columns from the table.</para>
+
+      <figure>
+        <title>Choosing the columns to display</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata contentdepth="100%"
+                         fileref="img/set_columns_props.png" scalefit="1"
+                         width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </section>
+
+    <section xml:id="using_filters">
+      <title>Using Filters</title>
+
+      <para>Probably the most powerful feature of this application are its
+      filtering capabilities. To manage filters, open a <guilabel>Log
+      Viewer</guilabel> (<inlinemediaobject>
+          <imageobject>
+            <imagedata fileref="img/browser_view.gif"></imagedata>
+          </imageobject>
+        </inlinemediaobject>) for the log resource you wish to apply the
+      filter to. Then press the <guibutton>Filter Settings</guibutton> button
+      (<inlinemediaobject>
+          <imageobject>
+            <imagedata fileref="img/filter.gif"></imagedata>
+          </imageobject>
+        </inlinemediaobject>) in the toolbar to open the filter definition
+      dialog.</para>
+
+      <bridgehead>Defining a Filter<indexterm>
+          <primary>Filter</primary>
+
+          <secondary>Define</secondary>
+        </indexterm></bridgehead>
+
+      <para>Once opened, the dialog will display all the criteria of the
+      filter currently active in a table-like fashion. Each line represents a
+      filter criterion. You may add additional criteria using the
+      <guibutton>Add</guibutton> button in the lower left area of the dialog.
+      To discard all criteria currently set, you may use the
+      <guibutton>Clear</guibutton> button.</para>
+
+      <para>Depending on the field designated to a criterion, the criterion
+      may expose a drop-down or text area to define the actual filter
+      condition.</para>
+
+      <para>Once you have defined all the filter criteria to your liking,
+      press <guibutton>OK</guibutton> to apply the filter to the log viewer
+      currently opened.</para>
+
+      <figure>
+        <title>The Filter Settings dialog</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata contentdepth="100%"
+                         fileref="img/filter_settings_dialog.png" scalefit="1"
+                         width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <note>
+        <para>If no filter is currently active, a default criterion is
+        conveniently added for you when the dialog is opened.</para>
+      </note>
+
+      <bridgehead>Managing Filters<indexterm>
+          <primary>Filter</primary>
+
+          <secondary>Save</secondary>
+        </indexterm></bridgehead>
+
+      <para>You may save filters for later re-use. This is useful when you
+      have different filter criteria, and would like to switch between them
+      easily.</para>
+
+      <para>To do so, enter a name for the filter in the <guilabel>Filter
+      name</guilabel> drop-down and then hit the <guibutton>Save</guibutton>
+      button. Now you can load this filter at any time by choosing it from the
+      <guilabel>Filter name</guilabel> drop-down.</para>
+
+      <para>To change the filters underlying criteria, simply load it then
+      make the changes and finally press the <guibutton>Save</guibutton>
+      button to save them.</para>
+
+      <para>Obviously, you can also remove a previously saved filter from the
+      drop-down by pressing the <guibutton>Delete</guibutton> button.</para>
+
+      <bridgehead>Quick Filter<indexterm>
+          <primary>Log Viewer</primary>
+
+          <secondary>Quick Filter</secondary>
+        </indexterm></bridgehead>
+
+      <para>Another way of defining a filter is by using the quick filter
+      function built into the <guilabel>Log Viewer</guilabel>
+      (<inlinemediaobject>
+          <imageobject>
+            <imagedata fileref="img/browser_view.gif"></imagedata>
+          </imageobject>
+        </inlinemediaobject>). To use that, open a log resource and then
+      highlight a field of an event that you would like to base your new
+      filter criterion on. Now open the <guimenu>Quick Filter</guimenu> menu
+      (<inlinemediaobject>
+          <imageobject>
+            <imagedata fileref="img/filter.gif"></imagedata>
+          </imageobject>
+        </inlinemediaobject>) and choose the menu item that best describes the
+      filter condition. On click, the filter definition dialog will be opened
+      with the new criterion added at the bottom.</para>
+
+      <para>For example, if you would like to view only log events
+      <emphasis>after</emphasis> a certain event, first highlight the
+      <guilabel>Timestamp</guilabel> field of that very log event. Now access
+      the <mousebutton>right-click</mousebutton> popup menu, then open the
+      <guimenu>Quick Filter</guimenu> menu (<inlinemediaobject>
+          <imageobject>
+            <imagedata fileref="img/filter.gif"></imagedata>
+          </imageobject>
+        </inlinemediaobject>) and choose
+      <guimenuitem>After</guimenuitem>.</para>
+
+      <figure>
+        <title>The Quick Filter menu</title>
+
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata contentdepth="100%"
+                         fileref="img/quick_filter_menu.png" scalefit="1"
+                         width="100%"></imagedata>
+            </imageobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+    </section>
+  </chapter>
+
+  <appendix>
+    <title>Log Resource types</title>
+
+    <section xml:id="simple_log_resource">
+      <title>Simple Log Resource</title>
+
+      <para>The <firstterm>Simple Log Resource</firstterm> allows to parse the
+      contents of a single specific file for log events. The actual parsing of
+      the file is then performed using <link linkend="log_dialect">log
+      dialects</link>.</para>
+    </section>
+  </appendix>
+
+  <appendix>
+    <title>Log Dialect types</title>
+
+    <section>
+      <title>JBoss Application Server</title>
+
+      <para>This dialect can parse log files produced by the
+      <emphasis>default</emphasis> logging mechanism of various versions of
+      JBoss Application Server. It is based off the Log4J Pattern Layout
+      Dialect, but with a fixed pattern for each JBoss version.</para>
+
+      <para>The fields available are somewhat limited when using this log
+      format, as shown by the table below.</para>
+
+      <table border="1">
+        <caption>Fields supported</caption>
+
+        <thead>
+          <tr>
+            <th></th>
+
+            <th>Timestamp</th>
+
+            <th>Level</th>
+
+            <th>Logger</th>
+
+            <th>Thread</th>
+
+            <th>Message</th>
+          </tr>
+        </thead>
+
+        <tr>
+          <td>JBoss 4.x</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_off.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+
+        <tr>
+          <td>JBoss 5.x</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+
+        <tr>
+          <td>JBoss 6.x</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+      </table>
+    </section>
+
+    <section>
+      <title>Log4J Pattern Layout</title>
+
+      <para>This dialect can parse <emphasis>almost</emphasis> any log file
+      that is generated using a <link
+      xlink:href="http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html">Log4J
+      PatternLayout</link> format. Most common conversion characters are
+      supported, with a few exceptions. Please see the following table
+      regarding the conversion characters supported and known
+      limitations.</para>
+
+      <table border="1">
+        <caption>Conversion character support</caption>
+
+        <thead>
+          <tr>
+            <th>Conversion character</th>
+
+            <th>Description</th>
+
+            <th>Supported</th>
+          </tr>
+        </thead>
+
+        <tr>
+          <td>c</td>
+
+          <td>Category / Logger</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+
+        <tr>
+          <td>C</td>
+
+          <td>Fully qualified class name</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+
+        <tr>
+          <td>d</td>
+
+          <td>Date</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+
+        <tr>
+          <td>F</td>
+
+          <td>Filename</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+
+        <tr>
+          <td>l</td>
+
+          <td>Location information</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_off.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+
+        <tr>
+          <td>L</td>
+
+          <td>Line number</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+
+        <tr>
+          <td>m</td>
+
+          <td>Message</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+
+        <tr>
+          <td>M</td>
+
+          <td>Method name</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+
+        <tr>
+          <td>n</td>
+
+          <td>Newline character</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject> (only at the end of pattern)</td>
+        </tr>
+
+        <tr>
+          <td>p</td>
+
+          <td>Priority / Level</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+
+        <tr>
+          <td>r</td>
+
+          <td>Time elapsed relative to startup</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_off.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+
+        <tr>
+          <td>t</td>
+
+          <td>Thread name</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+
+        <tr>
+          <td>x</td>
+
+          <td>NDC</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_on.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+
+        <tr>
+          <td>X</td>
+
+          <td>MDC</td>
+
+          <td><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="img/check_off.gif"></imagedata>
+              </imageobject>
+            </inlinemediaobject></td>
+        </tr>
+      </table>
+    </section>
+
+    <section>
+      <title>Log4J XML Layout</title>
+
+      <para>This dialect can parse log files that follow the <link
+      xlink:href="http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/XMLLayout.html">Log4J
+      XMLLayout</link> format. The XMLLayout format is the preferred source of
+      log files, because no Regex parsing is needed to split a log event into
+      its fields. This reduces the risk of false mappings and also enables
+      separation of messages and exceptions - whereas in text based formats,
+      exceptions are contained in the message field.</para>
+    </section>
+
+    <section>
+      <title>WebSphere Application Server</title>
+
+      <para>This dialect can parse log files that have been created by IBM
+      WebSphere Application Servers using <link
+      xlink:href="http://publib.boulder.ibm.com/infocenter/iseries/v5r3/topic/rzamy/50/trb/trbjvminterp.htm">basic
+      format</link>. Advanced format is currently not supported.</para>
+    </section>
+  </appendix>
+</book>

@@ -1,0 +1,45 @@
+1.0.0M5
+=======
+250910 [App]			Upgrade to Eclipse 3.6.1
+310810 [App]			Quick Filter function added
+220810 [App]			p2 update support up and running
+030810 [App]			Fixed NPE in FilterSettingsDialog
+
+1.0.0M4
+=======
+240710 [App]			New Online help menu
+230710 [App]			Feature branding
+040710 [App]			Log View: Fixed NPE with empty fields (regression of change from 190610)
+040710 [Pattern]		Added support for lazy modifier to regex engine
+290610 [ALL]			Upgrade to Eclipse 3.6 / Buckminster 3.6
+220610 [Pattern]		Fixed bug in regular expression generation
+220610 [App]			Upgraded to Lucene 3.0.2
+220610 [App]			Added support for JBoss 6.x
+190610 [App]			Log view: Multiline strings are now snipped at linebreak
+130610 [App]			Added infrastructure for documentation
+
+1.0.0M3
+=======
+070510 [ALL]			Huge refactoring and quite a few bugfixes and stability improvements (Part 2)
+060510 [ALL]			Huge refactoring and quite a few bugfixes and stability improvements (Part 1)
+020510 [Websphere]		Initial checkin of websphere dialect
+010510 [Log4J-Pattern]	Fixed parse failure with mixed up logging formats
+010510 [Framework]		Log resource parser can emit warnings/messages
+010510 [Pattern]		Fixed NPE
+190410 [Log4J-XML]		Added support for location info
+190410 [Log4J-Pattern]	Added support for location info, NDC
+190410 [Pattern]		Fixed: Trailing characters in external pattern were omitted
+
+1.0.0M2
+=======
+170410 [App]		Added support for named filters
+100410 [App]		Properties Dialog: Will now display all config options with visible == true
+100410 [App]		Properties Dialog: Values (e.g. Pattern) can be copied now
+080410 [App]		Fixed: Default button lost in filter dialog
+080410 [App]		Fixed: Clear stays active when all clauses are removed in filter dialog
+060410 [App]		Added truncate action
+050410 [App]		Made the message and stacktrace detail views more robust
+040410 [App]		Filter settings are now saved during editor session; will be restored when editor is reopened
+030410 [App]		Timestamp column is marked as sorting column, cannot be deselected in Columns properties page
+030410 [Framework]	Configurable objects now have a listener: IConfigChangedListener; being used to save state file when config changes
+030410 [App]		Removed dependency on o.e.c.resources

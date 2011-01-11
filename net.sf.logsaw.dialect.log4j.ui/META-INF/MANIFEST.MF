@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LogSaw Log4J Dialect UI Plugin
+Bundle-SymbolicName: net.sf.logsaw.dialect.log4j.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: LogSaw project
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ net.sf.logsaw.core,
+ net.sf.logsaw.ui,
+ net.sf.logsaw.dialect.log4j,
+ net.sf.logsaw.dialect.pattern
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

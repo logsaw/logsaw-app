@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LogSaw Pattern Dialect Plugin
+Bundle-SymbolicName: net.sf.logsaw.dialect.pattern;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: LogSaw project
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.core.runtime,
+ net.sf.logsaw.core,
+ slf4j.api,
+ org.apache.commons.io
+Export-Package: net.sf.logsaw.dialect.pattern
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: net.sf.logsaw.dialect.pattern.PatternDialectPlugin

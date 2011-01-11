@@ -1,0 +1,5 @@
+17:18:57,939 DEBUG - checking cached query results in region: org.hibernate.cache.StandardQueryCache (StandardQueryCache.java:get:127)
+17:18:57,939 DEBUG - query results were not found in cache (StandardQueryCache.java:get:132)
+17:18:57,954 DEBUG - caching query results in region: org.hibernate.cache.StandardQueryCache; timestamp=5201750990213120 (StandardQueryCache.java:put:94)
+17:19:04,079 WARNING - facelets.RECREATE_VALUE_EXPRESSION_ON_BUILD_BEFORE_RESTORE is set to 'true' but facelets.BUILD_BEFORE_RESTORE is set to 'false' or unset. To use facelets.RECREATE_VALUE_EXPRESSION_ON_BUILD_BEFORE_RESTORE you must also set facelets.BUILD_BEFORE_RESTORE to 'true'! (ComponentHandler.java:isRecreateValueExpressionsOnBuildBeforeRestore:227)
+17:19:16,484 DEBUG - checking cached query results in region: org.hibernate.cache.StandardQueryCache (StandardQueryCache.java:get:127)

@@ -1,0 +1,38 @@
+<!--
+    Copyright (c) 2010 LogSaw project and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+       LogSaw project committers - initial API and implementation
+ -->
+<contexts>
+   <context id="log_resources_view">
+      <description>This view shows all registered log resources.</description>
+      <topic href="html/manage_log_resources.html" label="Managing Log Resources"/>
+   </context>
+   <context id="log_viewer">
+      <description>This editor shows all entries of a log resource that match the current filter criteria.</description>
+      <topic href="html/view_log_resource.html" label="Viewing a Log Resource"/>
+      <topic href="html/using_filters.html" label="Using Filters"/>
+   </context>
+	<context id="dialect_wizard_page">
+		<description>On this page you can select the log dialect to use for parsing the file.</description>
+		<topic href="html/add_log_resource.html" label="Adding a Log Resource" />
+	</context>
+	<context id="simple_log_resource_wizard_page">
+		<description>On this page you can specify which file to import.
+		</description>
+		<topic href="html/add_log_resource.html" label="Adding a Log Resource" />
+	</context>
+	<context id="filter_settings_dialog">
+		<description>This dialog allows you to specify filter criteria and save them for later re-use.</description>
+		<topic href="html/using_filters.html" label="Using Filters" />
+	</context>
+ <context id="message_and_stacktrace_views">
+    <description>This view allows you to inspect the message or stacktrace field of the log event currently highlighted.</description>
+    <topic href="html/view_log_resource.html" label="Viewing a Log Resource"/>
+ </context>
+</contexts>

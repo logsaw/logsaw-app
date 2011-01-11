@@ -1,0 +1,34 @@
+<!--
+    Copyright (c) 2010 LogSaw project and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+       LogSaw project committers - initial API and implementation
+ -->
+<log4j:event logger="org.jboss.logging.Log4jService" timestamp="1271689983816" level="DEBUG" thread="main">
+<log4j:message><![CDATA[Installed System.out adapter]]></log4j:message>
+<log4j:locationInfo class="org.jboss.logging.Log4jService" method="installSystemAdapters" file="Log4jService.java" line="411"/>
+</log4j:event>
+
+<log4j:event logger="org.jboss.logging.Log4jService" timestamp="1271689983834" level="DEBUG" thread="main">
+<log4j:message><![CDATA[Installed System.err adapter]]></log4j:message>
+<log4j:locationInfo class="org.jboss.logging.Log4jService" method="installSystemAdapters" file="Log4jService.java" line="420"/>
+</log4j:event>
+
+<log4j:event logger="org.jboss.logging.Log4jService" timestamp="1271689983837" level="DEBUG" thread="main">
+<log4j:message><![CDATA[Added ThrowableListener: org.jboss.logging.Log4jService$ThrowableListenerLoggingAdapter@d3f136e]]></log4j:message>
+<log4j:locationInfo class="org.jboss.logging.Log4jService" method="setup" file="Log4jService.java" line="469"/>
+</log4j:event>
+
+<log4j:event logger="org.jboss.logging.Log4jService" timestamp="1271689983837" level="DEBUG" thread="main">
+<log4j:message><![CDATA[Created jboss.system:type=Log4jService,service=Logging]]></log4j:message>
+<log4j:locationInfo class="org.jboss.system.ServiceMBeanSupport" method="jbossInternalCreate" file="ServiceMBeanSupport.java" line="269"/>
+</log4j:event>
+
+<log4j:event logger="org.jboss.system.ServiceController" timestamp="1271689983838" level="DEBUG" thread="main">
+<log4j:message><![CDATA[Creating dependent components for: jboss.system:type=Log4jService,service=Logging dependents are: []]]></log4j:message>
+<log4j:locationInfo class="org.jboss.system.ServiceController" method="create" file="ServiceController.java" line="342"/>
+</log4j:event>

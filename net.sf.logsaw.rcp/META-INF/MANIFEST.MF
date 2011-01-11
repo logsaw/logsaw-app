@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LogSaw RCP Plugin
+Bundle-SymbolicName: net.sf.logsaw.rcp; singleton:=true
+Bundle-Version: 1.1.0.qualifier
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ net.sf.logsaw.ui,
+ org.eclipse.ui.browser
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Activator: net.sf.logsaw.rcp.RCPPlugin
+Bundle-Vendor: LogSaw project

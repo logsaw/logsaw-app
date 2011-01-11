@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cspecExtension xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns="http://www.eclipse.org/buckminster/CSpec-1.0">
+	<actions>
+		<private name="about.mappings" actor="ant">
+			<actorProperties>
+				<property key="buildFile" value="build/about_mappings.ant" />
+				<property key="targets" value="replace.tokens" />
+			</actorProperties>
+			<properties>
+				<property key="build" value="${build.id}" />
+				<property key="version" value="${product.version}" />
+			</properties>
+			<prerequisites>
+				<attribute alias="action.input" name="raw.about.mappings" />
+			</prerequisites>
+			<products alias="action.output" base="${buckminster.output}/temp/">
+				<path path="about.mappings" />
+			</products>
+		</private>
+	</actions>
+	<alterActions>
+		<remove name="about.mappings" />
+	</alterActions>
+</cspecExtension>

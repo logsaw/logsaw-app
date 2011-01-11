@@ -1,0 +1,96 @@
+<!--
+    Copyright (c) 2010 LogSaw project and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+       LogSaw project committers - initial API and implementation
+ -->
+<project default="generate.userdoc">
+	
+	<!-- Configurable properties -->
+	<property name="root.dir" location="." />
+	<property name="plugin.dir" location="../net.sf.logsaw.doc.user" />
+	<property name="docbook.version" value="docbook-xsl-ns-1.76.1" />
+	
+	<property name="docbook.zip" location="${root.dir}/docbook/${docbook.version}.zip" />
+	<property name="tmp.dir" location="${root.dir}/tmp" />
+	<property name="docbook.dir" location="${tmp.dir}/${docbook.version}" />
+	<property name="pdf.out.dir" location="${tmp.dir}/pdf" />
+	
+	<path id="xalan-classpath">
+		<fileset dir="${root.dir}/lib/xalan" includes="*.jar" />
+	</path>
+	<path id="fop-classpath">
+		<fileset dir="${root.dir}/lib/fop" includes="*.jar" />
+	</path>
+	<taskdef name="fop" classname="org.apache.fop.tools.anttasks.Fop" classpathref="fop-classpath"/>
+	
+	<!-- The main entry point -->
+	
+	<target name="generate.userdoc"
+		depends="prepare.docbook,generate.userdoc.plugin,generate.userdoc.pdf">
+	</target>
+	
+	<!-- Secondary targets below -->
+	
+	<target name="prepare.docbook">
+		<delete dir="${tmp.dir}" />
+		<unzip src="${docbook.zip}" dest="${tmp.dir}" />
+		<copy todir="${docbook.dir}" overwrite="true">
+			<fileset dir="${root.dir}/docbook/override" includes="**" />
+		</copy>
+	</target>
+	
+	<target name="generate.userdoc.plugin" depends="prepare.docbook">
+		<!-- Cleanup first -->
+		<delete>
+			<fileset dir="${plugin.dir}/html" includes="**" />
+		</delete>
+		<delete file="${plugin.dir}/index.xml" />
+		<delete file="${plugin.dir}/plugin.xml" />
+		<delete file="${plugin.dir}/toc.xml" />
+		<!-- Let the chunking begin -->
+		<xslt in="${root.dir}/userdoc/main.xml" out="${plugin.dir}/out.xml"
+			classpathref="xalan-classpath" style="${docbook.dir}/eclipse/eclipse3.xsl">
+			<param name="eclipse.manifest" expression="0" />
+			<param name="base.dir" expression="html/" />
+			<param name="html.stylesheet" expression="book.css" />
+			<param name="suppress.navigation" expression="1" />
+			<param name="chapter.autolabel" expression="0" />
+			<param name="appendix.autolabel" expression="0" />
+			<param name="chunk.first.sections" expression="1" />
+			<param name="chunk.section.depth" expression="2" />
+			<param name="use.id.as.filename" expression="1" />
+		</xslt>
+		<delete file="${plugin.dir}/out.xml" />
+		<!-- Copy images etc. -->
+		<copy file="${root.dir}/book.css" todir="${plugin.dir}/html"/>
+		<copy todir="${plugin.dir}/html/img">
+			<fileset dir="${root.dir}/userdoc/img" includes="**" />
+		</copy>
+	</target>
+	
+	<target name="generate.userdoc.pdf" depends="prepare.docbook">
+		<!-- Cleanup first -->
+		<delete file="${pdf.out.dir}" />
+		<mkdir dir="${pdf.out.dir}" />
+		<!-- Generate the FO -->
+		<xslt in="${root.dir}/userdoc/main.xml" out="${pdf.out.dir}/userdoc.fo"
+			classpathref="xalan-classpath" style="${docbook.dir}/fo/docbook.xsl">
+			<param name="fop1.extensions" expression="1" />
+			<param name="body.font.family" expression="Arial, sans-serif" />
+			<param name="title.font.family" expression="Arial, sans-serif" />
+		</xslt>
+		<!-- Copy images -->
+		<copy todir="${pdf.out.dir}/img">
+			<fileset dir="${root.dir}/userdoc/img" includes="**" />
+		</copy>
+		<!-- Now, let's generate the PDF -->
+		<fop format="application/pdf" basedir="${pdf.out.dir}" outdir="${pdf.out.dir}" messagelevel="warn" throwexceptions="false">
+			<fileset dir="${pdf.out.dir}" includes="*.fo" />
+		</fop>
+	</target>
+</project>

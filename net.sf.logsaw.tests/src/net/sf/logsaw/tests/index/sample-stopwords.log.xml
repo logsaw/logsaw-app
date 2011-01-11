@@ -1,0 +1,57 @@
+<!--
+    Copyright (c) 2010 LogSaw project and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+       LogSaw project committers - initial API and implementation
+ -->
+<log4j:event logger="org.jboss.system.server.Server" timestamp="1262701313085" level="INFO" thread="main">
+<log4j:message><![CDATA[JBoss (MX MicroKernel) [4.0.3SP1 (build: CVSTag=JBoss_4_0_3_SP1 date=200510231054)] Started in 3m:25s:156ms]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="de.docufy.efom2.api.impl.EFOM2SecurityServiceImpl" timestamp="1262701315757" level="ERROR" thread="Thread-6">
+<log4j:message><![CDATA[findObjectWithGroups(): No parent found for: ExchValueObjectPK:io=5739f5d79bfcb6ea3914188c005f233b:version=1]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="de.docufy.efom2.legacy.migration.migrators.PatchMigrator9CreateMigrationHistory" timestamp="1262701316851" level="WARN" thread="Thread-6">
+<log4j:message><![CDATA[Owner document not found for: IOLanguageVariantPK:io=aaaaf26c9ca25d653914188c01c0ff66:version=1:language=--:variant=--]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="de.docufy.efom2.api.impl.EFOM2SecurityServiceImpl" timestamp="1262701317101" level="ERROR" thread="Thread-6">
+<log4j:message><![CDATA[findObjectWithGroups(): No parent found for: ExchValueObjectPK:io=ebafad5b669a39b4391418a601552cc2:version=1]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="de.docufy.efom2.legacy.migration.migrators.PatchMigrator9CreateMigrationHistory" timestamp="1262701318147" level="WARN" thread="Thread-6">
+<log4j:message><![CDATA[Owner document not found for: IOLanguageVariantPK:io=aaaaf4bd669bf147391418a600012757:version=1:language=--:variant=--]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="de.docufy.efom2.api.impl.EFOM2SecurityServiceImpl" timestamp="1262701321163" level="ERROR" thread="Thread-6">
+<log4j:message><![CDATA[findObjectWithGroups(): No parent found for: ExchValueObjectPK:io=02b120e16d3bfbcd391418a601908907:version=1]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="de.docufy.efom2.api.impl.EFOM2SecurityServiceImpl" timestamp="1262701321632" level="ERROR" thread="Thread-6">
+<log4j:message><![CDATA[findObjectWithGroups(): No parent found for: ExchValueObjectPK:io=c6d6e0cffd901a18391418a600a0e6fb:version=1]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="de.docufy.efom2.api.impl.EFOM2SecurityServiceImpl" timestamp="1262701327101" level="ERROR" thread="Thread-6">
+<log4j:message><![CDATA[findObjectWithGroups(): No parent found for: ExchValueObjectPK:io=366f126c6c36ac1c391418a601668d6a:version=1]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="de.docufy.efom2.api.impl.EFOM2SecurityServiceImpl" timestamp="1262701327569" level="ERROR" thread="Thread-6">
+<log4j:message><![CDATA[findObjectWithGroups(): No parent found for: ExchValueObjectPK:io=a6a0172ff39e5831391418a6008700fd:version=1]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="de.docufy.efom2.api.impl.EFOM2SecurityServiceImpl" timestamp="1262701328991" level="ERROR" thread="Thread-6">
+<log4j:message><![CDATA[findObjectWithGroups(): No parent found for: ExchValueObjectPK:io=fd9f8f2fb38074d8391418a601bfdd07:version=1]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="de.docufy.efom2.api.impl.EFOM2SecurityServiceImpl" timestamp="1262701333147" level="ERROR" thread="Thread-6">
+<log4j:message><![CDATA[findObjectWithGroups(): No parent found for: ExchValueObjectPK:io=aaa071acde9006da3939ddd3003b4f79:version=1]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="de.docufy.efom2.api.impl.EFOM2SecurityServiceImpl" timestamp="1262701336366" level="ERROR" thread="Thread-6">
+<log4j:message><![CDATA[findObjectWithGroups(): No parent found for: ExchValueObjectPK:io=e0e7f57dc7a15133391418a60085e657:version=1]]></log4j:message>
+</log4j:event>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?><!--
+    Copyright (c) 2010 LogSaw project and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+       LogSaw project committers - initial API and implementation
+ -->
+
+<plugin>
+   <extension
+         point="net.sf.logsaw.core.dialectFactory">
+      <dialectFactory
+            class="net.sf.logsaw.dialect.log4j.xml.Log4JXMLLayoutDialectFactory"
+            id="net.sf.logsaw.dialect.log4j.xml.Log4JXMLLayoutDialect"
+            name="Log4J XML Layout">
+            <description>This dialect can parse XML log files that have been created using the org.apache.log4j.xml.XMLLayout or compatible loggers.</description>
+      </dialectFactory>
+   </extension>
+   <extension
+         point="net.sf.logsaw.core.dialectFactory">
+      <dialectFactory
+            class="net.sf.logsaw.dialect.log4j.jboss.JBossDialectFactory"
+            id="net.sf.logsaw.dialect.log4j.jboss.JBossDialect"
+            name="JBoss Application Server">
+            <description>This dialect can parse plain text log files created by various versions of JBoss Application Server. Defaults to JBoss 4.x.</description>
+      </dialectFactory>
+   </extension>
+   <extension
+         point="net.sf.logsaw.core.dialectFactory">
+      <dialectFactory
+            class="net.sf.logsaw.dialect.log4j.pattern.Log4JPatternLayoutDialectFactory"
+            id="net.sf.logsaw.dialect.log4j.pattern.Log4JPatternLayoutDialect"
+            name="Log4J Pattern Layout">
+         <description>
+            This dialect can parse plain text log files that have been created using the org.apache.log4j.PatternLayout or compatible loggers.
+         </description>
+      </dialectFactory>
+   </extension>
+
+</plugin>
