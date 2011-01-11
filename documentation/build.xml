@@ -46,9 +46,8 @@
 	
 	<target name="generate.userdoc.plugin" depends="prepare.docbook">
 		<!-- Cleanup first -->
-		<delete>
-			<fileset dir="${plugin.dir}/html" includes="**" />
-		</delete>
+		<delete file="${plugin.dir}/html" />
+		<mkdir dir="${plugin.dir}/html" />
 		<delete file="${plugin.dir}/index.xml" />
 		<delete file="${plugin.dir}/plugin.xml" />
 		<delete file="${plugin.dir}/toc.xml" />
