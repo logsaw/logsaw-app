@@ -4,11 +4,11 @@
 	<actions>
 		<public name="generate.userdoc" actor="ant">
 			<actorProperties>
-				<property key="buildFile" value="../../documentation/build.xml" />
+				<property key="buildFile" value="../documentation/build.xml" />
 				<property key="targets" value="generate.userdoc" />
 			</actorProperties>
 			<properties>
-				<property key="root.dir" value="../../documentation" />
+				<property key="root.dir" value="../documentation" />
 				<property key="plugin.dir" value="." />
 			</properties>
 		</public>
