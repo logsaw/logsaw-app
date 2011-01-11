@@ -9,7 +9,7 @@
 	<cq:property key="target.os" value="*" />
 	<cq:property key="target.ws" value="*" />
 
-	<!-- Force SVN update -->
+	<!-- Force SCM update -->
 	<cq:advisorNode namePattern="net\.sf\.logsaw\..*" useTargetPlatform="false"
 		useWorkspace="false" branchTagPath="main" />
 </cq:componentQuery>
