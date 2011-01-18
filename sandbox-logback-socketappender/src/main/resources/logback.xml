@@ -1,0 +1,24 @@
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="SOCKET" class="ch.qos.logback.classic.net.SocketAppender">
+    <remoteHost>localhost</remoteHost>
+    <port>4446</port>
+    <reconnectionDelay>10000</reconnectionDelay>
+    <includeCallerData>true</includeCallerData>
+  </appender>
+
+  <!-- Strictly speaking, the level attribute is not necessary since -->
+  <!-- the level of the root level is set to DEBUG by default.       -->
+  <root level="DEBUG">          
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="SOCKET" />
+  </root>  
+</configuration>
