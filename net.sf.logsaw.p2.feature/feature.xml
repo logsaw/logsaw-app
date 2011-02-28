@@ -131,21 +131,21 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.eclipse.equinox.p2.director"
          download-size="0"
          install-size="0"
-         version="2.0.2.R36x_v20100823"
+         version="2.0.3.R36x_v20101117-1018"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.equinox.p2.core"
          download-size="0"
          install-size="0"
-         version="2.0.2.R36x_v20100804"
+         version="2.0.3.R36x_v20110111"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.equinox.p2.engine"
          download-size="0"
          install-size="0"
-         version="2.0.0.v20100606"
+         version="2.0.1.R36x_v20110201"
          unpack="false"/>
 
    <plugin
@@ -159,7 +159,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.eclipse.equinox.p2.metadata"
          download-size="0"
          install-size="0"
-         version="2.0.0.v20100601"
+         version="2.0.1.R36x_v20101202"
          unpack="false"/>
 
    <plugin
@@ -180,14 +180,14 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.eclipse.equinox.p2.touchpoint.eclipse"
          download-size="0"
          install-size="0"
-         version="2.0.2.R36x_v20100823"
+         version="2.0.3.R36x_v20101202"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.equinox.p2.touchpoint.natives"
          download-size="0"
          install-size="0"
-         version="1.0.200.v20100503a"
+         version="1.0.201.R36x_v20110111"
          unpack="false"/>
 
    <plugin
@@ -250,21 +250,21 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.eclipse.equinox.p2.directorywatcher"
          download-size="0"
          install-size="0"
-         version="1.0.202.R36x_v20100727"
+         version="1.0.203.R36x_v20101220"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.equinox.p2.reconciler.dropins"
          download-size="0"
          install-size="0"
-         version="1.1.0.v20100525"
+         version="1.1.2.R36x_v20110114"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.equinox.p2.metadata.generator"
          download-size="0"
          install-size="0"
-         version="1.0.200.v20100503a"
+         version="1.0.202.R36x_v20101208-1400"
          unpack="false"/>
 
    <plugin
@@ -334,42 +334,42 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.eclipse.equinox.p2.repository"
          download-size="0"
          install-size="0"
-         version="2.0.1.R36x_v20100823"
+         version="2.0.2.R36x_v20110111-1500"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.ecf"
          download-size="0"
          install-size="0"
-         version="3.1.0.v20100529-0735"
+         version="3.1.0.v20100906-1425"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.ecf.filetransfer"
          download-size="0"
          install-size="0"
-         version="4.0.0.v20100529-0735"
+         version="4.0.0.v20100906-1425"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.ecf.identity"
          download-size="0"
          install-size="0"
-         version="3.1.0.v20100529-0735"
+         version="3.1.0.v20100906-1425"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.ecf.provider.filetransfer"
          download-size="0"
          install-size="0"
-         version="3.1.0.v20100529-0735"
+         version="3.1.0.v20100906-1425"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.ecf.provider.filetransfer.ssl"
          download-size="0"
          install-size="0"
-         version="1.0.0.v20100529-0735"
+         version="1.0.0.v20100906-1425"
          fragment="true"
          unpack="false"/>
 
@@ -377,14 +377,14 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.eclipse.ecf.provider.filetransfer.httpclient"
          download-size="0"
          install-size="0"
-         version="4.0.0.v20100529-0735"
+         version="4.0.0.v20100906-1425"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.ecf.provider.filetransfer.httpclient.ssl"
          download-size="0"
          install-size="0"
-         version="1.0.0.v20100529-0735"
+         version="1.0.0.v20100906-1425"
          fragment="true"
          unpack="false"/>
 
@@ -392,7 +392,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.eclipse.ecf.ssl"
          download-size="0"
          install-size="0"
-         version="1.0.0.v20100529-0735"
+         version="1.0.100.v20100906-1425"
          fragment="true"
          unpack="false"/>
 
