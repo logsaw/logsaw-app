@@ -44,16 +44,18 @@ import net.sf.logsaw.index.SynchronizationResult;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.LimitTokenCountAnalyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
-import org.apache.lucene.analysis.tokenattributes.TermAttribute;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.NumericField;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.MatchAllDocsQuery;
@@ -66,7 +68,6 @@ import org.apache.lucene.search.SortField;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.TopFieldCollector;
-import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.NumericUtils;
@@ -182,7 +183,7 @@ public class LuceneIndexServiceImpl implements IIndexService {
 				}
 			}
 		};
-		runnable.runWithIndexWriter(log, getAnalyzer());
+		runnable.runWithIndexWriter(log, getAnalyzer(), getMatchVersion());
 	}
 
 	/* (non-Javadoc)
@@ -278,7 +279,18 @@ public class LuceneIndexServiceImpl implements IIndexService {
 	 * @return the Lucene analyzer to use
 	 */
 	protected Analyzer getAnalyzer() {
-		return new StandardAnalyzer(Version.LUCENE_30);
+		return new LimitTokenCountAnalyzer(new StandardAnalyzer(getMatchVersion()), 10000);
+	}
+
+	/**
+	 * Returns the Lucene match version.
+	 * <p>
+	 * Defaults to Lucene 3.0 semantics.
+	 * 
+	 * @return the Lucene match version to use
+	 */
+	protected Version getMatchVersion() {
+		return Version.LUCENE_30;
 	}
 
 	/*
@@ -399,7 +411,7 @@ public class LuceneIndexServiceImpl implements IIndexService {
 						System.currentTimeMillis() - startTime, collector.getMessages());
 			}
 		};
-		return runnable.runWithIndexWriter(log, getAnalyzer());
+		return runnable.runWithIndexWriter(log, getAnalyzer(), getMatchVersion());
 	}
 
 	private Query convertToQuery(final List<ARestriction<?>> restrictions) {
@@ -545,10 +557,10 @@ public class LuceneIndexServiceImpl implements IIndexService {
 			// Iterate over tokens and treat each token as term
 			int pos = 0;
 			while (ts.incrementToken()) {
-				TermAttribute t = ts.getAttribute(TermAttribute.class);
+				CharTermAttribute t = ts.getAttribute(CharTermAttribute.class);
 				PositionIncrementAttribute p = ts.getAttribute(PositionIncrementAttribute.class);
 				pos += p.getPositionIncrement();
-				phrase.add(new Term(fld, t.term()), pos);
+				phrase.add(new Term(fld, t.toString()), pos);
 			}
 			// End-of-stream clean-up
 			ts.end();
