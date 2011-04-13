@@ -560,7 +560,7 @@ public class LuceneIndexServiceImpl implements IIndexService {
 				CharTermAttribute t = ts.getAttribute(CharTermAttribute.class);
 				PositionIncrementAttribute p = ts.getAttribute(PositionIncrementAttribute.class);
 				pos += p.getPositionIncrement();
-				phrase.add(new Term(fld, t.toString()), pos);
+				phrase.add(new Term(fld, t.toString()), pos - 1);
 			}
 			// End-of-stream clean-up
 			ts.end();
