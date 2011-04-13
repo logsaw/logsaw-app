@@ -16,6 +16,8 @@ import net.sf.logsaw.index.IndexPlugin;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.LogByteSizeMergePolicy;
+import org.apache.lucene.index.LogMergePolicy;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
@@ -50,8 +52,11 @@ public abstract class ARunWithIndexWriter<T> {
 		IndexWriter writer = null;
 		try {
 			Directory dir = FSDirectory.open(IndexPlugin.getDefault().getIndexFile(log));
+			LogMergePolicy mp = new LogByteSizeMergePolicy();
+			mp.setMergeFactor(30);
 			IndexWriterConfig cfg = new IndexWriterConfig(matchVersion, analyzer);
 			cfg.setMaxBufferedDocs(1000);
+			cfg.setMergePolicy(mp);
 			writer = new IndexWriter(dir, cfg);
 			try {
 				return doRunWithIndexWriter(writer, log);
