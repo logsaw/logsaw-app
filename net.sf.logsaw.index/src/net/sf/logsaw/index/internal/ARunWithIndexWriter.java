@@ -15,8 +15,12 @@ import net.sf.logsaw.index.IndexPlugin;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.LogByteSizeMergePolicy;
+import org.apache.lucene.index.LogMergePolicy;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.Version;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -38,18 +42,22 @@ public abstract class ARunWithIndexWriter<T> {
 	 * Opens a Lucene index writer, executes the callback method and then closes the writer.
 	 * @param log the log resource, may be <code>null</code>
 	 * @param analyzer the Lucene analyzer to set on the index writer
+	 * @param matchVersion the Lucene match version
 	 * @return any object or <code>null</code>
 	 * @throws CoreException if an <strong>expected</strong> error occurred
 	 */
-	protected final T runWithIndexWriter(ILogResource log, Analyzer analyzer) throws CoreException {
+	protected final T runWithIndexWriter(ILogResource log, Analyzer analyzer, 
+			Version matchVersion) throws CoreException {
 		logger.info("Opening index writer for '" + log.getName() + "'..."); //$NON-NLS-1$ //$NON-NLS-2$
 		IndexWriter writer = null;
 		try {
 			Directory dir = FSDirectory.open(IndexPlugin.getDefault().getIndexFile(log));
-			writer = new IndexWriter(dir, analyzer, 
-					IndexWriter.MaxFieldLength.LIMITED);
-			writer.setMaxBufferedDocs(1000);
-			writer.setMergeFactor(30);
+			LogMergePolicy mp = new LogByteSizeMergePolicy();
+			mp.setMergeFactor(30);
+			IndexWriterConfig cfg = new IndexWriterConfig(matchVersion, analyzer);
+			cfg.setMaxBufferedDocs(1000);
+			cfg.setMergePolicy(mp);
+			writer = new IndexWriter(dir, cfg);
 			try {
 				return doRunWithIndexWriter(writer, log);
 			} finally {
