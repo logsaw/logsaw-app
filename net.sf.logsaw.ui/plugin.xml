@@ -223,7 +223,7 @@
           commandId="org.eclipse.ui.edit.copy">
        <activeWhen>
           <with
-                variable="activeEditorId">
+                variable="activePartId">
              <equals
                    value="net.sf.logsaw.ui.editors.LogViewEditor">
              </equals>
