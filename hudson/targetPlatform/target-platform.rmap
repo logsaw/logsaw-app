@@ -7,17 +7,9 @@
 	<searchPath name="eclipse">
 		<provider readerType="p2" componentTypes="osgi.bundle,eclipse.feature"
 			mutable="false" source="false">
-			<uri format="http://download.eclipse.org/eclipse/updates/3.6?importType=binary" />
+			<uri format="http://download.eclipse.org/eclipse/updates/3.7?importType=binary" />
 		</provider>
 	</searchPath>
 
-	<searchPath name="helios">
-		<provider readerType="p2" componentTypes="osgi.bundle,eclipse.feature"
-			mutable="false" source="false">
-			<uri format="http://download.eclipse.org/releases/helios?importType=binary" />
-		</provider>
-	</searchPath>
-
-	<locator searchPathRef="eclipse" failOnError="false" />
-	<locator searchPathRef="helios" />
+	<locator searchPathRef="eclipse" />
 </rmap>

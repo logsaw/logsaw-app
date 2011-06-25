@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target includeMode="feature" name="LogSaw">
+<target includeMode="feature" name="LogSaw" sequenceNumber="3">
 <locations>
-<location includeAllPlatforms="true" includeMode="slicer" type="InstallableUnit">
-<unit id="org.eclipse.equinox.executable.feature.group" version="3.4.2.R36x_v20110125-7N7K7bF8zk1BAKMh0iz0t94miBLY"/>
-<unit id="org.eclipse.platform.feature.group" version="3.6.2.r362_v20110210-9gF78Gs1FrIGnHDHWkEcopoN8AmxeZflGDGKQi"/>
-<unit id="org.eclipse.platform.source.feature.group" version="3.6.2.r362_v20110210-9gF78Gs1FrIGnHDHWkEcopoN8AmxeZflGDGKQi"/>
-<repository location="http://download.eclipse.org/eclipse/updates/3.6"/>
+<location includeAllPlatforms="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.equinox.executable.feature.group" version="3.5.0.v20110530-7P7NFUFFLWUl76mart"/>
+<unit id="org.eclipse.platform.feature.group" version="3.7.0.v20110530-9gF7UHNFFt4cwE-pkZDJ7oz-mj4OSEIlu9SEv0f"/>
+<unit id="org.eclipse.platform.source.feature.group" version="3.7.0.v20110530-9gF7UHNFFt4cwE-pkZDJ7oz-mj4OSEIlu9SEv0f"/>
+<repository location="http://download.eclipse.org/eclipse/updates/3.7"/>
 </location>
-<location includeAllPlatforms="true" includeMode="slicer" type="InstallableUnit">
-<unit id="org.eclipse.pde.junit.runtime.addon.feature.group" version="1.0.0.v20100831"/>
-<repository location="http://download.eclipse.org/releases/helios"/>
+<location includeAllPlatforms="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.pde.junit.runtime.addon.feature.group" version="1.0.100.v20110331-7C7GDHAkHgHr9v0L4DF585202816"/>
+<repository location="http://download.eclipse.org/eclipse/updates/3.7"/>
 </location>
 <location path="${project_loc:/resources}/plugins" type="Directory"/>
 </locations>

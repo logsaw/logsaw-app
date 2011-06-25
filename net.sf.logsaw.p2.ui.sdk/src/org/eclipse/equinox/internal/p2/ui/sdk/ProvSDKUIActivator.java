@@ -104,7 +104,7 @@ public class ProvSDKUIActivator extends AbstractUIPlugin {
 		return ProvisioningUI.getDefaultUI();
 	}
 
-	private Policy getPolicy() {
+	Policy getPolicy() {
 		return getProvisioningUI().getPolicy();
 	}
 
@@ -145,7 +145,7 @@ public class ProvSDKUIActivator extends AbstractUIPlugin {
 	}
 
 	private IAgentLocation getAgentLocation() {
-		ServiceReference ref = getContext().getServiceReference(IAgentLocation.SERVICE_NAME);
+		ServiceReference<?> ref = getContext().getServiceReference(IAgentLocation.SERVICE_NAME);
 		if (ref == null)
 			return null;
 		IAgentLocation location = (IAgentLocation) getContext().getService(ref);
