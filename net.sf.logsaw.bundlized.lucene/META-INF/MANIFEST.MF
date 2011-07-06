@@ -2,10 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Apache Lucene
 Bundle-SymbolicName: net.sf.logsaw.bundlized.lucene;singleton:=true
-Bundle-Version: 3.2.0
+Bundle-Version: 3.3.0
 Bundle-Vendor: LogSaw project
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ClassPath: lucene-core-3.2.0.jar,
+Bundle-ClassPath: lucene-core-3.3.0.jar,
  .
 Export-Package: org.apache.lucene,
  org.apache.lucene.analysis,
