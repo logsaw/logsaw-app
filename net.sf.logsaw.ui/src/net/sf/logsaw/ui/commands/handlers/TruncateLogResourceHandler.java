@@ -40,6 +40,7 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.services.IEvaluationService;
 
 /**
  * This handler truncates one or more selected log resources.
@@ -93,13 +94,19 @@ public class TruncateLogResourceHandler extends AbstractHandler {
 								(ILogViewEditor) editorPart.getAdapter(ILogViewEditor.class) : null;
 						if (editor != null) {
 							editor.clearQueryContext();
-							editor.refresh();
+							editor.goToPage(1);
 						}
 					}
 				} catch (CoreException e) {
 					statuses.add(e.getStatus());
 				}
 			}
+			
+			// Request re-evaluation
+			IEvaluationService service = 
+				(IEvaluationService) window.getService(IEvaluationService.class);
+			service.requestEvaluation("net.sf.logsaw.ui.expressions.logViewEditor.isPreviousPageAllowed"); //$NON-NLS-1$
+			service.requestEvaluation("net.sf.logsaw.ui.expressions.logViewEditor.isNextPageAllowed"); //$NON-NLS-1$
 			
 			if (!statuses.isEmpty()) {
 				IStatus multiStatus = new MultiStatus(UIPlugin.PLUGIN_ID, 
