@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target includeMode="feature" name="LogSaw" sequenceNumber="3">
+<target includeMode="feature" name="LogSaw" sequenceNumber="4">
 <locations>
 <location includeAllPlatforms="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.equinox.executable.feature.group" version="3.5.0.v20110530-7P7NFUFFLWUl76mart"/>
-<unit id="org.eclipse.platform.feature.group" version="3.7.0.v20110530-9gF7UHNFFt4cwE-pkZDJ7oz-mj4OSEIlu9SEv0f"/>
-<unit id="org.eclipse.platform.source.feature.group" version="3.7.0.v20110530-9gF7UHNFFt4cwE-pkZDJ7oz-mj4OSEIlu9SEv0f"/>
+<unit id="org.eclipse.platform.feature.group" version="3.7.1.r37x_v20110729-9gF7UHOxFtniV7mI3T556iZN9AU8bEZ1lHMcVK"/>
+<unit id="org.eclipse.platform.source.feature.group" version="3.7.1.r37x_v20110729-9gF7UHOxFtniV7mI3T556iZN9AU8bEZ1lHMcVK"/>
 <repository location="http://download.eclipse.org/eclipse/updates/3.7"/>
 </location>
 <location includeAllPlatforms="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
