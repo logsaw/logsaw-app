@@ -2,14 +2,15 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Apache Lucene
 Bundle-SymbolicName: net.sf.logsaw.bundlized.lucene;singleton:=true
-Bundle-Version: 3.3.0
+Bundle-Version: 3.4.0
 Bundle-Vendor: LogSaw project
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ClassPath: lucene-core-3.3.0.jar,
+Bundle-ClassPath: lucene-core-3.4.0.jar,
  .
 Export-Package: org.apache.lucene,
  org.apache.lucene.analysis,
  org.apache.lucene.analysis.standard,
+ org.apache.lucene.analysis.standard.std31,
  org.apache.lucene.analysis.tokenattributes,
  org.apache.lucene.collation,
  org.apache.lucene.document,
@@ -21,5 +22,6 @@ Export-Package: org.apache.lucene,
  org.apache.lucene.search.payloads,
  org.apache.lucene.search.spans,
  org.apache.lucene.store,
- org.apache.lucene.util
+ org.apache.lucene.util,
+ org.apache.lucene.util.fst
 Bundle-ActivationPolicy: lazy
