@@ -36,6 +36,7 @@ public final class JBossDialect extends APatternDialect {
 	public static final String VERSION_4 = "4.x"; //$NON-NLS-1$
 	public static final String VERSION_5 = "5.x"; //$NON-NLS-1$
 	public static final String VERSION_6 = "6.x"; //$NON-NLS-1$
+	public static final String VERSION_7 = "7.x"; //$NON-NLS-1$
 
 	/* (non-Javadoc)
 	 * @see net.sf.logsaw.dialect.pattern.APatternDialect#configure(net.sf.logsaw.core.config.IConfigOption, java.lang.Object)
@@ -57,6 +58,9 @@ public final class JBossDialect extends APatternDialect {
 					} else if (value.equals(VERSION_5) || value.equals(VERSION_6)) {
 						// 6.x is actually not powered by Log4J, but the parser can read it nonetheless
 						configure(OPTION_PATTERN, "%d %-5p [%c] (%t) %m%n"); //$NON-NLS-1$
+					} else if (value.equals(VERSION_7)) {
+						// 7.x is actually not powered by Log4J, but the parser can read it nonetheless
+						configure(OPTION_PATTERN, "%d{HH:mm:ss,SSS} %-5p [%c] (%t) %m%n"); //$NON-NLS-1$
 					}
 				}
 			}

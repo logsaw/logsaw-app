@@ -26,7 +26,7 @@
             class="net.sf.logsaw.dialect.log4j.jboss.JBossDialectFactory"
             id="net.sf.logsaw.dialect.log4j.jboss.JBossDialect"
             name="JBoss Application Server">
-            <description>This dialect can parse plain text log files created by various versions of JBoss Application Server. Defaults to JBoss 4.x.</description>
+            <description>This dialect can parse plain text log files created by various versions of JBoss Application Server. Defaults to JBoss 7.x.</description>
       </dialectFactory>
    </extension>
    <extension

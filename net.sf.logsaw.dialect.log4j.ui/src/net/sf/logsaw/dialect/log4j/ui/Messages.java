@@ -19,6 +19,7 @@ public class Messages extends NLS {
 	public static String JBossDialectWizardPage_label_version4x;
 	public static String JBossDialectWizardPage_label_version5x;
 	public static String JBossDialectWizardPage_label_version6x;
+	public static String JBossDialectWizardPage_label_version7x;
 	public static String JBossDialectWizardPage_title;
 	public static String Log4JPatternLayoutWizardPage_description;
 	public static String Log4JPatternLayoutWizardPage_label_pattern;

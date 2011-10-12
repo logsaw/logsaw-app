@@ -61,6 +61,8 @@ public class JBossDialectWizardPage extends WizardPage implements IConfigurableO
 			ver = JBossDialect.VERSION_5;
 		} else if (versionCombo.getSelectionIndex() == 2) {
 			ver = JBossDialect.VERSION_6;
+		} else if (versionCombo.getSelectionIndex() == 3) {
+			ver = JBossDialect.VERSION_7;
 		}
 		Assert.isNotNull(ver, "version"); //$NON-NLS-1$
 		configurableObject.configure(JBossDialect.OPTION_VERSION, ver);
@@ -81,10 +83,11 @@ public class JBossDialectWizardPage extends WizardPage implements IConfigurableO
 		String[] versions = new String[] {
 				Messages.JBossDialectWizardPage_label_version4x, 
 				Messages.JBossDialectWizardPage_label_version5x, 
-				Messages.JBossDialectWizardPage_label_version6x};
+				Messages.JBossDialectWizardPage_label_version6x, 
+				Messages.JBossDialectWizardPage_label_version7x};
 		
 		versionCombo.setItems(versions);
-		versionCombo.select(0);
+		versionCombo.select(versions.length - 1);
 		
 		setControl(root);
 	}
