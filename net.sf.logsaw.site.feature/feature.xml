@@ -116,14 +116,6 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="net.sf.logsaw.product.feature"
          version="0.0.0"/>
 
-   <includes
-         id="org.eclipse.equinox.executable"
-         version="0.0.0"/>
-
-   <includes
-         id="org.eclipse.pde.junit.runtime.addon"
-         version="0.0.0"/>
-
    <plugin
          id="net.sf.logsaw.tests"
          download-size="0"
