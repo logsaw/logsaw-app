@@ -41,7 +41,7 @@
          </property>
          <property
                name="aboutText"
-               value="LogSaw - a high-performance log viewer based on Eclipse&#x0A;&#x0A;Version: {0}&#x0A;Build Id: {1}&#x0A;&#x0A;Credits:&#x0A;Susanne Böhm&#x0A;Rainer Knörnschild&#x0A;Philipp Nanz&#x0A;&#x0A;(c) Copyright 2010 LogSaw project. All rights reserved.&#x0A;Visit http://logsaw.sourceforge.net/&#x0A;&#x0A;Powered by Eclipse http://www.eclipse.org/&#x0A;&#x0A;This product includes software developed by the&#x0A;Apache Software Foundation http://www.apache.org/">
+               value="LogSaw - a high-performance log viewer based on Eclipse&#x0A;&#x0A;Version: {0}&#x0A;Build Id: {1}&#x0A;&#x0A;Credits:&#x0A;Susanne Böhm&#x0A;Rainer Knörnschild&#x0A;Philipp Nanz&#x0A;&#x0A;(c) Copyright 2010, 2011 LogSaw project. All rights reserved.&#x0A;Visit http://logsaw.sourceforge.net/&#x0A;&#x0A;Powered by Eclipse http://www.eclipse.org/&#x0A;&#x0A;This product includes software developed by the&#x0A;Apache Software Foundation http://www.apache.org/">
          </property>
          <property
                name="preferenceCustomization"
