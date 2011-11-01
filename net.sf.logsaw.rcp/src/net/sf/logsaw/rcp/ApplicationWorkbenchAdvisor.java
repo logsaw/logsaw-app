@@ -10,6 +10,8 @@
  *******************************************************************************/
 package net.sf.logsaw.rcp;
 
+import net.sf.logsaw.ui.perspectives.DefaultPerspective;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
@@ -22,8 +24,6 @@ import org.eclipse.ui.statushandlers.StatusManager;
  * The workbench advisor.
  */
 public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
-
-	private static final String PERSPECTIVE_ID = "net.sf.logsaw.ui.perspectives.DefaultPerspective"; //$NON-NLS-1$
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.application.WorkbenchAdvisor#createWorkbenchWindowAdvisor(org.eclipse.ui.application.IWorkbenchWindowConfigurer)
@@ -59,6 +59,6 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 	 */
 	@Override
 	public String getInitialWindowPerspectiveId() {
-		return PERSPECTIVE_ID;
+		return DefaultPerspective.ID;
 	}
 }
