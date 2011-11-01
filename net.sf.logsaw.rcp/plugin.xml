@@ -75,7 +75,7 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:help?after=additions">
+            locationURI="menu:help?after=dynamicHelp">
          <menu
                label="%onlineHelpMenu.label">
             <command

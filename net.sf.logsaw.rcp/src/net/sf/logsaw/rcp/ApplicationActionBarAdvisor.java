@@ -183,6 +183,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 			helpMenu.add(showHelpAction);
 			helpMenu.add(searchHelpAction);
 			helpMenu.add(dynamicHelpAction);
+			helpMenu.add(new Separator());
 			helpMenu.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
 			helpMenu.add(new Separator());
 			helpMenu.add(aboutAction);
