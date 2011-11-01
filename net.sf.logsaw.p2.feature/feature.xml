@@ -12,7 +12,7 @@
 <feature
       id="net.sf.logsaw.p2.feature"
       label="LogSaw p2 Update Support Feature"
-      version="1.1.0.qualifier"
+      version="1.0.2.qualifier"
       provider-name="LogSaw project"
       plugin="net.sf.logsaw.p2">
 
