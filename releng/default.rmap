@@ -12,7 +12,6 @@
 				<bc:propertyRef key="buckminster.component" />
 			</uri>
 			<property key="git.remote.uri" value="git://github.com/logsaw/logsaw-app.git" />
-			<property key="git.remote.name" value="github" />
 			<property key="git.auto.fetch" value="true" />
 		</provider>
 	</searchPath>
