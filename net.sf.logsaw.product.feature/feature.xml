@@ -114,15 +114,15 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </license>
 
    <includes
-         id="net.sf.logsaw.p2.feature"
-         version="0.0.0"/>
-
-   <includes
          id="org.eclipse.help"
          version="0.0.0"/>
 
    <includes
          id="org.eclipse.rcp"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.equinox.p2.rcp.feature"
          version="0.0.0"/>
 
    <plugin

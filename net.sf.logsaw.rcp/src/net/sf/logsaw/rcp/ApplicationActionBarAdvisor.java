@@ -13,6 +13,7 @@ package net.sf.logsaw.rcp;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.IContributionManagerOverrides;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
@@ -20,10 +21,11 @@ import org.eclipse.jface.util.Util;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
-import org.eclipse.ui.actions.ContributionItemFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
+import org.eclipse.ui.actions.ContributionItemFactory;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
+import org.eclipse.ui.menus.CommandContributionItem;
 
 /**
  * An action bar advisor is responsible for creating, adding, and disposing of
@@ -112,7 +114,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 				IWorkbenchActionConstants.M_WINDOW);
 		menuBar.add(windowMenu);
 		{
-			MenuManager openViewMenu = new MenuManager(Messages.ApplicationActionBarAdvisor_menu_showView, "showView"); //$NON-NLS-2$
+			MenuManager openViewMenu = new MenuManager(Messages.ApplicationActionBarAdvisor_menu_showView, "showView"); //$NON-NLS-1$
 			openViewMenu.add(showViewItem);
 			windowMenu.add(newEditorAction);
 	        windowMenu.add(new Separator());
@@ -130,6 +132,52 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 		
 		MenuManager helpMenu = new MenuManager(Messages.ApplicationActionBarAdvisor_menu_help,
 				IWorkbenchActionConstants.M_HELP);
+		helpMenu.setOverrides(new IContributionManagerOverrides() {
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.action.IContributionManagerOverrides#getVisible(org.eclipse.jface.action.IContributionItem)
+			 */
+			@Override
+			public Boolean getVisible(IContributionItem item) {
+				if ((item instanceof CommandContributionItem) && 
+						((CommandContributionItem) item).getId().equals("org.eclipse.equinox.p2.ui.sdk.install")) {
+					// Hide the 'Install New Software' action
+					return Boolean.FALSE;
+				}
+				return null;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.action.IContributionManagerOverrides#getText(org.eclipse.jface.action.IContributionItem)
+			 */
+			@Override
+			public String getText(IContributionItem item) {
+				return null;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.action.IContributionManagerOverrides#getEnabled(org.eclipse.jface.action.IContributionItem)
+			 */
+			@Override
+			public Boolean getEnabled(IContributionItem item) {
+				return null;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.action.IContributionManagerOverrides#getAcceleratorText(org.eclipse.jface.action.IContributionItem)
+			 */
+			@Override
+			public String getAcceleratorText(IContributionItem item) {
+				return null;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org.eclipse.jface.action.IContributionManagerOverrides#getAccelerator(org.eclipse.jface.action.IContributionItem)
+			 */
+			@Override
+			public Integer getAccelerator(IContributionItem item) {
+				return null;
+			}
+		});
 		menuBar.add(helpMenu);
 		{
 			helpMenu.add(showHelpAction);

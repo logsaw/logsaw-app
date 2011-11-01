@@ -14,6 +14,8 @@ import net.sf.logsaw.ui.perspectives.DefaultPerspective;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.preference.PreferenceManager;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
@@ -60,5 +62,15 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 	@Override
 	public String getInitialWindowPerspectiveId() {
 		return DefaultPerspective.ID;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.application.WorkbenchAdvisor#postStartup()
+	 */
+	@Override
+	public void postStartup() {
+		// Remove the 'Available Software Sites' preference page
+		PreferenceManager pm = PlatformUI.getWorkbench().getPreferenceManager();
+		pm.remove("org.eclipse.equinox.internal.p2.ui.sdk.ProvisioningPreferencePage/org.eclipse.equinox.internal.p2.ui.sdk.SitesPreferencePage"); //$NON-NLS-1$
 	}
 }
