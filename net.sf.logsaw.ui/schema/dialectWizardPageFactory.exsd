@@ -17,9 +17,9 @@
          </appinfo>
       </annotation>
       <complexType>
-         <choice>
-            <element ref="dialectWizardPageFactory" minOccurs="1" maxOccurs="unbounded"/>
-         </choice>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="dialectWizardPageFactory"/>
+         </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
                <documentation>
