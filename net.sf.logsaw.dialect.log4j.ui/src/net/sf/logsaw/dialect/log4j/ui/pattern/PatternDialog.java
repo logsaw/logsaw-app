@@ -23,7 +23,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -56,21 +55,11 @@ public class PatternDialog extends Dialog {
 	 */
 	@Override
 	protected Control createDialogArea(Composite parent) {
-		Composite root = new Composite(parent, SWT.NONE);
-		GridLayout layout = new GridLayout();
-		layout.marginHeight = convertVerticalDLUsToPixels(IDialogConstants.VERTICAL_MARGIN);
-		layout.marginWidth = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_MARGIN);
-		layout.verticalSpacing = convertVerticalDLUsToPixels(IDialogConstants.VERTICAL_SPACING);
-		layout.horizontalSpacing = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_SPACING);
-		root.setLayout(layout);
-		root.setLayoutData(new GridData(GridData.FILL_BOTH));
+		Composite root = (Composite) super.createDialogArea(parent);
 		Label label = new Label(root, SWT.NONE);
 		label.setText(Messages.PatternDialog_label);
 		text = new Text(root, SWT.BORDER);
 		text.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false));
-		if (pattern != null) {
-			text.setText(pattern);
-		}
 		text.addModifyListener(new ModifyListener() {
 			
 			@Override
@@ -79,8 +68,19 @@ public class PatternDialog extends Dialog {
 			}
 		});
 		decoration = UIUtils.createErrorDecorator(text, ""); //$NON-NLS-1$
-		applyDialogFont(root);
+		
 		return root;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.Dialog#createButtonBar(org.eclipse.swt.widgets.Composite)
+	 */
+	@Override
+	protected Control createButtonBar(Composite parent) {
+		Control ctrl = super.createButtonBar(parent);
+		// Trigger validation
+		text.setText(pattern != null ? pattern : ""); //$NON-NLS-1$
+		return ctrl;
 	}
 
 	/* (non-Javadoc)
