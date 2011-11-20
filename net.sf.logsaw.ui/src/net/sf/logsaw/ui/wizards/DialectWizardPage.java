@@ -86,7 +86,8 @@ public class DialectWizardPage extends WizardPage {
 					setPageComplete(false);
 				} else {
 					ILogDialectFactory dialect = (ILogDialectFactory) sel.getFirstElement();
-					detailsText.setText(dialect.getDescription());
+					detailsText.setText(dialect.getDescription() != null ? 
+							dialect.getDescription() : ""); //$NON-NLS-1$
 					setPageComplete(true);
 				}
 			}
