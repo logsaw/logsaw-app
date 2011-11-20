@@ -91,4 +91,16 @@ public class JBossDialectWizardPage extends WizardPage implements IConfigurableO
 		
 		setControl(root);
 	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.dialogs.DialogPage#setVisible(boolean)
+	 */
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		if (visible) {
+			// Set focus
+			versionCombo.setFocus();
+		}
+	}
 }
