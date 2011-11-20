@@ -21,9 +21,14 @@ public class Messages extends NLS {
 	public static String JBossDialectWizardPage_label_version6x;
 	public static String JBossDialectWizardPage_label_version7x;
 	public static String JBossDialectWizardPage_title;
+	public static String Log4JPatternLayoutPreferencePage_label_add;
+	public static String Log4JPatternLayoutPreferencePage_label_edit;
+	public static String Log4JPatternLayoutPreferencePage_label_remove;
+	public static String Log4JPatternLayoutWizardPage_dec_contentAssistAvailable;
 	public static String Log4JPatternLayoutWizardPage_description;
 	public static String Log4JPatternLayoutWizardPage_label_pattern;
 	public static String Log4JPatternLayoutWizardPage_title;
+	public static String PatternDialog_label;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

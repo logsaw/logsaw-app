@@ -54,7 +54,8 @@ public class DefaultFilterClauseRenderer extends AFilterClauseRenderer {
 				validateInput();
 			}
 		});
-		valueDecoration = UIUtils.createDecorator(valueText, Messages.DefaultFilterClauseRenderer_error_invalidInput);
+		valueDecoration = UIUtils.createErrorDecorator(valueText, 
+				Messages.DefaultFilterClauseRenderer_error_invalidInput);
 	}
 
 	/* (non-Javadoc)

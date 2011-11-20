@@ -95,7 +95,8 @@ public class SimpleLogResourceWizardPage extends WizardPage implements ILogResou
 		label.setText(Messages.SimpleLogResourceWizardPage_label_file);
 		fileText = new Text(root, SWT.BORDER);
 		fileText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		fileDecoration = UIUtils.createDecorator(fileText, Messages.SimpleLogResourceWizardPage_error_selectFile);
+		fileDecoration = UIUtils.createErrorDecorator(fileText, 
+				Messages.SimpleLogResourceWizardPage_error_selectFile);
 		Button browseButton = new Button(root, SWT.PUSH);
 		browseButton.setText(Messages.SimpleLogResourceWizardPage_label_browse);
 		browseButton.addSelectionListener(new SelectionAdapter() {
@@ -134,7 +135,8 @@ public class SimpleLogResourceWizardPage extends WizardPage implements ILogResou
 		label.setText(Messages.SimpleLogResourceWizardPage_label_fileEncoding);
 		
 		encodingCombo = new Combo(group, SWT.BORDER);
-		encodingDecoration = UIUtils.createDecorator(encodingCombo, Messages.SimpleLogResourceWizardPage_error_specifyEncoding);
+		encodingDecoration = UIUtils.createErrorDecorator(encodingCombo, 
+				Messages.SimpleLogResourceWizardPage_error_specifyEncoding);
 		List<String> encodings = new ArrayList<String>();
 		encodings.add(WorkbenchEncoding.getWorkbenchDefaultEncoding());
 		for (Object obj : WorkbenchEncoding.getDefinedEncodings()) {
@@ -154,7 +156,8 @@ public class SimpleLogResourceWizardPage extends WizardPage implements ILogResou
 		label.setText(Messages.SimpleLogResourceWizardPage_label_locale);
 		
 		localeCombo = new Combo(group, SWT.BORDER);
-		localeDecoration = UIUtils.createDecorator(localeCombo, Messages.SimpleLogResourceWizardPage_error_specifyLocale);
+		localeDecoration = UIUtils.createErrorDecorator(localeCombo, 
+				Messages.SimpleLogResourceWizardPage_error_specifyLocale);
 		localeCombo.setItems(LocaleUtils.getLocaleIds());
 		localeCombo.select(0);
 		localeCombo.addModifyListener(new ModifyListener() {
@@ -169,7 +172,8 @@ public class SimpleLogResourceWizardPage extends WizardPage implements ILogResou
 		label.setText(Messages.SimpleLogResourceWizardPage_label_timeZone);
 		
 		timeZoneComboViewer = new ComboViewer(group, SWT.BORDER | SWT.READ_ONLY);
-		timeZoneDecoration = UIUtils.createDecorator(timeZoneComboViewer.getControl(), Messages.SimpleLogResourceWizardPage_error_specifyTimeZone);
+		timeZoneDecoration = UIUtils.createErrorDecorator(timeZoneComboViewer.getControl(), 
+				Messages.SimpleLogResourceWizardPage_error_specifyTimeZone);
 		WritableList model = new WritableList(Arrays.asList(UIUtils.getTimeZones()), TimeZone.class);
 		ViewerSupport.bind(timeZoneComboViewer, model, 
 				PojoProperties.values(new String[] {"displayName"})); //$NON-NLS-1$

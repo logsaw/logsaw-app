@@ -69,7 +69,7 @@ public class UIUtils {
 	 * @param message the message to show
 	 * @return the decorator
 	 */
-	public static ControlDecoration createDecorator(Control control, String message) {
+	public static ControlDecoration createErrorDecorator(Control control, String message) {
 		ControlDecoration controlDecoration = new ControlDecoration(control,
 				SWT.RIGHT | SWT.TOP);
 		controlDecoration.setDescriptionText(message);
@@ -77,6 +77,23 @@ public class UIUtils {
 				.getFieldDecoration(FieldDecorationRegistry.DEC_ERROR);
 		controlDecoration.setImage(fieldDecoration.getImage());
 		controlDecoration.hide();
+		return controlDecoration;
+	}
+
+	/**
+	 * Creates a content proposal decorator for the given control.
+	 * @param control the control to decorate
+	 * @param message the message to show
+	 * @return the decorator
+	 */
+	public static ControlDecoration createContentProposalDecorator(Control control, String message) {
+		ControlDecoration controlDecoration = new ControlDecoration(control,
+				SWT.LEFT | SWT.TOP);
+		controlDecoration.setDescriptionText(message);
+		FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault()
+				.getFieldDecoration(FieldDecorationRegistry.DEC_CONTENT_PROPOSAL);
+		controlDecoration.setImage(fieldDecoration.getImage());
+		controlDecoration.setShowOnlyOnFocus(false);
 		return controlDecoration;
 	}
 

@@ -11,7 +11,7 @@
  -->
 
 <plugin>
-   <extension-point id="dialectWizardPageFactory" name="LogSaw Dialect Wizard Page Factory" schema="schema/dialectWizardPageFactory.exsd"/>
+   <extension-point id="dialectWizardPageFactory" name="%DialectWizardPageFactory.name" schema="schema/dialectWizardPageFactory.exsd"/>
 	<extension point="org.eclipse.ui.perspectives">
 		<perspective name="%DefaultPerspective.name"
 			class="net.sf.logsaw.ui.perspectives.DefaultPerspective" id="net.sf.logsaw.ui.perspectives.DefaultPerspective" />
@@ -531,5 +531,13 @@
              type="org.eclipse.ui.IEditorInput">
        </adapter>
     </factory>
+ </extension>
+ <extension
+       point="org.eclipse.ui.preferencePages">
+    <page
+          class="net.sf.logsaw.ui.preferencePages.MainPreferencePage"
+          id="LogSawPreferencePage"
+          name="%MainPreferencePage.name">
+    </page>
  </extension>
 </plugin>

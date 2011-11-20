@@ -12,3 +12,4 @@ Require-Bundle: org.eclipse.ui,
  net.sf.logsaw.dialect.pattern
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
+Bundle-Activator: net.sf.logsaw.dialect.log4j.ui.Log4JDialectUIPlugin

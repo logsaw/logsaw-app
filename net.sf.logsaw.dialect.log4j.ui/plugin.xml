@@ -22,5 +22,14 @@
             dialect="net.sf.logsaw.dialect.log4j.pattern.Log4JPatternLayoutDialect">
       </dialectWizardPageFactory>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="LogSawPreferencePage"
+            class="net.sf.logsaw.dialect.log4j.ui.pattern.Log4JPatternLayoutPreferencePage"
+            id="Log4JPatternLayoutDialectPreferencePage"
+            name="%Log4JPatternLayoutDialectPreferencePage.name">
+      </page>
+   </extension>
 
 </plugin>
