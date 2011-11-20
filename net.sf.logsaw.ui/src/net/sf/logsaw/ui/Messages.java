@@ -67,6 +67,7 @@ public class Messages extends NLS {
 	public static String Generic_errorExecutingCommand;
 	public static String Generic_info_jobInProgress;
 	public static String GoToPageContribution_error_failedToExecuteCommand;
+	public static String MainPreferencePage_label;
 	public static String ResourcePropertyPage_label_config;
 	public static String ResourcePropertyPage_label_identifier;
 	public static String ResourcePropertyPage_label_indexSize;

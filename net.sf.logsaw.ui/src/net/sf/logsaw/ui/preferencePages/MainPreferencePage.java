@@ -10,6 +10,8 @@
  *******************************************************************************/
 package net.sf.logsaw.ui.preferencePages;
 
+import net.sf.logsaw.ui.Messages;
+
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
@@ -40,7 +42,7 @@ public class MainPreferencePage extends PreferencePage implements IWorkbenchPref
 		Composite root = new Composite(parent, SWT.NONE);
 		root.setLayout(new GridLayout());
 		Label label = new Label(root, SWT.NONE);
-		label.setText("Expand the tree to edit preferences for a specific feature.");
+		label.setText(Messages.MainPreferencePage_label);
 		return root;
 	}
 }
