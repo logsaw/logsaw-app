@@ -137,8 +137,9 @@ public class Log4JPatternLayoutWizardPage extends WizardPage implements IConfigu
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
 		if (visible) {
-			// Update decorator
+			// Update decorator and set focus
 			validateInput();
+			patternText.setFocus();
 		}
 	}
 
