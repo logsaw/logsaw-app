@@ -10,6 +10,6 @@
 	<cq:property key="target.ws" value="*" />
 
 	<!-- Force SCM update -->
-	<cq:advisorNode namePattern="net\.sf\.logsaw\..*" useMaterialization="false" 
-		useTargetPlatform="false" useWorkspace="false" branchTagPath="main"/>
+	<cq:advisorNode namePattern="net\.sf\.logsaw\..*" 
+		useTargetPlatform="false" useWorkspace="false" branchTagPath="main" />
 </cq:componentQuery>
