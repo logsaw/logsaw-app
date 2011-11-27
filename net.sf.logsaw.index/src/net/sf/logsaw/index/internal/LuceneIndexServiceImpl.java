@@ -252,6 +252,7 @@ public class LuceneIndexServiceImpl implements IIndexService {
 								SortField.FIELD_DOC});
 						TopFieldCollector collector = TopFieldCollector.create(
 								sort, offset + limit, false, false, false, true);
+						// TODO Investigate use of searchAfter
 						searcher.search(convertToQuery(restrictions), collector);
 						List<LogEntry> result = new LinkedList<LogEntry>();
 						collectHits(searcher, collector.topDocs(offset), log.getDialect(), result);
