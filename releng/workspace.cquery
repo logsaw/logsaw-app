@@ -10,6 +10,7 @@
 	<cq:property key="target.ws" value="*" />
 
 	<!-- Branch specifier -->
-	<cq:advisorNode namePattern="net\.sf\.logsaw\..*" branchTagPath="main" />
+	<cq:advisorNode namePattern="net\.sf\.logsaw\..*" branchTagPath="main" 
+		useMaterialization="false" useTargetPlatform="false" useWorkspace="false" />
 
 </cq:componentQuery>
