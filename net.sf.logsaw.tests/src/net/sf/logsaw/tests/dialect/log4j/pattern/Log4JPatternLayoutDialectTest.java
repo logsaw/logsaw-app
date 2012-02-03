@@ -207,6 +207,40 @@ public class Log4JPatternLayoutDialectTest extends ADialectTest {
 	}
 
 	@Test
+	public void testNoTimestamp() {
+		final List<LogEntry> list = new LinkedList<LogEntry>();
+		try {
+			loadLogFile("no-timestamp.log.txt");
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			APatternDialect dialect = (APatternDialect) getLogResource().getDialect();
+			ILogEntryCollector coll = new ALogEntryCollector(null) {
+
+				/* (non-Javadoc)
+				 * @see net.sf.logsaw.core.framework.support.ALogEntryCollector#doCollect(net.sf.logsaw.core.model.LogEntry)
+				 */
+				@Override
+				protected boolean doCollect(LogEntry entry) throws IOException {
+					list.add(entry);
+					return true;
+				}
+			};
+			dialect.configure(APatternDialect.OPTION_PATTERN, "%p %t %c - %m%n");
+			getLogResource().synchronize(coll, null);
+			assertEquals(15, list.size());
+			assertEquals(15, coll.getTotalCollected());
+			
+			assertEquals("INFO", list.get(12).get(Log4JFieldProvider.FIELD_LEVEL).getName());
+			assertEquals("org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor", list.get(12).get(Log4JFieldProvider.FIELD_LOGGER));
+			assertEquals("JSR-330 'javax.inject.Inject' annotation found and supported for autowiring", list.get(12).get(Log4JFieldProvider.FIELD_MESSAGE));
+			assertEquals("main", list.get(12).get(Log4JFieldProvider.FIELD_THREAD));
+			assertTrue(list.get(12).get(Log4JFieldProvider.FIELD_TIMESTAMP) == null);
+		} catch (Exception e) {
+			getLogger().error(e.getLocalizedMessage(), e);
+			fail("Exception should not occur: " + e.getLocalizedMessage());
+		}
+	}
+
+	@Test
 	public void testGetAllFields() {
 		APatternDialect dialect = (APatternDialect) createLogDialect();
 		try {
