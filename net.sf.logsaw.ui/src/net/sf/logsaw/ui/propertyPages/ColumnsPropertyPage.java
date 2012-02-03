@@ -194,21 +194,23 @@ public class ColumnsPropertyPage extends PropertyPage {
 	private void lockTimestampField() {
 		ILogResource log = (ILogResource) getElement().getAdapter(ILogResource.class);
 		final DateLogEntryField timestampFld = log.getDialect().getFieldProvider().getTimestampField();
-		tableViewer.setGrayed(timestampFld, true);
-		tableViewer.setChecked(timestampFld, true);
-		tableViewer.getTable().addListener(SWT.Selection, new Listener() {
-			/* (non-Javadoc)
-			 * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
-			 */
-			@Override
-			public void handleEvent(Event event) {
-				// Prevent uncheck
-				if ((event.detail == SWT.CHECK) && (event.item instanceof TableItem) && 
-						((TableItem) event.item).getData().equals(timestampFld)) {
-					((TableItem) event.item).setChecked(true);
+		if (timestampFld != null) {
+			tableViewer.setGrayed(timestampFld, true);
+			tableViewer.setChecked(timestampFld, true);
+			tableViewer.getTable().addListener(SWT.Selection, new Listener() {
+				/* (non-Javadoc)
+				 * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
+				 */
+				@Override
+				public void handleEvent(Event event) {
+					// Prevent uncheck
+					if ((event.detail == SWT.CHECK) && (event.item instanceof TableItem) && 
+							((TableItem) event.item).getData().equals(timestampFld)) {
+						((TableItem) event.item).setChecked(true);
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 
 	private void loadOrderAndCheckState() {

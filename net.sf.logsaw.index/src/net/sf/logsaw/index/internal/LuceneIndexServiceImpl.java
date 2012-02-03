@@ -247,9 +247,7 @@ public class LuceneIndexServiceImpl implements IIndexService {
 				try {
 					IndexSearcher searcher = new IndexSearcher(reader);
 					try {
-						Sort sort = new Sort(new SortField[] {
-								new SortField(log.getDialect().getFieldProvider().getTimestampField().getKey(), SortField.LONG), 
-								SortField.FIELD_DOC});
+						Sort sort = new Sort(new SortField[] {SortField.FIELD_DOC});
 						TopFieldCollector collector = TopFieldCollector.create(
 								sort, offset + limit, false, false, false, true);
 						// TODO Investigate use of searchAfter

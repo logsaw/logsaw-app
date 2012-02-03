@@ -66,9 +66,6 @@ public abstract class ALogDialect extends AConfigurableObject implements ILogDia
 		if (getFieldProvider() == null) {
 			getLogger().error("Field provider not set"); //$NON-NLS-1$
 			return false;
-		} else if (getFieldProvider().getTimestampField() == null) {
-			getLogger().error("Timestamp field not set"); //$NON-NLS-1$
-			return false;
 		}
 		return super.isConfigured();
 	}
