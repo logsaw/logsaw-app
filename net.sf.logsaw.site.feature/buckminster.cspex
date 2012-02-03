@@ -6,6 +6,8 @@
 			componentType="eclipse.feature" />
 		<dependency name="org.eclipse.pde.junit.runtime.addon"
 			componentType="eclipse.feature" />
+		<dependency name="net.sf.logsaw.tests"
+			componentType="osgi.bundle" />
 	</dependencies>
 	<actions>
 		<public name="create.product" actor="ant">
