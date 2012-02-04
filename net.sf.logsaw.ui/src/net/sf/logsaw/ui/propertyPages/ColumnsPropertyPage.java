@@ -15,7 +15,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.sf.logsaw.core.field.ALogEntryField;
-import net.sf.logsaw.core.field.model.DateLogEntryField;
 import net.sf.logsaw.core.logresource.ILogResource;
 import net.sf.logsaw.ui.Messages;
 import net.sf.logsaw.ui.editors.ILogViewEditor;
@@ -37,9 +36,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -149,7 +145,6 @@ public class ColumnsPropertyPage extends PropertyPage {
 		moveDownButton.setLayoutData(new GridData(SWT.FILL, SWT.NONE, false, false));
 		
 		tableViewer.setSelection(StructuredSelection.EMPTY);
-		lockTimestampField();
 		loadOrderAndCheckState();
 		
 		return root;
@@ -188,28 +183,6 @@ public class ColumnsPropertyPage extends PropertyPage {
 		// What's left in allFields is not contained in defaultFields
 		for (ALogEntryField<?, ?> fld : allFields) {
 			tableViewer.setChecked(fld, false);
-		}
-	}
-
-	private void lockTimestampField() {
-		ILogResource log = (ILogResource) getElement().getAdapter(ILogResource.class);
-		final DateLogEntryField timestampFld = log.getDialect().getFieldProvider().getTimestampField();
-		if (timestampFld != null) {
-			tableViewer.setGrayed(timestampFld, true);
-			tableViewer.setChecked(timestampFld, true);
-			tableViewer.getTable().addListener(SWT.Selection, new Listener() {
-				/* (non-Javadoc)
-				 * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
-				 */
-				@Override
-				public void handleEvent(Event event) {
-					// Prevent uncheck
-					if ((event.detail == SWT.CHECK) && (event.item instanceof TableItem) && 
-							((TableItem) event.item).getData().equals(timestampFld)) {
-						((TableItem) event.item).setChecked(true);
-					}
-				}
-			});
 		}
 	}
 
