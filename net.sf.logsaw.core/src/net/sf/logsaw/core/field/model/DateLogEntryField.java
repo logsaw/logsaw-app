@@ -18,6 +18,7 @@ import java.util.Date;
 import net.sf.logsaw.core.field.ALogEntryField;
 import net.sf.logsaw.core.field.ILogEntryFieldVisitor;
 import net.sf.logsaw.core.logresource.IHasTimeZone;
+import net.sf.logsaw.core.logresource.IHasTimestampPattern;
 import net.sf.logsaw.core.logresource.ILogResource;
 
 import org.eclipse.core.runtime.Assert;
@@ -56,12 +57,12 @@ public final class DateLogEntryField extends ALogEntryField<Long, Date> {
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.logsaw.core.model.ALogEntryField#isValidInput(java.lang.String)
+	 * @see net.sf.logsaw.core.field.ALogEntryField#isValidInput(java.lang.String, net.sf.logsaw.core.logresource.ILogResource)
 	 */
 	@Override
-	public boolean isValidInput(String str) {
+	public boolean isValidInput(String str, ILogResource log) {
 		try {
-			new SimpleDateFormat(utcDateFormatPattern).parse(str);
+			new SimpleDateFormat(getTimestampPattern(log)).parse(str);
 			return true;
 		} catch (ParseException e) {
 			return false;
@@ -74,7 +75,7 @@ public final class DateLogEntryField extends ALogEntryField<Long, Date> {
 	@Override
 	public Date fromInputValue(String str, ILogResource log) {
 		try {
-			DateFormat df = new SimpleDateFormat(utcDateFormatPattern);
+			DateFormat df = new SimpleDateFormat(getTimestampPattern(log));
 			IHasTimeZone tz = (IHasTimeZone) log.getAdapter(IHasTimeZone.class);
 			if (tz != null) {
 				// Apply TZ from source
@@ -91,7 +92,7 @@ public final class DateLogEntryField extends ALogEntryField<Long, Date> {
 	 */
 	@Override
 	public String toInputValue(Date obj, ILogResource log) {
-		DateFormat df = new SimpleDateFormat(utcDateFormatPattern);
+		DateFormat df = new SimpleDateFormat(getTimestampPattern(log));
 		IHasTimeZone tz = (IHasTimeZone) log.getAdapter(IHasTimeZone.class);
 		if (tz != null) {
 			// Apply TZ from source
@@ -107,5 +108,14 @@ public final class DateLogEntryField extends ALogEntryField<Long, Date> {
 	public void visit(ILogEntryFieldVisitor visitor) {
 		Assert.isNotNull(visitor, "visitor"); //$NON-NLS-1$
 		visitor.visit(this);
+	}
+
+	private String getTimestampPattern(ILogResource log) {
+		IHasTimestampPattern  hasPattern = (IHasTimestampPattern) log.getDialect().getAdapter(IHasTimestampPattern.class);
+		if ((hasPattern != null) && (hasPattern.getTimestampPattern() != null)) {
+			// Use pattern from source
+			return hasPattern.getTimestampPattern();
+		}
+		return utcDateFormatPattern;
 	}
 }

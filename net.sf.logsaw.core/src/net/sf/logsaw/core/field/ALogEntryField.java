@@ -80,9 +80,10 @@ public abstract class ALogEntryField<IT, VT> {
 	 * for this log entry field.
 	 * 
 	 * @param str the <code>String</code> to validate
+	 * @param log the log resource
 	 * @return <code>true</code> if valid
 	 */
-	public abstract boolean isValidInput(String str);
+	public abstract boolean isValidInput(String str, ILogResource log);
 
 	/**
 	 * Converts the given <code>String</code> that was input in the UI  

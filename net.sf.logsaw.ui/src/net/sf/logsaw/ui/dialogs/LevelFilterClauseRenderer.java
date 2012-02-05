@@ -15,6 +15,7 @@ import java.util.List;
 
 import net.sf.logsaw.core.field.Level;
 import net.sf.logsaw.core.field.model.LevelLogEntryField;
+import net.sf.logsaw.core.logresource.ILogResource;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.SWT;
@@ -34,9 +35,10 @@ public class LevelFilterClauseRenderer extends AFilterClauseRenderer {
 	/**
 	 * Constructor.
 	 * @param field the field
+	 * @param log the log resource
 	 */
-	public LevelFilterClauseRenderer(LevelLogEntryField field) {
-		super(field);
+	public LevelFilterClauseRenderer(LevelLogEntryField field, ILogResource log) {
+		super(field, log);
 		this.levelField = field;
 	}
 
@@ -101,7 +103,7 @@ public class LevelFilterClauseRenderer extends AFilterClauseRenderer {
 	 */
 	@Override
 	public void validateInput() {
-		if (getField().isValidInput(getValue())) {
+		if (getField().isValidInput(getValue(), getLogResource())) {
 			// Ok
 			setValid(true);
 			fireInputChanged(true);

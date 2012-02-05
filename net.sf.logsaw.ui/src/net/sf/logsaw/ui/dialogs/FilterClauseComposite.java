@@ -135,7 +135,7 @@ public class FilterClauseComposite extends Composite {
 			 */
 			@Override
 			public void visit(DateLogEntryField fld) {
-				renderer = new DefaultFilterClauseRenderer(fld);
+				renderer = new DefaultFilterClauseRenderer(fld, log);
 				renderer.createControl(FilterClauseComposite.this);
 			}
 
@@ -144,7 +144,7 @@ public class FilterClauseComposite extends Composite {
 			 */
 			@Override
 			public void visit(LevelLogEntryField fld) {
-				renderer = new LevelFilterClauseRenderer(fld);
+				renderer = new LevelFilterClauseRenderer(fld, log);
 				renderer.createControl(FilterClauseComposite.this);
 			}
 
@@ -153,7 +153,7 @@ public class FilterClauseComposite extends Composite {
 			 */
 			@Override
 			public void visit(StringLogEntryField fld) {
-				renderer = new DefaultFilterClauseRenderer(fld);
+				renderer = new DefaultFilterClauseRenderer(fld, log);
 				renderer.createControl(FilterClauseComposite.this);
 			}
 		};

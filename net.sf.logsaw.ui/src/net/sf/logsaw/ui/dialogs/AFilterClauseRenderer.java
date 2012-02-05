@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.logsaw.core.field.ALogEntryField;
+import net.sf.logsaw.core.logresource.ILogResource;
 
 import org.eclipse.core.runtime.Assert;
 
@@ -23,6 +24,7 @@ import org.eclipse.core.runtime.Assert;
 public abstract class AFilterClauseRenderer implements IFilterClauseRenderer {
 
 	private boolean valid;
+	private ILogResource log;
 	private ALogEntryField<?, ?> field;
 	private List<IFilterClauseListener> listeners = 
 		new ArrayList<IFilterClauseListener>();
@@ -30,10 +32,13 @@ public abstract class AFilterClauseRenderer implements IFilterClauseRenderer {
 	/**
 	 * Constructor.
 	 * @param field the field
+	 * @param log the log resource
 	 */
-	public AFilterClauseRenderer(ALogEntryField<?, ?> field) {
+	public AFilterClauseRenderer(ALogEntryField<?, ?> field, ILogResource log) {
 		Assert.isNotNull(field, "field"); //$NON-NLS-1$
+		Assert.isNotNull(log, "log"); //$NON-NLS-1$
 		this.field = field;
+		this.log = log;
 	}
 
 	/**
@@ -85,5 +90,12 @@ public abstract class AFilterClauseRenderer implements IFilterClauseRenderer {
 	 */
 	protected ALogEntryField<?, ?> getField() {
 		return field;
+	}
+
+	/**
+	 * @return the log
+	 */
+	public ILogResource getLogResource() {
+		return log;
 	}
 }

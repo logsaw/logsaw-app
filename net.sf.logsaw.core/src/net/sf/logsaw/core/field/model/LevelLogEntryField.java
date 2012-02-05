@@ -68,10 +68,10 @@ public final class LevelLogEntryField extends ALogEntryField<Integer, Level> {
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.logsaw.core.model.ALogEntryField#isValidInput(java.lang.String)
+	 * @see net.sf.logsaw.core.field.ALogEntryField#isValidInput(java.lang.String, net.sf.logsaw.core.logresource.ILogResource)
 	 */
 	@Override
-	public boolean isValidInput(String str) {
+	public boolean isValidInput(String str, ILogResource log) {
 		return levelProvider.findLevel(str).getValue() != ILogLevelProvider.ID_LEVEL_UNKNOWN;
 	}
 

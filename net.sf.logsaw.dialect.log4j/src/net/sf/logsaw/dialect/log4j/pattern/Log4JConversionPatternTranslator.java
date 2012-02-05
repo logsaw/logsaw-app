@@ -28,6 +28,7 @@ import net.sf.logsaw.core.field.LogEntry;
 import net.sf.logsaw.dialect.log4j.Log4JDialectPlugin;
 import net.sf.logsaw.dialect.log4j.Log4JFieldProvider;
 import net.sf.logsaw.dialect.log4j.internal.Messages;
+import net.sf.logsaw.dialect.pattern.APatternDialect;
 import net.sf.logsaw.dialect.pattern.ConversionRule;
 import net.sf.logsaw.dialect.pattern.IConversionPatternTranslator;
 import net.sf.logsaw.dialect.pattern.RegexUtils;
@@ -134,10 +135,10 @@ public final class Log4JConversionPatternTranslator implements IConversionPatter
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.logsaw.dialect.pattern.IConversionPatternTranslator#applyDefaults(net.sf.logsaw.dialect.pattern.ConversionRule)
+	 * @see net.sf.logsaw.dialect.pattern.IConversionPatternTranslator#applyDefaults(net.sf.logsaw.dialect.pattern.ConversionRule, net.sf.logsaw.dialect.pattern.APatternDialect)
 	 */
 	@Override
-	public void applyDefaults(ConversionRule rule) throws CoreException {
+	public void applyDefaults(ConversionRule rule, APatternDialect dialect) throws CoreException {
 		if (rule.getPlaceholderName().equals("d") && (rule.getModifier() == null)) { //$NON-NLS-1$
 			// ISO8601 is the default
 			rule.setModifier("ISO8601"); //$NON-NLS-1$
@@ -145,10 +146,10 @@ public final class Log4JConversionPatternTranslator implements IConversionPatter
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.logsaw.dialect.pattern.IConversionPatternTranslator#rewrite(net.sf.logsaw.dialect.pattern.ConversionRule)
+	 * @see net.sf.logsaw.dialect.pattern.IConversionPatternTranslator#rewrite(net.sf.logsaw.dialect.pattern.ConversionRule, net.sf.logsaw.dialect.pattern.APatternDialect)
 	 */
 	@Override
-	public void rewrite(ConversionRule rule) throws CoreException {
+	public void rewrite(ConversionRule rule, APatternDialect dialect) throws CoreException {
 		if (rule.getPlaceholderName().equals("d")) { //$NON-NLS-1$
 			if (rule.getModifier().equals("ABSOLUTE")) { //$NON-NLS-1$
 				rule.setModifier("HH:mm:ss,SSS"); //$NON-NLS-1$
@@ -160,6 +161,7 @@ public final class Log4JConversionPatternTranslator implements IConversionPatter
 			try {
 				// Cache date format
 				rule.putProperty(PROP_DATEFORMAT, new SimpleDateFormat(rule.getModifier()));
+				dialect.configure(APatternDialect.OPTION_TIMESTAMP_PATTERN, rule.getModifier());
 			} catch (IllegalArgumentException e) {
 				throw new CoreException(new Status(IStatus.ERROR, Log4JDialectPlugin.PLUGIN_ID, 
 						NLS.bind(Messages.Log4JConversionRuleTranslator_error_dataFormatNotSupported, rule.getModifier())));

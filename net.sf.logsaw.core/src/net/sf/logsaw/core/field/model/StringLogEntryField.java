@@ -59,10 +59,10 @@ public final class StringLogEntryField extends ALogEntryField<String, String> {
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.logsaw.core.model.ALogEntryField#isValidInput(java.lang.String)
+	 * @see net.sf.logsaw.core.field.ALogEntryField#isValidInput(java.lang.String, net.sf.logsaw.core.logresource.ILogResource)
 	 */
 	@Override
-	public boolean isValidInput(String str) {
+	public boolean isValidInput(String str, ILogResource log) {
 		return str.trim().length() > 0;
 	}
 

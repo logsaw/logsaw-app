@@ -28,14 +28,16 @@ import org.eclipse.core.runtime.CoreException;
 public interface IConversionPatternTranslator {
 
 	/**
-	 * Applies the specified locale to the given as provided by the log resource.
+	 * Applies the specified locale to the given rules, as provided by 
+	 * the log resource.
 	 * @param loc the locale
 	 * @param rules the rules
 	 */
 	void applyLocale(Locale loc, List<ConversionRule> rules);
 
 	/**
-	 * Applies the specified timezone to the given as provided by the log resource.
+	 * Applies the specified timezone to the given rules, as provided by 
+	 * the log resource.
 	 * @param tw the timezone
 	 * @param rules the rules
 	 */
@@ -60,16 +62,18 @@ public interface IConversionPatternTranslator {
 	/**
 	 * Applies defaults to the given rule.
 	 * @param rule the conversion rule
+	 * @param dialect the log dialect
 	 * @throws CoreException if an error occurred
 	 */
-	void applyDefaults(ConversionRule rule) throws CoreException;
+	void applyDefaults(ConversionRule rule, APatternDialect dialect) throws CoreException;
 
 	/**
 	 * Rewrites the given rule
 	 * @param rule the conversion rule
+	 * @param dialect the log dialect
 	 * @throws CoreException if an error occurred
 	 */
-	void rewrite(ConversionRule rule) throws CoreException;
+	void rewrite(ConversionRule rule, APatternDialect dialect) throws CoreException;
 
 	/**
 	 * Returns the Regex pattern matching the given rule.

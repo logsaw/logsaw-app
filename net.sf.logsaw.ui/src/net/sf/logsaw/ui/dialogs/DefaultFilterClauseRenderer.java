@@ -11,6 +11,7 @@
 package net.sf.logsaw.ui.dialogs;
 
 import net.sf.logsaw.core.field.ALogEntryField;
+import net.sf.logsaw.core.logresource.ILogResource;
 import net.sf.logsaw.ui.Messages;
 import net.sf.logsaw.ui.util.UIUtils;
 
@@ -35,9 +36,10 @@ public class DefaultFilterClauseRenderer extends AFilterClauseRenderer {
 	/**
 	 * Constructor.
 	 * @param field the field
+	 * @param log the log resource
 	 */
-	public DefaultFilterClauseRenderer(ALogEntryField<?, ?> field) {
-		super(field);
+	public DefaultFilterClauseRenderer(ALogEntryField<?, ?> field, ILogResource log) {
+		super(field, log);
 	}
 
 	/* (non-Javadoc)
@@ -106,7 +108,7 @@ public class DefaultFilterClauseRenderer extends AFilterClauseRenderer {
 	 */
 	@Override
 	public void validateInput() {
-		if (getField().isValidInput(getValue())) {
+		if (getField().isValidInput(getValue(), getLogResource())) {
 			// Ok
 			setValid(true);
 			valueDecoration.hide();

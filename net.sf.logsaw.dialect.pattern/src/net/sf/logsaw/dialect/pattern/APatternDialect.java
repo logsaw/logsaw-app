@@ -32,6 +32,7 @@ import net.sf.logsaw.core.field.LogEntry;
 import net.sf.logsaw.core.logresource.IHasEncoding;
 import net.sf.logsaw.core.logresource.IHasLocale;
 import net.sf.logsaw.core.logresource.IHasTimeZone;
+import net.sf.logsaw.core.logresource.IHasTimestampPattern;
 import net.sf.logsaw.core.logresource.ILogResource;
 import net.sf.logsaw.dialect.pattern.internal.Messages;
 
@@ -47,7 +48,7 @@ import org.eclipse.osgi.util.NLS;
 /**
  * @author Philipp Nanz
  */
-public abstract class APatternDialect extends ALogDialect {
+public abstract class APatternDialect extends ALogDialect implements IHasTimestampPattern {
 
 	public static final StringConfigOption OPTION_PATTERN = 
 		new StringConfigOption("pattern", "Conversion Pattern"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -56,6 +57,7 @@ public abstract class APatternDialect extends ALogDialect {
 	private ILogFieldProvider fieldProvider;
 	private List<ConversionRule> rules;
 	private Pattern internalPattern;
+	private String timestampPattern;
 
 	/**
 	 * @return the patternTranslator
@@ -113,6 +115,14 @@ public abstract class APatternDialect extends ALogDialect {
 	 */
 	public void setFieldProvider(ILogFieldProvider fieldProvider) {
 		this.fieldProvider = fieldProvider;
+	}
+
+	/* (non-Javadoc)
+	 * @see net.sf.logsaw.core.logresource.IHasTimestampPattern#getTimestampPattern()
+	 */
+	@Override
+	public String getTimestampPattern() {
+		return timestampPattern;
 	}
 
 	/**
@@ -224,7 +234,10 @@ public abstract class APatternDialect extends ALogDialect {
 			 */
 			@Override
 			public void visit(StringConfigOption opt, String value) throws CoreException {
-				if (OPTION_PATTERN.equals(opt)) {
+				if (OPTION_TIMESTAMP_PATTERN.equals(opt)) {
+					Assert.isNotNull(value, "timestampPattern"); //$NON-NLS-1$
+					timestampPattern = value;
+				} else if (OPTION_PATTERN.equals(opt)) {
 					Assert.isNotNull(value, "externalPattern"); //$NON-NLS-1$
 					getLogger().info("Configuring conversion pattern " + value); //$NON-NLS-1$
 					
@@ -244,9 +257,9 @@ public abstract class APatternDialect extends ALogDialect {
 					}
 					for (ConversionRule rule : rules) {
 						// Apply default modifiers
-						translator.applyDefaults(rule);
+						translator.applyDefaults(rule, APatternDialect.this);
 						// Rewrite rules
-						translator.rewrite(rule);
+						translator.rewrite(rule, APatternDialect.this);
 					}
 					setRules(rules);
 					
@@ -302,9 +315,9 @@ public abstract class APatternDialect extends ALogDialect {
 					}
 					for (ConversionRule rule : rules) {
 						// Apply default modifiers
-						translator.applyDefaults(rule);
+						translator.applyDefaults(rule, APatternDialect.this);
 						// Rewrite rules
-						translator.rewrite(rule);
+						translator.rewrite(rule, APatternDialect.this);
 					}
 					
 					// Convert rules to Regex (internal) pattern

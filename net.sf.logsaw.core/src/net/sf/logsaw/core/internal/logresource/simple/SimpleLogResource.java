@@ -46,7 +46,8 @@ import org.eclipse.osgi.util.NLS;
  * 
  * @author Philipp Nanz
  */
-public final class SimpleLogResource extends ALogResource implements IHasEncoding, IHasLocale, IHasTimeZone {
+public final class SimpleLogResource extends ALogResource implements IHasEncoding, 
+IHasLocale, IHasTimeZone {
 
 	private String encoding;
 	private Locale locale;
@@ -54,7 +55,7 @@ public final class SimpleLogResource extends ALogResource implements IHasEncodin
 	private TimeZone timeZone;
 
 	/* (non-Javadoc)
-	 * @see net.sf.logsaw.core.framework.ILogResource#synchronize(net.sf.logsaw.core.framework.ILogEntryCollector, org.eclipse.core.runtime.IProgressMonitor)
+	 * @see net.sf.logsaw.core.logresource.ILogResource#synchronize(net.sf.logsaw.core.dialect.ILogEntryCollector, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
 	public void synchronize(ILogEntryCollector collector,
@@ -83,7 +84,7 @@ public final class SimpleLogResource extends ALogResource implements IHasEncodin
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.logsaw.core.config.IConfigurableObject#getRequiredConfigOptions()
+	 * @see net.sf.logsaw.core.logresource.support.ALogResource#getRequiredConfigOptions()
 	 */
 	@Override
 	public List<IConfigOption<?>> getRequiredConfigOptions() {
@@ -96,14 +97,14 @@ public final class SimpleLogResource extends ALogResource implements IHasEncodin
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.logsaw.core.framework.support.AConfigurableObject#configure(net.sf.logsaw.core.config.IConfigOption, java.lang.Object)
+	 * @see net.sf.logsaw.core.config.support.AConfigurableObject#configure(net.sf.logsaw.core.config.IConfigOption, java.lang.Object)
 	 */
 	@Override
 	public <T> void configure(IConfigOption<T> option, T value)
 			throws CoreException {
 		option.visit(new IConfigOptionVisitor() {
 			/* (non-Javadoc)
-			 * @see net.sf.logsaw.core.config.IConfigOptionVisitor#visit(net.sf.logsaw.core.config.StringConfigOption, java.lang.String)
+			 * @see net.sf.logsaw.core.config.IConfigOptionVisitor#visit(net.sf.logsaw.core.config.model.StringConfigOption, java.lang.String)
 			 */
 			@Override
 			public void visit(StringConfigOption opt, String value)
@@ -128,7 +129,7 @@ public final class SimpleLogResource extends ALogResource implements IHasEncodin
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.logsaw.core.framework.IHasEncoding#getEncoding()
+	 * @see net.sf.logsaw.core.logresource.IHasEncoding#getEncoding()
 	 */
 	@Override
 	public String getEncoding() {
@@ -136,7 +137,7 @@ public final class SimpleLogResource extends ALogResource implements IHasEncodin
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.logsaw.core.framework.IHasLocale#getLocale()
+	 * @see net.sf.logsaw.core.logresource.IHasLocale#getLocale()
 	 */
 	@Override
 	public Locale getLocale() {
@@ -144,7 +145,7 @@ public final class SimpleLogResource extends ALogResource implements IHasEncodin
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.logsaw.core.framework.IHasTimeZone#getTimeZone()
+	 * @see net.sf.logsaw.core.logresource.IHasTimeZone#getTimeZone()
 	 */
 	@Override
 	public TimeZone getTimeZone() {
