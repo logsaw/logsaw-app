@@ -29,6 +29,7 @@ import net.sf.logsaw.core.field.LogEntryFieldVisitorAdapter;
 import net.sf.logsaw.core.field.model.DateLogEntryField;
 import net.sf.logsaw.core.field.model.LevelLogEntryField;
 import net.sf.logsaw.core.field.model.StringLogEntryField;
+import net.sf.logsaw.core.logresource.IHasTimestampPattern;
 import net.sf.logsaw.core.logresource.ILogResource;
 import net.sf.logsaw.core.query.IRestrictionVisitor;
 import net.sf.logsaw.core.query.Operators;
@@ -36,6 +37,7 @@ import net.sf.logsaw.core.query.model.DateRestriction;
 import net.sf.logsaw.core.query.model.LevelRestriction;
 import net.sf.logsaw.core.query.model.StringRestriction;
 import net.sf.logsaw.core.query.support.ARestriction;
+import net.sf.logsaw.core.util.DateFormatUtils;
 import net.sf.logsaw.index.IIndexService;
 import net.sf.logsaw.index.IQueryContext;
 import net.sf.logsaw.index.IndexPlugin;
@@ -294,6 +296,10 @@ public class LuceneIndexServiceImpl implements IIndexService {
 	 */
 
 	private Date getLatestEntryDate(ILogResource log) throws CoreException {
+		if (!hasDateComponent(log)) {
+			return null;
+		}
+		
 		ARunWithIndexReader<Date> runnable = new ARunWithIndexReader<Date>() {
 			
 			/* (non-Javadoc)
@@ -322,6 +328,15 @@ public class LuceneIndexServiceImpl implements IIndexService {
 			}
 		};
 		return runnable.runWithIndexReader(log);
+	}
+
+	private boolean hasDateComponent(ILogResource log) {
+		IHasTimestampPattern hasPattern = 
+				(IHasTimestampPattern) log.getDialect().getAdapter(IHasTimestampPattern.class);
+		if ((hasPattern != null) && (hasPattern.getTimestampPattern() != null)) {
+			return DateFormatUtils.hasDateComponent(hasPattern.getTimestampPattern());
+		}
+		return true;
 	}
 
 	private SynchronizationResult updateIndex(ILogResource log, final Date latestEntryDate, 
@@ -407,7 +422,13 @@ public class LuceneIndexServiceImpl implements IIndexService {
 					truncate(log, writer);
 					
 					collector.addMessage(new Status(IStatus.INFO, IndexPlugin.PLUGIN_ID, 
-							Messages.LuceneIndexService_info_autoTruncate));
+							Messages.LuceneIndexService_info_autoTruncate_noTimestampField));
+				} else if (!hasDateComponent(log)) {
+					// The date format only contains time components, so perform truncate to avoid duplicates
+					truncate(log, writer);
+					
+					collector.addMessage(new Status(IStatus.INFO, IndexPlugin.PLUGIN_ID, 
+							Messages.LuceneIndexService_info_autoTruncate_noDateComponent));
 				}
 				
 				// Perform synchronize
