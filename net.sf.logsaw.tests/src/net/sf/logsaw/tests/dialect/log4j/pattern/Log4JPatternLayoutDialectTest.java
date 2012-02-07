@@ -33,6 +33,9 @@ import net.sf.logsaw.core.logresource.simple.SimpleLogResourceFactory;
 import net.sf.logsaw.dialect.log4j.Log4JDialectPlugin;
 import net.sf.logsaw.dialect.log4j.Log4JFieldProvider;
 import net.sf.logsaw.dialect.pattern.APatternDialect;
+import net.sf.logsaw.index.IIndexService;
+import net.sf.logsaw.index.IndexPlugin;
+import net.sf.logsaw.index.SynchronizationResult;
 import net.sf.logsaw.tests.ADialectTest;
 
 import org.eclipse.core.runtime.AssertionFailedException;
@@ -234,6 +237,26 @@ public class Log4JPatternLayoutDialectTest extends ADialectTest {
 			assertEquals("JSR-330 'javax.inject.Inject' annotation found and supported for autowiring", list.get(12).get(Log4JFieldProvider.FIELD_MESSAGE));
 			assertEquals("main", list.get(12).get(Log4JFieldProvider.FIELD_THREAD));
 			assertTrue(list.get(12).get(Log4JFieldProvider.FIELD_TIMESTAMP) == null);
+		} catch (Exception e) {
+			getLogger().error(e.getLocalizedMessage(), e);
+			fail("Exception should not occur: " + e.getLocalizedMessage());
+		}
+	}
+
+	@Test
+	public void testNoTimestampAutoTruncate() {
+		try {
+			loadLogFile("no-timestamp.log.txt");
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			APatternDialect dialect = (APatternDialect) getLogResource().getDialect();
+			dialect.configure(APatternDialect.OPTION_PATTERN, "%p %t %c - %m%n");
+			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
+			SynchronizationResult result = indexService.synchronize(getLogResource(), null);
+			assertEquals(15, result.getNumberOfEntriesAdded());
+			assertEquals(15, indexService.count(getLogResource()));
+			result = indexService.synchronize(getLogResource(), null);
+			assertEquals(15, result.getNumberOfEntriesAdded());
+			assertEquals(15, indexService.count(getLogResource()));
 		} catch (Exception e) {
 			getLogger().error(e.getLocalizedMessage(), e);
 			fail("Exception should not occur: " + e.getLocalizedMessage());
