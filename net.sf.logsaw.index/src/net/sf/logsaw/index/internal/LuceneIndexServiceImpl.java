@@ -97,10 +97,15 @@ public class LuceneIndexServiceImpl implements IIndexService {
 	@Override
 	public SynchronizationResult synchronize(ILogResource log, IProgressMonitor monitor) throws CoreException {
 		Assert.isNotNull(log, "log"); //$NON-NLS-1$
-		Date latestEntryDate = getLatestEntryDate(log); // the barrier timestamp
 		if (monitor == null) {
 			monitor = new NullProgressMonitor();
 		}
+		
+		Date latestEntryDate = null;
+		if (log.getDialect().getFieldProvider().getTimestampField() != null) {
+			latestEntryDate = getLatestEntryDate(log); // the barrier timestamp
+		}
+		
 		return updateIndex(log, latestEntryDate, monitor);
 	}
 
@@ -171,16 +176,8 @@ public class LuceneIndexServiceImpl implements IIndexService {
 			 */
 			@Override
 			protected Boolean doRunWithIndexWriter(IndexWriter writer, ILogResource log) throws CoreException {
-				try {
-					writer.deleteAll();
-					writer.commit();
-					return Boolean.TRUE;
-				} catch (Exception e) {
-					// Unexpected exception; wrap with CoreException
-					throw new CoreException(new Status(IStatus.ERROR, IndexPlugin.PLUGIN_ID, 
-							NLS.bind(Messages.LuceneIndexService_error_failedToTruncateIndex, 
-									new Object[] {log.getName(), e.getLocalizedMessage()}), e));
-				}
+				truncate(log, writer);
+				return Boolean.TRUE;
 			}
 		};
 		runnable.runWithIndexWriter(log, getAnalyzer(), getMatchVersion());
@@ -404,6 +401,12 @@ public class LuceneIndexServiceImpl implements IIndexService {
 						return true;
 					}
 				};
+				
+				if (log.getDialect().getFieldProvider().getTimestampField() == null) {
+					// We have no barrier timestamp, so perform truncate to avoid duplicates
+					truncate(log, writer);
+				}
+				
 				// Perform synchronize
 				log.synchronize(collector, monitor);
 				return new SynchronizationResult(monitor.isCanceled(), collector.getTotalCollected(), 
@@ -411,6 +414,18 @@ public class LuceneIndexServiceImpl implements IIndexService {
 			}
 		};
 		return runnable.runWithIndexWriter(log, getAnalyzer(), getMatchVersion());
+	}
+
+	private void truncate(ILogResource log, IndexWriter writer) throws CoreException {
+		try {
+			writer.deleteAll();
+			writer.commit();
+		} catch (Exception e) {
+			// Unexpected exception; wrap with CoreException
+			throw new CoreException(new Status(IStatus.ERROR, IndexPlugin.PLUGIN_ID, 
+					NLS.bind(Messages.LuceneIndexService_error_failedToTruncateIndex, 
+							new Object[] {log.getName(), e.getLocalizedMessage()}), e));
+		}
 	}
 
 	private Query convertToQuery(final List<ARestriction<?>> restrictions) {
