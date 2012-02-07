@@ -19,6 +19,7 @@ public class Messages extends NLS {
 	public static String LuceneIndexService_error_failedToUpdateIndex;
 	public static String LuceneIndexService_error_failedToReadIndex;
 	public static String LuceneIndexService_error_failedToTruncateIndex;
+	public static String LuceneIndexService_info_autoTruncate;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

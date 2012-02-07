@@ -405,6 +405,9 @@ public class LuceneIndexServiceImpl implements IIndexService {
 				if (log.getDialect().getFieldProvider().getTimestampField() == null) {
 					// We have no barrier timestamp, so perform truncate to avoid duplicates
 					truncate(log, writer);
+					
+					collector.addMessage(new Status(IStatus.INFO, IndexPlugin.PLUGIN_ID, 
+							Messages.LuceneIndexService_info_autoTruncate));
 				}
 				
 				// Perform synchronize

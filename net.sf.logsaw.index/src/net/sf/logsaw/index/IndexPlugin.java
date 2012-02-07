@@ -74,7 +74,7 @@ public final class IndexPlugin extends Plugin {
 	 * @return the index directory
 	 */
 	public File getIndexFile(ILogResource log) {
-		Assert.isNotNull(log, "log");
+		Assert.isNotNull(log, "log"); //$NON-NLS-1$
 		return getStateLocation().append(log.getPK()).toFile();
 	}
 }
