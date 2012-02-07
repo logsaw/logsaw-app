@@ -21,7 +21,7 @@ import net.sf.logsaw.core.config.model.StringConfigOption;
 public interface IHasTimestampPattern {
 
 	StringConfigOption OPTION_TIMESTAMP_PATTERN = 
-		new StringConfigOption("timestampPattern", "Timestamp pattern"); //$NON-NLS-1$ //$NON-NLS-2$
+		new StringConfigOption("timestampPattern", "Timestamp pattern", false); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * @return the timestamp pattern
