@@ -68,7 +68,7 @@ public abstract class ARunWithIndexReader<T> {
 		Directory dir = FSDirectory.open(IndexPlugin.getDefault().getIndexFile(log));
 		if (IndexReader.indexExists(dir)) {
 			logger.info("Opening index reader for '" + log.getName() + "'..."); //$NON-NLS-1$ //$NON-NLS-2$
-			reader = IndexReader.open(dir, true);
+			reader = IndexReader.open(dir);
 		}
 		return reader;
 	}
