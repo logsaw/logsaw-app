@@ -11,5 +11,7 @@
 
 	<!-- Branch specifier -->
 	<cq:advisorNode namePattern="net\.sf\.logsaw\..*" branchTagPath="main" />
+	<!-- Prevent resolution from currently active (default) target platform -->
+	<cq:advisorNode namePattern=".*" useTargetPlatform="false" />
 
 </cq:componentQuery>
