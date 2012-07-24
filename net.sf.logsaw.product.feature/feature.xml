@@ -129,7 +129,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.apache.commons.io"
          download-size="0"
          install-size="0"
-         version="2.1.0"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
@@ -143,7 +143,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="slf4j.simple"
          download-size="0"
          install-size="0"
-         version="1.6.3"
+         version="0.0.0"
          fragment="true"
          unpack="false"/>
 
@@ -193,7 +193,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="slf4j.api"
          download-size="0"
          install-size="0"
-         version="1.6.3"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin

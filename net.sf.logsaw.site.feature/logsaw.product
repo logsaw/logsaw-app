@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="LogSaw" id="net.sf.logsaw.rcp.product" application="net.sf.logsaw.rcp.application" useFeatures="true" includeLaunchers="true">
+<product name="LogSaw" uid="net.sf.logsaw.rcp.product.id" id="net.sf.logsaw.rcp.product" application="net.sf.logsaw.rcp.application" version="1.0.4.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="/net.sf.logsaw.rcp/icons/about.png"/>
