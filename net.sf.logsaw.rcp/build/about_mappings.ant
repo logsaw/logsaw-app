@@ -1,7 +1,0 @@
-<project>
-	<target name="replace.tokens">
-		<copy file="${sp:action.input}" tofile="${sp:action.output}"/>
-		<replace token="@build@" value="${build}" file="${sp:action.output}"/>
-		<replace token="@version@" value="${version}" file="${sp:action.output}"/>
-	</target>
-</project>
