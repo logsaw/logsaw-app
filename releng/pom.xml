@@ -6,6 +6,7 @@
 	<artifactId>parent</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<name>LogSaw Root</name>
 	<modules>
 		<module>../net.sf.logsaw.bundlized.lucene</module>
 		<module>../net.sf.logsaw.core</module>
