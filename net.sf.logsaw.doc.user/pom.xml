@@ -14,4 +14,30 @@
 	<version>1.0.2-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 	<name>LogSaw User Documentation Plugin</name>
-</project> 
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>generate-userdoc</id>
+						<phase>validate</phase>
+						<configuration>
+							<target>
+								<property name="root.dir" value="${basedir}/../documentation" />
+								<property name="plugin.dir" value="${basedir}" />
+								<ant antfile="${basedir}/../documentation/build.xml" target="generate.userdoc" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

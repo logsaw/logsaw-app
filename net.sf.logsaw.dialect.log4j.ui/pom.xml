@@ -14,4 +14,4 @@
 	<version>1.0.2-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 	<name>LogSaw Log4J Dialect UI Plugin</name>
-</project> 
+</project>
