@@ -122,17 +122,22 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
-	</build>
-
-	<reporting>
-		<plugins>
 			<plugin>
-				<artifactId>maven-pmd-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
 				<configuration>
-					<targetJdk>1.6</targetJdk>
+					<reportPlugins>
+						<plugin>
+							<artifactId>maven-pmd-plugin</artifactId>
+							<configuration>
+								<targetJdk>1.6</targetJdk>
+							</configuration>
+						</plugin>
+					</reportPlugins>
 				</configuration>
 			</plugin>
 		</plugins>
-	</reporting>
+	</build>
+
+
 </project>
