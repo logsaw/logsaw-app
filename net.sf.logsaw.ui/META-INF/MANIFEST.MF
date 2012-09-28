@@ -11,10 +11,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface.databinding,
  org.eclipse.core.databinding.beans,
  org.eclipse.core.databinding.property,
- slf4j.api,
  net.sf.logsaw.index,
  org.eclipse.core.expressions,
- org.apache.commons.io
+ org.apache.commons.io,
+ org.slf4j.api
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: net.sf.logsaw.ui,

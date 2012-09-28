@@ -7,7 +7,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.core.runtime,
  net.sf.logsaw.core,
  net.sf.logsaw.dialect.pattern,
- slf4j.api
+ org.slf4j.api
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: net.sf.logsaw.dialect.log4j.Log4JDialectPlugin
 Export-Package: net.sf.logsaw.dialect.log4j,

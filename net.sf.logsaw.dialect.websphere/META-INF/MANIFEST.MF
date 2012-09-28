@@ -6,8 +6,8 @@ Bundle-Version: 1.0.2.qualifier
 Bundle-Activator: net.sf.logsaw.dialect.websphere.WebsphereDialectPlugin
 Require-Bundle: org.eclipse.core.runtime,
  net.sf.logsaw.core,
- slf4j.api,
- org.apache.commons.io
+ org.apache.commons.io,
+ org.slf4j.api
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: LogSaw project

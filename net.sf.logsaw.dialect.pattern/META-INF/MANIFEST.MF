@@ -7,8 +7,8 @@ Bundle-Vendor: LogSaw project
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.core.runtime,
  net.sf.logsaw.core,
- slf4j.api,
- org.apache.commons.io
+ org.apache.commons.io,
+ org.slf4j.api
 Export-Package: net.sf.logsaw.dialect.pattern
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: net.sf.logsaw.dialect.pattern.PatternDialectPlugin

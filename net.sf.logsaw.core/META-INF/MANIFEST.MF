@@ -4,8 +4,8 @@ Bundle-Name: LogSaw Core Plugin
 Bundle-SymbolicName: net.sf.logsaw.core;singleton:=true
 Bundle-Version: 1.0.3.qualifier
 Require-Bundle: org.eclipse.core.runtime,
- slf4j.api,
- org.apache.commons.io
+ org.apache.commons.io,
+ org.slf4j.api
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: net.sf.logsaw.core,
