@@ -27,6 +27,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<tycho-version>0.15.0</tycho-version>
+		<build.id>${maven.build.timestamp}</build.id>
+		<release.version>${project.version}</release.version>
 	</properties>
 
 	<build>

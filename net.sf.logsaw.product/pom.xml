@@ -14,4 +14,16 @@
 	<version>1.0.3-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 	<name>LogSaw Product Plugin</name>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>.</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>about.mappings</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
 </project>
