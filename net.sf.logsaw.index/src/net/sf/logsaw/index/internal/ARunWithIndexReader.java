@@ -15,6 +15,7 @@ import java.io.IOException;
 import net.sf.logsaw.core.logresource.ILogResource;
 import net.sf.logsaw.index.IndexPlugin;
 
+import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
@@ -66,9 +67,9 @@ public abstract class ARunWithIndexReader<T> {
 	protected IndexReader openReader(ILogResource log) throws IOException {
 		IndexReader reader = null;
 		Directory dir = FSDirectory.open(IndexPlugin.getDefault().getIndexFile(log));
-		if (IndexReader.indexExists(dir)) {
+		if (DirectoryReader.indexExists(dir)) {
 			logger.info("Opening index reader for '" + log.getName() + "'..."); //$NON-NLS-1$ //$NON-NLS-2$
-			reader = IndexReader.open(dir);
+			reader = DirectoryReader.open(dir);
 		}
 		return reader;
 	}

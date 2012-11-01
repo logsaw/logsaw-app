@@ -19,7 +19,6 @@ import java.util.UUID;
 
 import net.sf.logsaw.core.dialect.ILogDialect;
 import net.sf.logsaw.core.dialect.ILogEntryCollector;
-import net.sf.logsaw.core.dialect.ILogLevelProvider;
 import net.sf.logsaw.core.dialect.support.ALogEntryCollector;
 import net.sf.logsaw.core.field.ALogEntryField;
 import net.sf.logsaw.core.field.ILogEntryFieldVisitor;
@@ -46,14 +45,17 @@ import net.sf.logsaw.index.SynchronizationResult;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.LimitTokenCountAnalyzer;
 import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.miscellaneous.LimitTokenCountAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.document.NumericField;
+import org.apache.lucene.document.IntField;
+import org.apache.lucene.document.LongField;
+import org.apache.lucene.document.StringField;
+import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
@@ -72,7 +74,6 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.TopFieldCollector;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.NumericUtils;
 import org.apache.lucene.util.Version;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
@@ -245,18 +246,14 @@ public class LuceneIndexServiceImpl implements IIndexService {
 				
 				try {
 					IndexSearcher searcher = new IndexSearcher(reader);
-					try {
-						Sort sort = new Sort(new SortField[] {SortField.FIELD_DOC});
-						TopFieldCollector collector = TopFieldCollector.create(
-								sort, offset + limit, false, false, false, true);
-						// TODO Investigate use of searchAfter
-						searcher.search(convertToQuery(restrictions), collector);
-						List<LogEntry> result = new LinkedList<LogEntry>();
-						collectHits(searcher, collector.topDocs(offset), log.getDialect(), result);
-						return new ResultPage(result, offset, collector.getTotalHits());
-					} finally {
-						searcher.close();
-					}
+					Sort sort = new Sort(new SortField[] {SortField.FIELD_DOC});
+					TopFieldCollector collector = TopFieldCollector.create(
+							sort, offset + limit, false, false, false, true);
+					// TODO Investigate use of searchAfter
+					searcher.search(convertToQuery(restrictions), collector);
+					List<LogEntry> result = new LinkedList<LogEntry>();
+					collectHits(searcher, collector.topDocs(offset), log.getDialect(), result);
+					return new ResultPage(result, offset, collector.getTotalHits());
 				} catch (IOException e) {
 					// Unexpected exception; wrap with CoreException
 					throw new CoreException(new Status(IStatus.ERROR, IndexPlugin.PLUGIN_ID, 
@@ -272,7 +269,7 @@ public class LuceneIndexServiceImpl implements IIndexService {
 	/**
 	 * Returns the Lucene analyzer to use for indexing text fields.
 	 * <p>
-	 * Defaults to a <code>StandardAnalyzer</code> with Lucene 3.0 semantics.
+	 * Defaults to a <code>StandardAnalyzer</code> with Lucene 4.0 semantics.
 	 * 
 	 * @return the Lucene analyzer to use
 	 */
@@ -283,12 +280,12 @@ public class LuceneIndexServiceImpl implements IIndexService {
 	/**
 	 * Returns the Lucene match version.
 	 * <p>
-	 * Defaults to Lucene 3.0 semantics.
+	 * Defaults to Lucene 4.0 semantics.
 	 * 
 	 * @return the Lucene match version to use
 	 */
 	protected Version getMatchVersion() {
-		return Version.LUCENE_30;
+		return Version.LUCENE_40;
 	}
 
 	/*
@@ -378,11 +375,15 @@ public class LuceneIndexServiceImpl implements IIndexService {
 							@Override
 							public void visit(StringLogEntryField fld) {
 								// Decide whether to analyze the field
-								Field.Index analyzed = fld.isAnalyzed() ? 
-										Field.Index.ANALYZED : Field.Index.NOT_ANALYZED;
-								doc.add(new Field(fld.getKey(), 
-										fld.toIndexedValue(entry.get(fld)), 
-										Field.Store.YES, analyzed));
+								if (fld.isAnalyzed()) {
+									doc.add(new TextField(fld.getKey(), 
+											fld.toIndexedValue(entry.get(fld)), 
+											Field.Store.YES));
+								} else {
+									doc.add(new StringField(fld.getKey(), 
+											fld.toIndexedValue(entry.get(fld)), 
+											Field.Store.YES));
+								}
 							}
 
 							/* (non-Javadoc)
@@ -392,9 +393,8 @@ public class LuceneIndexServiceImpl implements IIndexService {
 							public void visit(LevelLogEntryField fld) {
 								Level lvl = entry.get(fld);
 								Assert.isTrue(lvl.getValue() > 0, "Level value must be a positive integer"); //$NON-NLS-1$
-								doc.add(new NumericField(
-										fld.getKey(), Field.Store.YES, true).setIntValue(
-										fld.toIndexedValue(lvl)));
+								doc.add(new IntField(
+										fld.getKey(), fld.toIndexedValue(lvl), Field.Store.YES));
 							}
 
 							/* (non-Javadoc)
@@ -402,9 +402,8 @@ public class LuceneIndexServiceImpl implements IIndexService {
 							 */
 							@Override
 							public void visit(DateLogEntryField fld) {
-								doc.add(new NumericField(
-										fld.getKey(), Field.Store.YES, true).setLongValue(
-										fld.toIndexedValue(entry.get(fld))));
+								doc.add(new LongField(
+										fld.getKey(), fld.toIndexedValue(entry.get(fld)), Field.Store.YES));
 							}
 						};
 						for (ALogEntryField<?, ?> fld : log.getDialect().getFieldProvider().getAllFields()) {
@@ -501,26 +500,25 @@ public class LuceneIndexServiceImpl implements IIndexService {
 					@Override
 					public void visit(LevelLogEntryField fld) {
 						if (restriction.getOperator().equals(Operators.OPERATOR_GREATER_THAN)) {
-							int val = restriction.getValue().getValue();
-							if (val == ILogLevelProvider.ID_LEVEL_UNKNOWN) {
-								// The value of -1 would match everything
-								val = Integer.MAX_VALUE;
-							}
 							query.add(NumericRangeQuery.newIntRange(
 									fld.getKey(), 
-									val, null, 
+									restriction.getValue().getValue(), null, 
 									false, false), Occur.MUST);
 						} else if (restriction.getOperator().equals(Operators.OPERATOR_LESS_THAN)) {
 							query.add(NumericRangeQuery.newIntRange(
-									fld.getKey(), null,  
+									fld.getKey(), null, 
 									fld.toIndexedValue(restriction.getValue()), 
 									false, false), Occur.MUST);
 						} else if (restriction.getOperator().equals(Operators.OPERATOR_EQUALS)) {
-							query.add(new TermQuery(new Term(restriction.getField().getKey(), 
-									NumericUtils.intToPrefixCoded(restriction.getValue().getValue()))), Occur.MUST);
+							query.add(NumericRangeQuery.newIntRange(
+									fld.getKey(), fld.toIndexedValue(restriction.getValue()), 
+									fld.toIndexedValue(restriction.getValue()), 
+									true, true), Occur.MUST);
 						} else if (restriction.getOperator().equals(Operators.OPERATOR_NOT_EQUALS)) {
-							query.add(new TermQuery(new Term(restriction.getField().getKey(), 
-									NumericUtils.intToPrefixCoded(restriction.getValue().getValue()))), Occur.MUST_NOT);
+							query.add(NumericRangeQuery.newIntRange(
+									fld.getKey(), fld.toIndexedValue(restriction.getValue()), 
+									fld.toIndexedValue(restriction.getValue()), 
+									true, true), Occur.MUST_NOT);
 							if (isAllNegative(restrictions) && restrictions.get(0).equals(restriction)) {
 								// By design Lucene does not process negative-only queries
 								query.add(new MatchAllDocsQuery(), Occur.SHOULD);
