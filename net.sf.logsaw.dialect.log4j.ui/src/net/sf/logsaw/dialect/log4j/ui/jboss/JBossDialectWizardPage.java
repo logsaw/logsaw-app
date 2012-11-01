@@ -55,7 +55,10 @@ public class JBossDialectWizardPage extends WizardPage implements IConfigurableO
 	public void performFinish() throws CoreException {
 		String ver = null;
 		// Beware of NPEs because versionCombo may not be initialized if finish is pressed directly
-		if ((versionCombo == null) || (versionCombo.getSelectionIndex() == 0)) {
+		if (versionCombo == null) {
+			// Default to 7.x
+			ver = JBossDialect.VERSION_7;
+		} else if (versionCombo.getSelectionIndex() == 0) {
 			ver = JBossDialect.VERSION_4;
 		} else if (versionCombo.getSelectionIndex() == 1) {
 			ver = JBossDialect.VERSION_5;
