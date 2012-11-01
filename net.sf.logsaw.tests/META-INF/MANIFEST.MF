@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: LogSaw Test Plugin
 Bundle-SymbolicName: net.sf.logsaw.tests
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.4.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.core.runtime,
  net.sf.logsaw.core,

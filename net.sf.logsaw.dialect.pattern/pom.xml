@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>net.sf.logsaw.dialect.pattern</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.4-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 	<name>LogSaw Pattern Dialect Plugin</name>
 </project>

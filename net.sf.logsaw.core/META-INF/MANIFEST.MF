@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: LogSaw Core Plugin
 Bundle-SymbolicName: net.sf.logsaw.core;singleton:=true
-Bundle-Version: 1.0.3.qualifier
+Bundle-Version: 1.0.4.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  org.apache.commons.io,
  org.slf4j.api
