@@ -28,6 +28,12 @@ import org.eclipse.core.runtime.CoreException;
 public interface IConversionPatternTranslator {
 
 	/**
+	 * Returns the number of lines to be expected per log entry.
+	 * @return the number of lines
+	 */
+	int getLinesPerEntry();
+
+	/**
 	 * Applies the specified locale to the given rules, as provided by 
 	 * the log resource.
 	 * @param loc the locale

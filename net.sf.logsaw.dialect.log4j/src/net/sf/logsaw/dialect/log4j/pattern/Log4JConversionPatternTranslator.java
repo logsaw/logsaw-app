@@ -33,6 +33,7 @@ import net.sf.logsaw.dialect.pattern.ConversionRule;
 import net.sf.logsaw.dialect.pattern.IConversionPatternTranslator;
 import net.sf.logsaw.dialect.pattern.RegexUtils;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
@@ -48,8 +49,10 @@ public final class Log4JConversionPatternTranslator implements IConversionPatter
 
 	private static final Pattern EXTRACTION_PATTERN = 
 		Pattern.compile("%(-?(\\d+))?(\\.(\\d+))?([a-zA-Z])(\\{([^\\}]+)\\})?"); //$NON-NLS-1$
-
+	private static final Pattern NEWLINE_PATTERN = Pattern.compile("%n"); //$NON-NLS-1$
 	private static final String PROP_DATEFORMAT = "dateFormat"; //$NON-NLS-1$
+
+	private int linesPerEntry;
 
 	/* (non-Javadoc)
 	 * @see net.sf.logsaw.dialect.pattern.IConversionPatternTranslator#prepare(java.lang.String)
@@ -62,11 +65,20 @@ public final class Log4JConversionPatternTranslator implements IConversionPatter
 		}
 		// Pattern without %n
 		externalPattern = externalPattern.substring(0, externalPattern.length() - 2);
-		if (externalPattern.contains("%n")) { //$NON-NLS-1$
-			throw new CoreException(new Status(IStatus.ERROR, Log4JDialectPlugin.PLUGIN_ID, 
-					Messages.Log4JConversionRuleExtractor_error_moreThanOneNewLine));
-		}
+		Matcher m = NEWLINE_PATTERN.matcher(externalPattern);
+		linesPerEntry = 1;
+	    while (m.find()) {
+	    	linesPerEntry++;
+	    }
 		return externalPattern;
+	}
+
+	/* (non-Javadoc)
+	 * @see net.sf.logsaw.dialect.pattern.IConversionPatternTranslator#getLinesPerEntry()
+	 */
+	@Override
+	public int getLinesPerEntry() {
+		return linesPerEntry;
 	}
 
 	/* (non-Javadoc)
@@ -190,6 +202,8 @@ public final class Log4JConversionPatternTranslator implements IConversionPatter
 			return "(.*" + RegexUtils.getLengthHint(rule) + RegexUtils.getLazySuffix(rule) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
 		} else if (rule.getPlaceholderName().equals("m")) { //$NON-NLS-1$
 			return "(.*" + RegexUtils.getLengthHint(rule) + RegexUtils.getLazySuffix(rule) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
+		} else if (rule.getPlaceholderName().equals("n")) { //$NON-NLS-1$
+			return "(" + IOUtils.LINE_SEPARATOR + ")"; //$NON-NLS-1$ //$NON-NLS-2$
 		} else if (rule.getPlaceholderName().equals("F")) { //$NON-NLS-1$
 			return "(.*" + RegexUtils.getLengthHint(rule) + RegexUtils.getLazySuffix(rule) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
 		} else if (rule.getPlaceholderName().equals("C")) { //$NON-NLS-1$
@@ -220,6 +234,8 @@ public final class Log4JConversionPatternTranslator implements IConversionPatter
 			return Log4JFieldProvider.FIELD_THREAD;
 		} else if (rule.getPlaceholderName().equals("m")) { //$NON-NLS-1$
 			return Log4JFieldProvider.FIELD_MESSAGE;
+		} else if (rule.getPlaceholderName().equals("n")) { //$NON-NLS-1$
+			return null;
 		} else if (rule.getPlaceholderName().equals("F")) { //$NON-NLS-1$
 			return Log4JFieldProvider.FIELD_LOC_FILENAME;
 		} else if (rule.getPlaceholderName().equals("C")) { //$NON-NLS-1$
@@ -263,6 +279,8 @@ public final class Log4JConversionPatternTranslator implements IConversionPatter
 			entry.put(Log4JFieldProvider.FIELD_THREAD, val.trim());
 		} else if (rule.getPlaceholderName().equals("m")) { //$NON-NLS-1$
 			entry.put(Log4JFieldProvider.FIELD_MESSAGE, val.trim());
+		} else if (rule.getPlaceholderName().equals("n")) { //$NON-NLS-1$
+			// nadda
 		} else if (rule.getPlaceholderName().equals("F")) { //$NON-NLS-1$
 			entry.put(Log4JFieldProvider.FIELD_LOC_FILENAME, val.trim());
 		} else if (rule.getPlaceholderName().equals("C")) { //$NON-NLS-1$

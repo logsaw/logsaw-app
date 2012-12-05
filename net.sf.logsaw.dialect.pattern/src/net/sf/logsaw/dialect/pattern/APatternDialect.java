@@ -203,8 +203,9 @@ public abstract class APatternDialect extends ALogDialect implements IHasTimesta
 		List<ALogEntryField<?, ?>> ret = new ArrayList<ALogEntryField<?,?>>();
 		for (ConversionRule rule : rules) {
 			ALogEntryField<?, ?> fld = getPatternTranslator().getFieldForRule(rule);
-			Assert.isNotNull(fld, "field"); //$NON-NLS-1$
-			ret.add(fld);
+			if (fld != null) {
+				ret.add(fld);
+			}
 		}
 		return ret;
 	}
@@ -368,15 +369,32 @@ public abstract class APatternDialect extends ALogDialect implements IHasTimesta
 				getPatternTranslator().applyTimeZone(tz.getTimeZone(), rules);
 			}
 			LineIterator iter = IOUtils.lineIterator(input, enc.getEncoding());
+			int linesPerEntry = getPatternTranslator().getLinesPerEntry();
 			int lineNo = 0;
 			try {
+				String line = null;
 				while (iter.hasNext()) {
-					// Error handling
 					lineNo++;
+					
+					if (linesPerEntry == 1) {
+						line = iter.nextLine();
+					} else if ((lineNo % linesPerEntry) == 1) {
+						// First line
+						line = iter.nextLine();
+						continue;
+					} else if ((lineNo % linesPerEntry) != 0) {
+						// Some middle line
+						line += IOUtils.LINE_SEPARATOR + iter.nextLine();
+						continue;
+					} else {
+						// Last line
+						line += IOUtils.LINE_SEPARATOR + iter.nextLine();
+					}
+					
+					// Error handling
 					List<IStatus> statuses = null;
 					boolean fatal = false; // determines whether to interrupt parsing
 					
-					String line = iter.nextLine();
 					Matcher m = getInternalPattern().matcher(line);
 					if (m.find()) {
 						// The next line matches, so flush the previous entry and continue

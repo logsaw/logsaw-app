@@ -14,7 +14,6 @@ import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "net.sf.logsaw.dialect.log4j.internal.messages"; //$NON-NLS-1$
-	public static String Log4JConversionRuleExtractor_error_moreThanOneNewLine;
 	public static String Log4JConversionRuleExtractor_error_mustEndWithNewLine;
 	public static String Log4JConversionRuleTranslator_error_dataFormatNotSupported;
 	public static String Log4JConversionRuleTranslator_error_failedToParseTimestamp;
