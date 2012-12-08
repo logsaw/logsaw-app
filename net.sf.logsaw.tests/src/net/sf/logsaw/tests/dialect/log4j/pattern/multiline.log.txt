@@ -1,0 +1,28 @@
+2012-11-30 03:14:30,686 ERROR 5 System   (null)  OperationId: 100003399 | SubOperationId: 100003210  FlexNet.FunctionInterpreter.BusinessRules.Functions.BusinessComponent 
+ Failed to execute BC method. Assembly: FlexNet.BusinessFacade.Manufacturing, Version=9.5.0.0, Culture=neutral, PublicKeyToken=33f692327842122b, Class: FlexNet.BusinessFacade.Manufacturing.OrderReporter, MethodName: ReportOrder_v92
+
+System.Runtime.Remoting.RemotingException: Server encountered an internal error. For more information, turn off customErrors in the server's .config file.
+
+Server stack trace: 
+
+Exception rethrown at [0]: 
+   at FlexNet.SystemServices.ComponentFactory.BusinessComponentMethod.Invoke()
+   at FlexNet.FunctionInterpreter.BusinessRules.Functions.BusinessComponent.Compute(PortValueCollection inputs, PortValueCollection outputs, Boolean& computed)
+2012-11-30 03:14:30,686 ERROR 9 System   (null)  OperationId: 100003399 | SubOperationId: 100003210  FlexNet.FunctionInterpreter.BusinessRules.Functions.BusinessComponent 
+ Failed to execute BC method. Assembly: FlexNet.BusinessFacade.Manufacturing, Version=9.5.0.0, Culture=neutral, PublicKeyToken=33f692327842122b, Class: FlexNet.BusinessFacade.Manufacturing.OrderReporter, MethodName: ReportOrder_v92
+
+System.Runtime.Remoting.RemotingException: Server encountered an internal error. For more information, turn off customErrors in the server's .config file.
+
+Server stack trace: 
+
+Exception rethrown at [0]: 
+   at FlexNet.SystemServices.ComponentFactory.BusinessComponentMethod.Invoke()
+   at FlexNet.FunctionInterpreter.BusinessRules.Functions.BusinessComponent.Compute(PortValueCollection inputs, PortValueCollection outputs, Boolean& computed)
+2012-11-30 03:14:30,686 ERROR 5 System   (null)  OperationId: 100003399  FlexNet.FunctionInterpreter.BusinessFacade.OperationInterpreter 
+ Failed to compute operation. OperationID: 100003399, Result: FlexNet.FunctionInterpreter.BusinessRules.Functions.BusinessComponentResult.UnexpectedErrorWhenTryingToExecuteMethod
+
+2012-11-30 03:14:30,686 ERROR 9 System   (null)  OperationId: 100003399  FlexNet.FunctionInterpreter.BusinessFacade.OperationInterpreter 
+ Failed to compute operation. OperationID: 100003399, Result: FlexNet.FunctionInterpreter.BusinessRules.Functions.BusinessComponentResult.UnexpectedErrorWhenTryingToExecuteMethod
+
+2012-11-30 03:14:31,279 ERROR 25 System  (null)  OperationId: 100003076  FlexNet.BusinessRules.Printing.Labels.FileSpooler 
+ Could not save label to file (c:\temp\MESDestOutput.log).

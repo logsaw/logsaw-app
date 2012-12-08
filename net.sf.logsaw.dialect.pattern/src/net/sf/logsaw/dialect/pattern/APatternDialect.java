@@ -424,7 +424,7 @@ public abstract class APatternDialect extends ALogDialect implements IHasTimesta
 								// Some crazy stuff
 								line = s;
 							}
-						} else if (moreLinesToCome > 1) {
+						} else if (iter.hasNext() && (moreLinesToCome > 1)) {
 							// Some middle line
 							line += IOUtils.LINE_SEPARATOR + s;
 							moreLinesToCome--;
@@ -432,6 +432,9 @@ public abstract class APatternDialect extends ALogDialect implements IHasTimesta
 						} else {
 							// Last line
 							line += IOUtils.LINE_SEPARATOR + s;
+							if (!iter.hasNext()) {
+								line += IOUtils.LINE_SEPARATOR;
+							}
 							moreLinesToCome = 0;
 						}
 					}

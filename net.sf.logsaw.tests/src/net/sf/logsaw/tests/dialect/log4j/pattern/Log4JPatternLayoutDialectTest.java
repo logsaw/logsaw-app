@@ -175,6 +175,37 @@ public class Log4JPatternLayoutDialectTest extends ADialectTest {
 	}
 
 	@Test
+	public void testMultiLineParsing() {
+		final List<LogEntry> list = new LinkedList<LogEntry>();
+		try {
+			loadLogFile("multiline.log.txt");
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			APatternDialect dialect = (APatternDialect) getLogResource().getDialect();
+			ILogEntryCollector coll = new ALogEntryCollector(null) {
+
+				/* (non-Javadoc)
+				 * @see net.sf.logsaw.core.framework.support.ALogEntryCollector#doCollect(net.sf.logsaw.core.model.LogEntry)
+				 */
+				@Override
+				protected boolean doCollect(LogEntry entry) throws IOException {
+					list.add(entry);
+					return true;
+				}
+			};
+			dialect.configure(APatternDialect.OPTION_PATTERN, "%d{yyyy-MM-dd HH:mm:ss,SSS} %p %t %x %c%n %m%n%n");
+			getLogResource().synchronize(coll, null);
+			assertEquals(5, list.size());
+			assertEquals(5, coll.getTotalCollected());
+			
+			assertTrue(list.get(1).get(Log4JFieldProvider.FIELD_MESSAGE).contains("   at FlexNet.SystemServices.ComponentFactory.BusinessComponentMethod.Invoke()"));
+			assertEquals("Failed to compute operation. OperationID: 100003399, Result: FlexNet.FunctionInterpreter.BusinessRules.Functions.BusinessComponentResult.UnexpectedErrorWhenTryingToExecuteMethod", list.get(3).get(Log4JFieldProvider.FIELD_MESSAGE));
+		} catch (Exception e) {
+			getLogger().error(e.getLocalizedMessage(), e);
+			fail("Exception should not occur: " + e.getLocalizedMessage());
+		}
+	}
+
+	@Test
 	public void testLazyParsing() {
 		final List<LogEntry> list = new LinkedList<LogEntry>();
 		try {
