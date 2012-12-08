@@ -11,8 +11,6 @@
 package net.sf.logsaw.dialect.pattern;
 
 import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -56,7 +54,8 @@ public abstract class APatternDialect extends ALogDialect implements IHasTimesta
 	private IConversionPatternTranslator patternTranslator;
 	private ILogFieldProvider fieldProvider;
 	private List<ConversionRule> rules;
-	private Pattern internalPattern;
+	private Pattern internalPatternFirstLine;
+	private Pattern internalPatternFull;
 	private String timestampPattern;
 
 	/**
@@ -89,17 +88,31 @@ public abstract class APatternDialect extends ALogDialect implements IHasTimesta
 	}
 
 	/**
-	 * @return the internalPattern
+	 * @return the internalPatternFirstLine
 	 */
-	public Pattern getInternalPattern() {
-		return internalPattern;
+	public Pattern getInternalPatternFirstLine() {
+		return internalPatternFirstLine;
 	}
 
 	/**
-	 * @param internalPattern the internalPattern to set
+	 * @param internalPatternFirstLine the internalPatternFirstLine to set
 	 */
-	public void setInternalPattern(Pattern internalPattern) {
-		this.internalPattern = internalPattern;
+	public void setInternalPatternFirstLine(Pattern internalPatternFirstLine) {
+		this.internalPatternFirstLine = internalPatternFirstLine;
+	}
+
+	/**
+	 * @return the internalPatternFull
+	 */
+	public Pattern getInternalPatternFull() {
+		return internalPatternFull;
+	}
+
+	/**
+	 * @param internalPatternFull the internalPatternFull to set
+	 */
+	public void setInternalPatternFull(Pattern internalPatternFull) {
+		this.internalPatternFull = internalPatternFull;
 	}
 
 	/* (non-Javadoc)
@@ -146,15 +159,11 @@ public abstract class APatternDialect extends ALogDialect implements IHasTimesta
 	}
 
 	/**
-	 * Converts the given external pattern to the internal Regex pattern using the specified conversion rules.
+	 * Calculates the <code>followedByQuotedString</code> for the specified conversion rules.
 	 * @param externalPattern the external pattern
-	 * @param patternTranslator the conversion pattern translator
 	 * @param rules the conversion rules
-	 * @return the internal pattern
-	 * @throws CoreException if an error occurred
 	 */
-	protected String toRegexPattern(String externalPattern, IConversionPatternTranslator patternTranslator, 
-			List<ConversionRule> rules) throws CoreException {
+	protected void fillFollowedByQuotedString(String externalPattern, List<ConversionRule> rules) {
 		// Determine whether rules are followed by quoted string, allowing use of special Regex lazy modifiers
 		int idx = 0;
 		ConversionRule prevRule = null;
@@ -171,11 +180,26 @@ public abstract class APatternDialect extends ALogDialect implements IHasTimesta
 			// Previous rule is followed by a quoted string, allowing special regex flags
 			prevRule.setFollowedByQuotedString(true);
 		}
-		
+	}
+
+	/**
+	 * Converts the given external pattern to the internal Regex pattern using the specified conversion rules.
+	 * @param externalPattern the external pattern
+	 * @param patternTranslator the conversion pattern translator
+	 * @param rules the conversion rules
+	 * @return the internal pattern
+	 * @throws CoreException if an error occurred
+	 */
+	protected String toRegexPattern(String externalPattern, IConversionPatternTranslator patternTranslator, 
+			List<ConversionRule> rules, boolean firstLineOnly) throws CoreException {
 		// Build the internal Regex pattern
 		StringBuilder sb = new StringBuilder();
-		idx = 0;
+		int idx = 0;
 		for (ConversionRule rule : rules) {
+			if (firstLineOnly && rule.isLineBreak()) {
+				// That's it
+				return sb.toString();
+			}
 			if (rule.getBeginIndex() > idx) {
 				// Escape chars with special meaning
 				sb.append(Pattern.quote(externalPattern.substring(idx, rule.getBeginIndex())));
@@ -262,13 +286,17 @@ public abstract class APatternDialect extends ALogDialect implements IHasTimesta
 						// Rewrite rules
 						translator.rewrite(rule, APatternDialect.this);
 					}
+					fillFollowedByQuotedString(value, rules);
 					setRules(rules);
 					
 					// Convert rules to Regex (internal) pattern
 					try {
-						Pattern internalPattern = Pattern.compile(toRegexPattern(value, translator, rules));
-						getLogger().debug("Internal Pattern: " + internalPattern.pattern()); //$NON-NLS-1$
-						setInternalPattern(internalPattern);
+						Pattern internalPatternFirstLine = Pattern.compile(toRegexPattern(value, translator, rules, true));
+						getLogger().debug("Internal Pattern (first line): " + internalPatternFirstLine.pattern()); //$NON-NLS-1$
+						setInternalPatternFirstLine(internalPatternFirstLine);
+						Pattern internalPatternFull = Pattern.compile(toRegexPattern(value, translator, rules, false));
+						getLogger().debug("Internal Pattern (full): " + internalPatternFull.pattern()); //$NON-NLS-1$
+						setInternalPatternFull(internalPatternFull);
 					} catch (PatternSyntaxException e) {
 						throw new CoreException(new Status(IStatus.ERROR, PatternDialectPlugin.PLUGIN_ID, 
 								NLS.bind(Messages.APatternDialect_error_failedToTranslateToRegex, value)));
@@ -320,11 +348,14 @@ public abstract class APatternDialect extends ALogDialect implements IHasTimesta
 						// Rewrite rules
 						translator.rewrite(rule, APatternDialect.this);
 					}
+					fillFollowedByQuotedString(value, rules);
 					
 					// Convert rules to Regex (internal) pattern
 					try {
-						Pattern internalPattern = Pattern.compile(toRegexPattern(value, translator, rules));
-						getLogger().debug("Internal Pattern: " + internalPattern.pattern()); //$NON-NLS-1$
+						Pattern internalPatternFirstLine = Pattern.compile(toRegexPattern(value, translator, rules, true));
+						getLogger().debug("Internal Pattern (first line): " + internalPatternFirstLine.pattern()); //$NON-NLS-1$
+						Pattern internalPatternFull = Pattern.compile(toRegexPattern(value, translator, rules, false));
+						getLogger().debug("Internal Pattern (full): " + internalPatternFull.pattern()); //$NON-NLS-1$
 					} catch (PatternSyntaxException e) {
 						throw new CoreException(new Status(IStatus.ERROR, PatternDialectPlugin.PLUGIN_ID, 
 								NLS.bind(Messages.APatternDialect_error_failedToTranslateToRegex, value)));
@@ -369,33 +400,47 @@ public abstract class APatternDialect extends ALogDialect implements IHasTimesta
 				getPatternTranslator().applyTimeZone(tz.getTimeZone(), rules);
 			}
 			LineIterator iter = IOUtils.lineIterator(input, enc.getEncoding());
-			int linesPerEntry = getPatternTranslator().getLinesPerEntry();
+			int minLinesPerEntry = getPatternTranslator().getMinLinesPerEntry();
 			int lineNo = 0;
+			int moreLinesToCome = 0;
 			try {
 				String line = null;
 				while (iter.hasNext()) {
 					lineNo++;
 					
-					if (linesPerEntry == 1) {
+					if (minLinesPerEntry == 1) {
+						// Simple case
 						line = iter.nextLine();
-					} else if ((lineNo % linesPerEntry) == 1) {
-						// First line
-						line = iter.nextLine();
-						continue;
-					} else if ((lineNo % linesPerEntry) != 0) {
-						// Some middle line
-						line += IOUtils.LINE_SEPARATOR + iter.nextLine();
-						continue;
 					} else {
-						// Last line
-						line += IOUtils.LINE_SEPARATOR + iter.nextLine();
+						String s = iter.nextLine();
+						if (moreLinesToCome == 0) {
+							Matcher m = getInternalPatternFirstLine().matcher(s);
+							if (m.find()) {
+								// First line
+								line = s;
+								moreLinesToCome = minLinesPerEntry - 1;
+								continue;
+							} else {
+								// Some crazy stuff
+								line = s;
+							}
+						} else if (moreLinesToCome > 1) {
+							// Some middle line
+							line += IOUtils.LINE_SEPARATOR + s;
+							moreLinesToCome--;
+							continue;
+						} else {
+							// Last line
+							line += IOUtils.LINE_SEPARATOR + s;
+							moreLinesToCome = 0;
+						}
 					}
 					
 					// Error handling
 					List<IStatus> statuses = null;
 					boolean fatal = false; // determines whether to interrupt parsing
 					
-					Matcher m = getInternalPattern().matcher(line);
+					Matcher m = getInternalPatternFull().matcher(line);
 					if (m.find()) {
 						// The next line matches, so flush the previous entry and continue
 						if (currentEntry != null) {
@@ -439,12 +484,7 @@ public abstract class APatternDialect extends ALogDialect implements IHasTimesta
 					} else if (currentEntry != null) {
 						// Append to message
 						String msg = currentEntry.get(getFieldProvider().getMessageField());
-						StringWriter strWriter = new StringWriter();
-						PrintWriter printWriter = new PrintWriter(strWriter);
-						printWriter.print(msg);
-						printWriter.println();
-						printWriter.print(line);
-						currentEntry.put(getFieldProvider().getMessageField(), strWriter.toString());
+						currentEntry.put(getFieldProvider().getMessageField(), msg + IOUtils.LINE_SEPARATOR + line);
 					}
 					
 					if (collector.isCanceled()) {

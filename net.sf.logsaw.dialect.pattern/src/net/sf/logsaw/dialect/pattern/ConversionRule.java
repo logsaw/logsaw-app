@@ -19,6 +19,7 @@ import java.util.Map;
 public final class ConversionRule {
 
 	private boolean followedByQuotedString;
+	private boolean lineBreak;
 	private int beginIndex;
 	private int length;
 	private int minWidth = -1;
@@ -39,6 +40,20 @@ public final class ConversionRule {
 	 */
 	public void setFollowedByQuotedString(boolean followedByQuotedString) {
 		this.followedByQuotedString = followedByQuotedString;
+	}
+
+	/**
+	 * @return the lineBreak
+	 */
+	public boolean isLineBreak() {
+		return lineBreak;
+	}
+
+	/**
+	 * @param lineBreak the lineBreak to set
+	 */
+	public void setLineBreak(boolean lineBreak) {
+		this.lineBreak = lineBreak;
 	}
 
 	/**

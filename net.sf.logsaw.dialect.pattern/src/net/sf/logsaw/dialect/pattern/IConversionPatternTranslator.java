@@ -28,10 +28,10 @@ import org.eclipse.core.runtime.CoreException;
 public interface IConversionPatternTranslator {
 
 	/**
-	 * Returns the number of lines to be expected per log entry.
-	 * @return the number of lines
+	 * Returns the minimum number of lines to be expected per log entry.
+	 * @return the minimum number of lines
 	 */
-	int getLinesPerEntry();
+	int getMinLinesPerEntry();
 
 	/**
 	 * Applies the specified locale to the given rules, as provided by 

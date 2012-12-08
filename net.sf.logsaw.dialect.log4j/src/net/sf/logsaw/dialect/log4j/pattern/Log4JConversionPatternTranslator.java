@@ -52,7 +52,7 @@ public final class Log4JConversionPatternTranslator implements IConversionPatter
 	private static final Pattern NEWLINE_PATTERN = Pattern.compile("%n"); //$NON-NLS-1$
 	private static final String PROP_DATEFORMAT = "dateFormat"; //$NON-NLS-1$
 
-	private int linesPerEntry;
+	private int minLinesPerEntry;
 
 	/* (non-Javadoc)
 	 * @see net.sf.logsaw.dialect.pattern.IConversionPatternTranslator#prepare(java.lang.String)
@@ -66,19 +66,19 @@ public final class Log4JConversionPatternTranslator implements IConversionPatter
 		// Pattern without %n
 		externalPattern = externalPattern.substring(0, externalPattern.length() - 2);
 		Matcher m = NEWLINE_PATTERN.matcher(externalPattern);
-		linesPerEntry = 1;
+		minLinesPerEntry = 1;
 	    while (m.find()) {
-	    	linesPerEntry++;
+	    	minLinesPerEntry++;
 	    }
 		return externalPattern;
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.logsaw.dialect.pattern.IConversionPatternTranslator#getLinesPerEntry()
+	 * @see net.sf.logsaw.dialect.pattern.IConversionPatternTranslator#getMinLinesPerEntry()
 	 */
 	@Override
-	public int getLinesPerEntry() {
-		return linesPerEntry;
+	public int getMinLinesPerEntry() {
+		return minLinesPerEntry;
 	}
 
 	/* (non-Javadoc)
@@ -141,6 +141,9 @@ public final class Log4JConversionPatternTranslator implements IConversionPatter
 			rule.setMinWidth(minWidth);
 			rule.setPlaceholderName(conversionName);
 			rule.setModifier(conversionModifier);
+			if (conversionName.equals("n")) {
+				rule.setLineBreak(true);
+			}
 			ret.add(rule);
 		}
 		return ret;
