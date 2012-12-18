@@ -20,7 +20,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import net.sf.logsaw.core.dialect.ILogDialect;
 import net.sf.logsaw.core.dialect.ILogDialectFactory;
@@ -73,7 +72,7 @@ public class WebsphereDialectTest extends ADialectTest {
 		final List<LogEntry> list = new LinkedList<LogEntry>();
 		try {
 			loadLogFile("websphere_de.log.txt");
-			createLogResourceWithPK("UTF-8", Locale.US, TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.US, getTimeZone());
 			
 			ILogEntryCollector coll = new ALogEntryCollector(null) {
 
@@ -94,7 +93,7 @@ public class WebsphereDialectTest extends ADialectTest {
 			}
 			
 			// Retry
-			createLogResourceWithPK("UTF-8", Locale.GERMANY, TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.GERMANY, getTimeZone());
 			getLogResource().synchronize(coll, null);
 			
 			assertEquals(6, list.size());

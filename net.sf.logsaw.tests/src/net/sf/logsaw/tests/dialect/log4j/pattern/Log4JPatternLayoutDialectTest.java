@@ -20,7 +20,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import net.sf.logsaw.core.dialect.ILogDialectFactory;
 import net.sf.logsaw.core.dialect.ILogEntryCollector;
@@ -77,7 +76,7 @@ public class Log4JPatternLayoutDialectTest extends ADialectTest {
 		final List<LogEntry> list = new LinkedList<LogEntry>();
 		try {
 			loadLogFile("server.10-11-09.log.txt");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			APatternDialect dialect = (APatternDialect) getLogResource().getDialect();
 			ILogEntryCollector coll = new ALogEntryCollector(null) {
 
@@ -117,7 +116,7 @@ public class Log4JPatternLayoutDialectTest extends ADialectTest {
 		final List<LogEntry> list = new LinkedList<LogEntry>();
 		try {
 			loadLogFile("server-locinfo.log.txt");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			APatternDialect dialect = (APatternDialect) getLogResource().getDialect();
 			ILogEntryCollector coll = new ALogEntryCollector(null) {
 
@@ -150,7 +149,7 @@ public class Log4JPatternLayoutDialectTest extends ADialectTest {
 		final List<LogEntry> list = new LinkedList<LogEntry>();
 		try {
 			loadLogFile("server-invalidline.log.txt");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			APatternDialect dialect = (APatternDialect) getLogResource().getDialect();
 			ILogEntryCollector coll = new ALogEntryCollector(null) {
 
@@ -179,7 +178,7 @@ public class Log4JPatternLayoutDialectTest extends ADialectTest {
 		final List<LogEntry> list = new LinkedList<LogEntry>();
 		try {
 			loadLogFile("multiline.log.txt");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			APatternDialect dialect = (APatternDialect) getLogResource().getDialect();
 			ILogEntryCollector coll = new ALogEntryCollector(null) {
 
@@ -210,7 +209,7 @@ public class Log4JPatternLayoutDialectTest extends ADialectTest {
 		final List<LogEntry> list = new LinkedList<LogEntry>();
 		try {
 			loadLogFile("lazy.log.txt");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			APatternDialect dialect = (APatternDialect) getLogResource().getDialect();
 			ILogEntryCollector coll = new ALogEntryCollector(null) {
 
@@ -245,7 +244,7 @@ public class Log4JPatternLayoutDialectTest extends ADialectTest {
 		final List<LogEntry> list = new LinkedList<LogEntry>();
 		try {
 			loadLogFile("no-timestamp.log.txt");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			APatternDialect dialect = (APatternDialect) getLogResource().getDialect();
 			ILogEntryCollector coll = new ALogEntryCollector(null) {
 
@@ -278,7 +277,7 @@ public class Log4JPatternLayoutDialectTest extends ADialectTest {
 	public void testNoTimestampAutoTruncate() {
 		try {
 			loadLogFile("no-timestamp.log.txt");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			APatternDialect dialect = (APatternDialect) getLogResource().getDialect();
 			dialect.configure(APatternDialect.OPTION_PATTERN, "%p %t %c - %m%n");
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();

@@ -20,7 +20,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import net.sf.logsaw.core.dialect.ILogDialect;
 import net.sf.logsaw.core.dialect.ILogDialectFactory;
@@ -73,7 +72,7 @@ public class Log4JXMLLayoutDialectTest extends ADialectTest {
 		final List<LogEntry> list = new LinkedList<LogEntry>();
 		try {
 			loadLogFile("server.10-11-09.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			ILogEntryCollector coll = new ALogEntryCollector(null) {
 
 				/* (non-Javadoc)
@@ -105,7 +104,7 @@ public class Log4JXMLLayoutDialectTest extends ADialectTest {
 		final List<LogEntry> list = new LinkedList<LogEntry>();
 		try {
 			loadLogFile("server-locinfo.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			ILogEntryCollector coll = new ALogEntryCollector(null) {
 
 				/* (non-Javadoc)

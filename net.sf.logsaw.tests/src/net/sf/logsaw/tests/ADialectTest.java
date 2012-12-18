@@ -222,6 +222,14 @@ public abstract class ADialectTest {
 	}
 
 	/**
+	 * Returns the default time zone.
+	 * @return the default time zone
+	 */
+	protected TimeZone getTimeZone() {
+		return TimeZone.getTimeZone("Europe/Berlin");
+	}
+
+	/**
 	 * Removes the specified temporary files.
 	 * @param deleteLogFile
 	 * @param deleteIndexFile

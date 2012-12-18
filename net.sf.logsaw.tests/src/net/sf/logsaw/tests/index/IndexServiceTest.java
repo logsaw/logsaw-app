@@ -79,7 +79,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResource("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResource("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.createIndex(getLogResource());
 			indexService.synchronize(getLogResource(), null);
 			assertTrue(IndexPlugin.getDefault().getIndexFile(getLogResource()).exists());
@@ -97,14 +97,14 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-cp1252.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			try {
 				indexService.synchronize(getLogResource(), null);
 				fail("Indexing should fail because of encoding");
 			} catch (Exception e) {
 				// nadda
 			}
-			createLogResourceWithPK("Cp1252", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("Cp1252", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			assertEquals(6, indexService.count(getLogResource()));
 		} catch (Exception e) {
@@ -146,7 +146,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			assertEquals(5, indexService.count(getLogResource()));
 			indexService.truncate(getLogResource());
@@ -162,7 +162,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			assertEquals(5, indexService.count(getLogResource()));
 			loadLogFile("sample-2.log.xml");
@@ -180,7 +180,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -206,7 +206,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-stopwords.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -230,7 +230,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -256,7 +256,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -279,7 +279,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -303,7 +303,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -327,7 +327,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -353,7 +353,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -377,7 +377,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -401,7 +401,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -425,7 +425,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -449,7 +449,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -473,7 +473,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -497,7 +497,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -521,7 +521,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -545,7 +545,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -569,7 +569,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -593,7 +593,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -621,7 +621,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {
@@ -645,7 +645,7 @@ public class IndexServiceTest extends ADialectTest {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
 			loadLogFile("sample-1.log.xml");
-			createLogResourceWithPK("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
 			indexService.synchronize(getLogResource(), null);
 			IQueryContext ctx = indexService.createQueryContext(getLogResource());
 			try {

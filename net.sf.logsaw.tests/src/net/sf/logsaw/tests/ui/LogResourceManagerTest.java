@@ -17,7 +17,6 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.Locale;
-import java.util.TimeZone;
 import java.util.concurrent.CountDownLatch;
 
 import net.sf.logsaw.core.dialect.ILogDialectFactory;
@@ -71,7 +70,7 @@ public class LogResourceManagerTest extends ADialectTest {
 		try {
 			final int size = mgr.getAll().length;
 			loadLogFile("sample-1.log.xml");
-			createLogResource("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResource("UTF-8", Locale.getDefault(), getTimeZone());
 			assertNotNull(getLogResource());
 			assertTrue(getLogResource().getPK() == null);
 			mgr.add(getLogResource());
@@ -92,7 +91,7 @@ public class LogResourceManagerTest extends ADialectTest {
 		try {
 			int size = mgr.getAll().length;
 			loadLogFile("sample-1.log.xml");
-			createLogResource("UTF-8", Locale.getDefault(), TimeZone.getDefault());
+			createLogResource("UTF-8", Locale.getDefault(), getTimeZone());
 			assertNotNull(getLogResource());
 			assertTrue(getLogResource().getPK() == null);
 			mgr.add(getLogResource());
