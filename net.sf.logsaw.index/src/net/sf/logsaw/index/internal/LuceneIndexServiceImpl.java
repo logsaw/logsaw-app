@@ -285,7 +285,7 @@ public class LuceneIndexServiceImpl implements IIndexService {
 	 * @return the Lucene match version to use
 	 */
 	protected Version getMatchVersion() {
-		return Version.LUCENE_40;
+		return Version.LUCENE_41;
 	}
 
 	/*

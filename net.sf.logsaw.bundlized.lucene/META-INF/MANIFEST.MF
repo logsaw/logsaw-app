@@ -5,8 +5,8 @@ Bundle-SymbolicName: net.sf.logsaw.bundlized.lucene;singleton:=true
 Bundle-Version: 4.0.0
 Bundle-Vendor: LogSaw project
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ClassPath: lucene-analyzers-common-4.0.0.jar,
- lucene-core-4.0.0.jar,
+Bundle-ClassPath: lucene-analyzers-common-4.1.0.jar,
+ lucene-core-4.1.0.jar,
  .
 Export-Package: org.apache.lucene,
  org.apache.lucene.analysis,
@@ -69,9 +69,11 @@ Export-Package: org.apache.lucene,
  org.apache.lucene.analysis.util,
  org.apache.lucene.analysis.wikipedia,
  org.apache.lucene.codecs,
+ org.apache.lucene.codecs.compressing,
  org.apache.lucene.codecs.lucene3x,
  org.apache.lucene.codecs.lucene40,
  org.apache.lucene.codecs.lucene40.values,
+ org.apache.lucene.codecs.lucene41,
  org.apache.lucene.codecs.perfield,
  org.apache.lucene.collation,
  org.apache.lucene.collation.tokenattributes,
