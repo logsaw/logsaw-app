@@ -269,7 +269,7 @@ public class LuceneIndexServiceImpl implements IIndexService {
 	/**
 	 * Returns the Lucene analyzer to use for indexing text fields.
 	 * <p>
-	 * Defaults to a <code>StandardAnalyzer</code> with Lucene 4.0 semantics.
+	 * Defaults to a <code>StandardAnalyzer</code> with Lucene 4.1 semantics.
 	 * 
 	 * @return the Lucene analyzer to use
 	 */
@@ -280,7 +280,7 @@ public class LuceneIndexServiceImpl implements IIndexService {
 	/**
 	 * Returns the Lucene match version.
 	 * <p>
-	 * Defaults to Lucene 4.0 semantics.
+	 * Defaults to Lucene 4.1 semantics.
 	 * 
 	 * @return the Lucene match version to use
 	 */
@@ -590,6 +590,7 @@ public class LuceneIndexServiceImpl implements IIndexService {
 	private void fillPhraseQuery(PhraseQuery phrase, Analyzer analyzer, String fld, String val) throws IOException {
 		TokenStream ts = analyzer.tokenStream(fld, new StringReader(val));
 		try {
+			ts.reset();
 			// Iterate over tokens and treat each token as term
 			int pos = 0;
 			while (ts.incrementToken()) {
