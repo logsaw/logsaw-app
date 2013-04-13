@@ -212,7 +212,7 @@ public final class Log4JConversionPatternTranslator implements IConversionPatter
 		} else if (rule.getPlaceholderName().equals("C")) { //$NON-NLS-1$
 			return "(.*" + RegexUtils.getLengthHint(rule) + RegexUtils.getLazySuffix(rule) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
 		} else if (rule.getPlaceholderName().equals("M")) { //$NON-NLS-1$
-			return "(.*" + RegexUtils.getLengthHint(rule) + RegexUtils.getLazySuffix(rule) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
+			return "([a-zA-Z0-9]*" + RegexUtils.getLengthHint(rule) + RegexUtils.getLazySuffix(rule) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
 		} else if (rule.getPlaceholderName().equals("L")) { //$NON-NLS-1$
 			return "([0-9]*" + RegexUtils.getLengthHint(rule) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
 		} else if (rule.getPlaceholderName().equals("x")) { //$NON-NLS-1$
