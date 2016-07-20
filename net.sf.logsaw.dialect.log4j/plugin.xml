@@ -32,6 +32,15 @@
    <extension
          point="net.sf.logsaw.core.dialectFactory">
       <dialectFactory
+            class="net.sf.logsaw.dialect.log4j.wildfly.WildFlyDialectFactory"
+            id="net.sf.logsaw.dialect.log4j.wildfly.WildFlyDialect"
+            name="WildFly Application Server">
+            <description>This dialect can parse plain text log files created by WildFly Application Server.</description>
+      </dialectFactory>
+   </extension>
+   <extension
+         point="net.sf.logsaw.core.dialectFactory">
+      <dialectFactory
             class="net.sf.logsaw.dialect.log4j.pattern.Log4JPatternLayoutDialectFactory"
             id="net.sf.logsaw.dialect.log4j.pattern.Log4JPatternLayoutDialect"
             name="Log4J Pattern Layout">
