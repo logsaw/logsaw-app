@@ -14,5 +14,6 @@ Bundle-Activator: net.sf.logsaw.dialect.log4j.Log4JDialectPlugin
 Export-Package: net.sf.logsaw.dialect.log4j,
  net.sf.logsaw.dialect.log4j.jboss,
  net.sf.logsaw.dialect.log4j.pattern,
+ net.sf.logsaw.dialect.log4j.wildfly,
  net.sf.logsaw.dialect.log4j.xml
 Bundle-Vendor: LogSaw project
