@@ -17,37 +17,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-import net.sf.logsaw.core.dialect.ILogDialect;
-import net.sf.logsaw.core.dialect.ILogEntryCollector;
-import net.sf.logsaw.core.dialect.support.ALogEntryCollector;
-import net.sf.logsaw.core.field.ALogEntryField;
-import net.sf.logsaw.core.field.ILogEntryFieldVisitor;
-import net.sf.logsaw.core.field.Level;
-import net.sf.logsaw.core.field.LogEntry;
-import net.sf.logsaw.core.field.LogEntryFieldVisitorAdapter;
-import net.sf.logsaw.core.field.model.DateLogEntryField;
-import net.sf.logsaw.core.field.model.LevelLogEntryField;
-import net.sf.logsaw.core.field.model.StringLogEntryField;
-import net.sf.logsaw.core.logresource.IHasTimestampPattern;
-import net.sf.logsaw.core.logresource.ILogResource;
-import net.sf.logsaw.core.query.IRestrictionVisitor;
-import net.sf.logsaw.core.query.Operators;
-import net.sf.logsaw.core.query.model.DateRestriction;
-import net.sf.logsaw.core.query.model.LevelRestriction;
-import net.sf.logsaw.core.query.model.StringRestriction;
-import net.sf.logsaw.core.query.support.ARestriction;
-import net.sf.logsaw.core.util.DateFormatUtils;
-import net.sf.logsaw.index.IIndexService;
-import net.sf.logsaw.index.IQueryContext;
-import net.sf.logsaw.index.IndexPlugin;
-import net.sf.logsaw.index.ResultPage;
-import net.sf.logsaw.index.SynchronizationResult;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.miscellaneous.LimitTokenCountAnalyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
 import org.apache.lucene.document.Document;
@@ -84,6 +57,32 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.osgi.util.NLS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.sf.logsaw.core.dialect.ILogDialect;
+import net.sf.logsaw.core.dialect.ILogEntryCollector;
+import net.sf.logsaw.core.dialect.support.ALogEntryCollector;
+import net.sf.logsaw.core.field.ALogEntryField;
+import net.sf.logsaw.core.field.ILogEntryFieldVisitor;
+import net.sf.logsaw.core.field.Level;
+import net.sf.logsaw.core.field.LogEntry;
+import net.sf.logsaw.core.field.LogEntryFieldVisitorAdapter;
+import net.sf.logsaw.core.field.model.DateLogEntryField;
+import net.sf.logsaw.core.field.model.LevelLogEntryField;
+import net.sf.logsaw.core.field.model.StringLogEntryField;
+import net.sf.logsaw.core.logresource.IHasTimestampPattern;
+import net.sf.logsaw.core.logresource.ILogResource;
+import net.sf.logsaw.core.query.IRestrictionVisitor;
+import net.sf.logsaw.core.query.Operators;
+import net.sf.logsaw.core.query.model.DateRestriction;
+import net.sf.logsaw.core.query.model.LevelRestriction;
+import net.sf.logsaw.core.query.model.StringRestriction;
+import net.sf.logsaw.core.query.support.ARestriction;
+import net.sf.logsaw.core.util.DateFormatUtils;
+import net.sf.logsaw.index.IIndexService;
+import net.sf.logsaw.index.IQueryContext;
+import net.sf.logsaw.index.IndexPlugin;
+import net.sf.logsaw.index.ResultPage;
+import net.sf.logsaw.index.SynchronizationResult;
 
 /**
  * A Lucene-based implementation of <code>IIndexService</code>.
@@ -183,7 +182,7 @@ public class LuceneIndexServiceImpl implements IIndexService {
 				return Boolean.TRUE;
 			}
 		};
-		runnable.runWithIndexWriter(log, getAnalyzer(), getMatchVersion());
+		runnable.runWithIndexWriter(log, getIndexAnalyzer(), getMatchVersion());
 	}
 
 	/* (non-Javadoc)
@@ -268,13 +267,20 @@ public class LuceneIndexServiceImpl implements IIndexService {
 
 	/**
 	 * Returns the Lucene analyzer to use for indexing text fields.
-	 * <p>
-	 * Defaults to a <code>StandardAnalyzer</code> with Lucene 4.1 semantics.
 	 * 
 	 * @return the Lucene analyzer to use
 	 */
-	protected Analyzer getAnalyzer() {
-		return new LimitTokenCountAnalyzer(new StandardAnalyzer(getMatchVersion()), 10000);
+	protected Analyzer getIndexAnalyzer() {
+		return new LimitTokenCountAnalyzer(new LogMessageAnalyzer(getMatchVersion(), false), 10000);
+	}
+
+	/**
+	 * Returns the Lucene analyzer to use for querying text fields.
+	 * 
+	 * @return the Lucene analyzer to use
+	 */
+	protected Analyzer getQueryAnalyzer() {
+		return new LogMessageAnalyzer(getMatchVersion(), true);
 	}
 
 	/**
@@ -436,7 +442,7 @@ public class LuceneIndexServiceImpl implements IIndexService {
 						System.currentTimeMillis() - startTime, collector.getMessages());
 			}
 		};
-		return runnable.runWithIndexWriter(log, getAnalyzer(), getMatchVersion());
+		return runnable.runWithIndexWriter(log, getIndexAnalyzer(), getMatchVersion());
 	}
 
 	private void truncate(ILogResource log, IndexWriter writer) throws CoreException {
@@ -538,7 +544,7 @@ public class LuceneIndexServiceImpl implements IIndexService {
 					try {
 						// Setup phrase query with tokenized query string
 						PhraseQuery phrase = new PhraseQuery();
-						fillPhraseQuery(phrase, getAnalyzer(), 
+						fillPhraseQuery(phrase, getQueryAnalyzer(), 
 								restriction.getField().getKey(), restriction.getValue());
 						query.add(phrase, Occur.MUST);
 					} catch (IOException e) {
@@ -548,7 +554,7 @@ public class LuceneIndexServiceImpl implements IIndexService {
 					try {
 						// Setup phrase query with tokenized query string
 						PhraseQuery phrase = new PhraseQuery();
-						fillPhraseQuery(phrase, getAnalyzer(), 
+						fillPhraseQuery(phrase, getQueryAnalyzer(), 
 								restriction.getField().getKey(), restriction.getValue());
 						query.add(phrase, Occur.MUST_NOT);
 						if (isAllNegative(restrictions) && restrictions.get(0).equals(restriction)) {

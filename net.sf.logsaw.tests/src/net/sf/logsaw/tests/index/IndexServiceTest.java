@@ -323,6 +323,54 @@ public class IndexServiceTest extends ADialectTest {
 	}
 
 	@Test
+	public void testContainsDelimitedSubwordQuery() {
+		try {
+			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
+			loadLogFile("sample-1.log.xml");
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
+			indexService.synchronize(getLogResource(), null);
+			IQueryContext ctx = indexService.createQueryContext(getLogResource());
+			try {
+				List<ARestriction<?>> ops = new LinkedList<ARestriction<?>>();
+				ops.add(getRestrictionFactory().newRestriction(Log4JFieldProvider.FIELD_MESSAGE, 
+						Operators.OPERATOR_CONTAINS, "localhost"));
+				ResultPage p = indexService.query(ctx, ops, 0, 1000);
+				assertEquals(1, p.getItems().size());
+				assertEquals(1, p.getTotalHits());
+			} finally {
+				ctx.close();
+			}
+		} catch (Exception e) {
+			getLogger().error(e.getLocalizedMessage(), e);
+			fail("Exception should not occur: " + e.getLocalizedMessage());
+		}
+	}
+
+	@Test
+	public void testContainsCamelCaseSubwordQuery() {
+		try {
+			IIndexService indexService = IndexPlugin.getDefault().getIndexService();
+			loadLogFile("sample-stopwords.log.xml");
+			createLogResourceWithPK("UTF-8", Locale.getDefault(), getTimeZone());
+			indexService.synchronize(getLogResource(), null);
+			IQueryContext ctx = indexService.createQueryContext(getLogResource());
+			try {
+				List<ARestriction<?>> ops = new LinkedList<ARestriction<?>>();
+				ops.add(getRestrictionFactory().newRestriction(Log4JFieldProvider.FIELD_MESSAGE, 
+						Operators.OPERATOR_CONTAINS, "groups"));
+				ResultPage p = indexService.query(ctx, ops, 0, 1000);
+				assertEquals(9, p.getItems().size());
+				assertEquals(9, p.getTotalHits());
+			} finally {
+				ctx.close();
+			}
+		} catch (Exception e) {
+			getLogger().error(e.getLocalizedMessage(), e);
+			fail("Exception should not occur: " + e.getLocalizedMessage());
+		}
+	}
+
+	@Test
 	public void testNotContainsQuery() {
 		try {
 			IIndexService indexService = IndexPlugin.getDefault().getIndexService();

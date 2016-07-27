@@ -69,7 +69,7 @@ public class LogResourceManagerImpl implements ILogResourceManager {
 
 	private static final String LOG_RESOURCE_STATE_FILE = "logResources.xml"; //$NON-NLS-1$
 
-	private static final int COMPAT_VERSION = 2;
+	private static final int COMPAT_VERSION = 3;
 	private static final String ELEM_ROOT = "logResources"; //$NON-NLS-1$
 	private static final String ATTRIB_COMPAT = "compat"; //$NON-NLS-1$
 	private static final String ELEM_LOG_RESOURCE = "logResource"; //$NON-NLS-1$
