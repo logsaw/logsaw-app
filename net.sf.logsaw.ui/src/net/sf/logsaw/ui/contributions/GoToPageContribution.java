@@ -13,10 +13,6 @@ package net.sf.logsaw.ui.contributions;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import net.sf.logsaw.ui.Messages;
-import net.sf.logsaw.ui.UIPlugin;
-import net.sf.logsaw.ui.editors.ILogViewEditor;
-
 import org.eclipse.core.commands.Command;
 import org.eclipse.core.commands.CommandEvent;
 import org.eclipse.core.commands.ICommandListener;
@@ -28,25 +24,25 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.IPageChangedListener;
 import org.eclipse.jface.dialogs.PageChangedEvent;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.CoolBar;
-import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.menus.WorkbenchWindowControlContribution;
+
+import net.sf.logsaw.ui.Messages;
+import net.sf.logsaw.ui.UIPlugin;
+import net.sf.logsaw.ui.editors.ILogViewEditor;
 
 /**
  * @author Philipp Nanz
@@ -54,8 +50,6 @@ import org.eclipse.ui.menus.WorkbenchWindowControlContribution;
 public class GoToPageContribution extends
 		WorkbenchWindowControlContribution {
 
-	private CoolBar coolBar;
-	private ToolBar toolBar;
 	private Composite root;
 	private Text text;
 	private Label label;
@@ -66,16 +60,13 @@ public class GoToPageContribution extends
 	 */
 	@Override
 	protected Control createControl(Composite parent) {
-		this.toolBar = (ToolBar) parent;
-		this.coolBar = (CoolBar) toolBar.getParent(); // This is a bit hack-ish
 		root = new Composite(parent, SWT.NONE);
 		GridLayout gridLayout = new GridLayout(2, false);
 		gridLayout.marginHeight = 0;
 		gridLayout.marginWidth = 0;
 		root.setLayout(gridLayout);
 		
-		ICommandService service = 
-			(ICommandService) getWorkbenchWindow().getService(ICommandService.class);
+		ICommandService service = getWorkbenchWindow().getService(ICommandService.class);
 		final Command cmd = service.getCommand("net.sf.logsaw.ui.commands.GoToPageCommand"); //$NON-NLS-1$
 		
 		text = new Text(root, SWT.BORDER | SWT.RIGHT);
@@ -89,8 +80,7 @@ public class GoToPageContribution extends
 				if (e.keyCode == SWT.CR) {
 					try {
 						int pageNumber = Integer.valueOf(text.getText().trim());
-						IHandlerService service = 
-							(IHandlerService) getWorkbenchWindow().getService(IHandlerService.class);
+						IHandlerService service = getWorkbenchWindow().getService(IHandlerService.class);
 						Parameterization param = new Parameterization(
 								cmd.getParameter("net.sf.logsaw.ui.commands.GoToPageCommand.pageNumber"), Integer.toString(pageNumber)); //$NON-NLS-1$
 						ParameterizedCommand paraCmd = new ParameterizedCommand(cmd, new Parameterization[] {param});
@@ -143,11 +133,10 @@ public class GoToPageContribution extends
 				 */
 				@Override
 				public void partBroughtToTop(IWorkbenchPart part) {
-					ILogViewEditor editor = (ILogViewEditor) part.getAdapter(ILogViewEditor.class);
+					ILogViewEditor editor = part.getAdapter(ILogViewEditor.class);
 					if (editor != null) {
 						Integer selectedPage = (Integer) editor.getSelectedPage();
 						updateWidgets(true, selectedPage.intValue(), editor.getPageCount());
-						updateToolItemIfAvailable();
 					}
 				}
 
@@ -172,7 +161,7 @@ public class GoToPageContribution extends
 				 */
 				@Override
 				public void partOpened(IWorkbenchPart part) {
-					ILogViewEditor editor = (ILogViewEditor) part.getAdapter(ILogViewEditor.class);
+					ILogViewEditor editor = part.getAdapter(ILogViewEditor.class);
 					if (editor != null) {
 						editor.addPageChangedListener(new IPageChangedListener() {
 
@@ -184,7 +173,6 @@ public class GoToPageContribution extends
 								ILogViewEditor editor = (ILogViewEditor) event.getSource();
 								Integer selectedPage = (Integer) event.getSelectedPage();
 								updateWidgets(true, selectedPage.intValue(), editor.getPageCount());
-								updateToolItemIfAvailable();
 							}
 						});
 					}
@@ -194,13 +182,16 @@ public class GoToPageContribution extends
 			updateState(false);
 		}
 		
+		GridDataFactory.fillDefaults().hint(30, SWT.DEFAULT).applyTo(text);
+		GridDataFactory.fillDefaults().hint(50, SWT.DEFAULT).align(SWT.FILL, SWT.CENTER).applyTo(label);
+		
 		return root;
 	}
 
 	private void updateState(boolean enabled) {
 		if (enabled) {
 			ILogViewEditor editor = 
-				(ILogViewEditor) getWorkbenchWindow().getActivePage().getActiveEditor().getAdapter(ILogViewEditor.class);
+					getWorkbenchWindow().getActivePage().getActiveEditor().getAdapter(ILogViewEditor.class);
 			if (editor != null) {
 				Integer selectedPage = (Integer) editor.getSelectedPage();
 				updateWidgets(true, selectedPage.intValue(), editor.getPageCount());
@@ -212,10 +203,12 @@ public class GoToPageContribution extends
 		if (!enabled) {
 			updateWidgets(false, 0, 0);
 		}
-		updateToolItemIfAvailable();
 	}
 
 	private void updateWidgets(boolean enabled, int selectedPage, int pageCount) {
+		if (text.isDisposed() || label.isDisposed()) {
+			return;
+		}
 		int maxLength = Integer.toString(pageCount).length();
 		nf.setMaximumIntegerDigits(maxLength);
 		nf.setMinimumIntegerDigits(maxLength);
@@ -225,33 +218,5 @@ public class GoToPageContribution extends
 		label.setText("/ " + nf.format(pageCount)); //$NON-NLS-1$
 		text.setEnabled(enabled);
 		label.setEnabled(enabled);
-	}
-
-	private void updateToolItemIfAvailable() {
-		boolean updated = false;
-		for (ToolItem item : toolBar.getItems()) {
-			if ((item.getControl() != null) && item.getControl().equals(root)) {
-				// Found item to update
-				int newWidth = computeWidth(root);
-				if (item.getWidth() != newWidth) {
-					item.setWidth(newWidth);
-					updated = true;
-				}
-				break;
-			}
-		}
-		if (updated) {
-			for (CoolItem item : coolBar.getItems()) {
-				if ((item.getControl() != null) && item.getControl().equals(toolBar)) {
-					// Found item to update
-					Point pt = item.getControl().computeSize(SWT.DEFAULT, SWT.DEFAULT);
-					item.setSize(item.computeSize(pt.x, pt.y));
-					break;
-				}
-			}
-			
-			// Update toolbar
-			coolBar.update();
-		}
 	}
 }

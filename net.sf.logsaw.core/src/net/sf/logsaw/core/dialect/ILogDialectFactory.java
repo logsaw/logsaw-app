@@ -10,8 +10,6 @@
  *******************************************************************************/
 package net.sf.logsaw.core.dialect;
 
-import net.sf.logsaw.core.dialect.ILogDialect;
-
 /**
  * @author Philipp Nanz
  */

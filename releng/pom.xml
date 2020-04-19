@@ -26,7 +26,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<tycho-version>0.22.0</tycho-version>
+		<tycho-version>1.6.0</tycho-version>
 		<build.id>${maven.build.timestamp}</build.id>
 		<release.version>${project.version}</release.version>
 	</properties>
@@ -49,38 +49,13 @@
 							<groupId>net.sf.logsaw</groupId>
 							<artifactId>parent</artifactId>
 							<version>1.0.0-SNAPSHOT</version>
-							<classifier>workspace</classifier>
+							<classifier>workspace-e4</classifier>
 						</artifact>
 					</target>
 					<environments>
 						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
 							<os>win32</os>
 							<ws>win32</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>macosx</os>
-							<ws>cocoa</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>macosx</os>
-							<ws>cocoa</ws>
 							<arch>x86_64</arch>
 						</environment>
 					</environments>

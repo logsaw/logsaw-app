@@ -125,6 +125,26 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.eclipse.equinox.p2.rcp.feature"
          version="0.0.0"/>
 
+   <includes
+         id="org.eclipse.e4.rcp"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.emf.common"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.emf.ecore"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.ecf.core.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.ecf.filetransfer.feature"
+         version="0.0.0"/>
+
    <plugin
          id="org.apache.commons.io"
          download-size="0"

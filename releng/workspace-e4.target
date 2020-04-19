@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="workspace-e4" sequenceNumber="16">
-<locations>
-<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.apache.commons.io" version="2.0.1.v201105210651"/>
-<unit id="ch.qos.logback.classic" version="1.0.0.v20111214-2030"/>
-<unit id="ch.qos.logback.core" version="1.0.0.v20111214-2030"/>
-<unit id="ch.qos.logback.slf4j" version="1.0.0.v20120123-1500"/>
-<unit id="org.slf4j.api" version="1.6.4.v20120130-2120"/>
-<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20120526062928/repository"/>
-</location>
-<location includeAllPlatforms="true" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.platform.ide" version="4.6.0.I20160606-1100"/>
-<unit id="org.eclipse.test.feature.group" version="3.7.100.v20160503-1715"/>
-<unit id="org.eclipse.equinox.executable" version="3.6.300.v20160525-1303"/>
-<unit id="org.eclipse.emf.common.feature.group" version="2.12.0.v20160420-0247"/>
-<unit id="org.eclipse.emf.ecore.feature.group" version="2.12.0.v20160420-0247"/>
-<unit id="org.eclipse.ecf.core.feature.feature.group" version="1.3.0.v20160405-1820"/>
-<unit id="org.eclipse.ecf.filetransfer.feature.feature.group" version="3.13.1.v20160405-1820"/>
-<repository location="http://download.eclipse.org/eclipse/updates/4.6"/>
-</location>
-</locations>
+<?pde version="3.8"?>
+<target includeMode="feature" name="workspace-e4" sequenceNumber="16">
+	<locations>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<repository location="http://download.eclipse.org/eclipse/updates/4.15"/>
+			<unit id="org.eclipse.equinox.executable" version="3.8.700.v20200207-2156"/>
+			<unit id="org.eclipse.equinox.executable.feature.group" version="3.8.700.v20200207-2156"/>
+			<unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.4.700.v20200222-1600"/>
+			<unit id="org.eclipse.help.feature.group" version="2.3.100.v20200305-0155"/>
+			<unit id="org.eclipse.platform.feature.group" version="4.15.0.v20200305-0155"/>
+			<unit id="org.eclipse.rcp.feature.group" version="4.15.0.v20200305-0155"/>
+			<unit id="org.eclipse.rcp.source.feature.group" version="4.15.0.v20200305-0155"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<repository location="https://download.eclipse.org/tools/orbit/downloads/drops/R20200224183213/repository"/>
+			<unit id="org.junit" version="4.13.0.v20200204-1500"/>
+			<unit id="org.slf4j.api" version="1.7.30.v20200204-2150"/>
+			<unit id="ch.qos.logback.classic" version="1.1.2.v20171220-1825"/>
+			<unit id="ch.qos.logback.core" version="1.1.2.v20200204-2150"/>
+			<unit id="ch.qos.logback.slf4j" version="1.1.2.v20160301-0943"/>
+		</location>
+	</locations>
 </target>
