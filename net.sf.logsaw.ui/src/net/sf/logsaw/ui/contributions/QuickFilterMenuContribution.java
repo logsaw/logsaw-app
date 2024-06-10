@@ -10,6 +10,9 @@
  *******************************************************************************/
 package net.sf.logsaw.ui.contributions;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -17,11 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.logsaw.core.CorePlugin;
-import net.sf.logsaw.core.field.ALogEntryField;
-import net.sf.logsaw.core.query.Operator;
-import net.sf.logsaw.ui.editors.ILogViewEditor;
-
+import org.apache.commons.io.IOUtils;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -29,6 +28,11 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.CompoundContributionItem;
 import org.eclipse.ui.menus.CommandContributionItem;
 import org.eclipse.ui.menus.CommandContributionItemParameter;
+
+import net.sf.logsaw.core.CorePlugin;
+import net.sf.logsaw.core.field.ALogEntryField;
+import net.sf.logsaw.core.query.Operator;
+import net.sf.logsaw.ui.editors.ILogViewEditor;
 
 /**
  * @author Philipp Nanz
@@ -78,11 +82,23 @@ public class QuickFilterMenuContribution extends CompoundContributionItem {
 			Map map = new HashMap();
 			map.put("net.sf.logsaw.ui.commands.ShowFilterSettingsCommand.newField", fld.getKey()); //$NON-NLS-1$
 			map.put("net.sf.logsaw.ui.commands.ShowFilterSettingsCommand.newOperator", Integer.toString(op.getId())); //$NON-NLS-1$
-			map.put("net.sf.logsaw.ui.commands.ShowFilterSettingsCommand.newValue", editor.getFocusCellText()); //$NON-NLS-1$
+			map.put("net.sf.logsaw.ui.commands.ShowFilterSettingsCommand.newValue", readFirstLine(editor.getFocusCellText())); //$NON-NLS-1$
 			param.parameters = map;
 			ret.add(new CommandContributionItem(param));
 		}
 		
 	    return ret.toArray(new IContributionItem[ret.size()]);
+	}
+
+	private String readFirstLine(String str) {
+		BufferedReader reader = new BufferedReader(new StringReader(str));
+		try {
+			return reader.readLine();
+		} catch (IOException e) {
+			// Should not happen, and if it happens it's no big deal
+		} finally {
+			IOUtils.closeQuietly(reader);
+		}
+		return str;
 	}
 }
